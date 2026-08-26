@@ -5,7 +5,7 @@
 }
 
 .productshowmain {
-  min-height: 100dvh;
+  min-height: 100%;
   margin-top: 60px;
 }
 
@@ -104,6 +104,65 @@
  font-size: 22px;
  border: none;
 }
+.homeaddbutton{
+ font-size: 20px;
+ border: none;
+ background-color: #009414;
+ justify-self: end;
+ position: fixed;
+ top:100px;
+ margin: 0px 20px 0px 0px;
+ z-index: 999;
+ display: flex;
+}
+.homeproductschildcont{
+padding: 0px 40px;
+}
+.homecontainer{
+margin-top: 150px;
+}
+.homeproducts{
+  width: 280px;
+  height: 320px;
+}
+.homeproduct-card {
+  height: 100%;
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+  transition: all 0.25s ease;
+}
+
+.homeproduct-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.14);
+}
+.homeproductscard-lower{
+  padding: 10px 20px;
+display: flex;
+justify-content: space-between;
+flex-direction: column;
+height: 140px;
+}
+.homeimagebox{
+  overflow: hidden;
+}
+.homeimage{
+  height: 180px;
+  width: 100%;
+  object-fit: contain;
+}
+.homeproductscard-lower1{
+  display: block;
+}
+.homeproductscard-lower1-name{
+  font-size: 20px;
+}
+
+
+
 @media (min-width:320px)and (max-width:720px) {
   .headerloginbutton{
   font-size: 18px;
@@ -148,6 +207,67 @@
 .productshowbody {
   background: #ffffff;
   padding:10px 15px;
+}
+.homeaddbutton{
+ font-size: 18px;
+ top:70px;
+ margin: 0px 10px 0px 0px;
+}
+
+.homeproductschildcont{
+padding: 0px 0px;
+}
+.homecontainer{
+margin-top: 110px;
+}
+.homeproducts{
+  width: 100%;
+  height: 100px;
+
+}
+.homeproduct-card {
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+  transition: all 0.25s ease;
+}
+
+.homeproduct-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.14);
+}
+/* .homeproductscard-lower1{
+  display: flex;
+} */
+.homeproductscard-lower{
+  padding: 5px 0px 5px 20px;
+  align-items: center;
+  width: 100%;
+  /* gap: 30px; */
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+.homeimagebox{
+  overflow: hidden;
+  max-width: 80px;
+}
+.homeimage{
+  height: auto;
+  width: 100%;
+  object-fit: cover;
+}
+.homeproductscard-lower1-name{
+font-size: 16px;
+}
+.homeproductscard-lower1-price{
+font-size: 14px;
 }
 }
 

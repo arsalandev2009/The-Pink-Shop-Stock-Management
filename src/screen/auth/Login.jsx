@@ -36,7 +36,7 @@ function Login() {
                 showConfirmButton: false,
             }).then(() => {
                 sessionStorage.setItem('loggedin',getData.password)
-                navigate("/home");
+                navigate("/productsdashboard");
             });
         }
     }

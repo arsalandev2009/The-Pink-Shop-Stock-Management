@@ -1,5 +1,5 @@
 import React from 'react'
-import { Home, Login, ProductsShow } from '../screen/screen'
+import { ProductsDashboard, Login, ProductsShow, ProductsDetailsPage } from '../screen/screen'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute'
 
@@ -11,11 +11,8 @@ export default function Routing() {
 <Routes>
     <Route path='/' element={<ProductsShow/>}/>
     <Route path='/login' element={<Login/>}/>
-    <Route path='/home' element={
-      <ProtectedRoute>
-      <Home/>
-      </ProtectedRoute>
-      }/>
+    <Route path='/productsdashboard' element={ <ProtectedRoute> <ProductsDashboard/> </ProtectedRoute> }/>
+    <Route path='/productsdetail/:id' element={<ProductsDetailsPage/>}/>
 </Routes>
 </BrowserRouter>
         
