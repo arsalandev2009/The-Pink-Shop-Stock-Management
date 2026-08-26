@@ -125,6 +125,7 @@ function Home() {
       
       <div className="container-fluid p-4">
         <div className="row g-4">
+          
           {getProductsFromSupabase.map((item) => (
             <div key={item.id} className="col-12 col-sm-6 col-lg-4 col-xl-3">
               <div className="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
