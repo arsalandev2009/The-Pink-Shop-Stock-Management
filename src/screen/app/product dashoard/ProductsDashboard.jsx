@@ -13,7 +13,7 @@ function ProductsDashboard() {
   const [getProductsFromSupabase,setGetProductsFromSupabase]=useState([])
   const [addProductPopup,setAddProductPopup]=useState(false)
   const [refresh,setRefresh]=useState(false)
-  const [addProductForm,setAddProductForm]=useState({image:'',name:'',price:''})
+  const [addProductForm,setAddProductForm]=useState({image:'',name:'',price:'',stockquantity:''})
 
 
   useEffect(()=>{
@@ -45,11 +45,11 @@ function ProductsDashboard() {
   const handleAddProductDone=async(e)=>{
     e.preventDefault()
 
-    const {data,error}=await supabase.from('products').insert({image:addProductForm.image,name:addProductForm.name,price:addProductForm.price})
+    const {data,error}=await supabase.from('products').insert({image:addProductForm.image,name:addProductForm.name,price:addProductForm.price,stockquantity:addProductForm.stockquantity})
     if(!error){   
       
       setAddProductPopup(false)
-      setAddProductForm({image:'',name:'',price:''})
+      setAddProductForm({image:'',name:'',price:'',stockquantity:""})
       setRefresh(prev => !prev);
       return;
     }
@@ -120,6 +120,9 @@ function ProductsDashboard() {
 
             <label className="form-label fw-semibold">Price</label>
             <input type="number" onChange={handleChange} value={addProductForm.price} name="price" required className="form-control mb-3" />
+
+            <label className="form-label fw-semibold">STock Quantity</label>
+            <input type="number" onChange={handleChange} value={addProductForm.stockquantity} name="stockquantity" required className="form-control mb-3" />
 
             <button type="submit" className="btn text-white w-100 fw-semibold" style={{ backgroundColor: "#ff69b4" }} > Done </button>
           </form>

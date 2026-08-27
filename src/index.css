@@ -201,8 +201,9 @@ height: 140px;
 }
 .productshowname {
   /* color: #3b202b; */
-  font-size: 20px;
-  margin-top: 10px;
+  font-size: 14px;
+  /* flex-wrap: wrap; */
+  margin-top: 5px;
 }
 .productshowbody {
   background: #ffffff;

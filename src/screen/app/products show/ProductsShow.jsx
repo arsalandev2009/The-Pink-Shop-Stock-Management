@@ -61,7 +61,7 @@ function ProductsShow() {
           <img src={item.image} alt={item.name} className=" productshowimage" />
         </div>
         <div className=" d-flex flex-column justify-content-between productshowbody">
-          <h6 className="card-title fw-semibold text-truncate mb-1 productshowname"> {item.name} </h6>
+          <h6 className="card-title fw-semibold  mb-1 productshowname"> {item.name} </h6>
           <p className="card-text fw-bold  mb-0 productshowprice"> {item.price} </p>
         </div>
       </div>
