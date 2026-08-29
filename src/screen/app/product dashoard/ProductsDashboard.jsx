@@ -5,6 +5,7 @@ import { uploadToCloudinary } from '../../../utils/cloudinary';
 import Logo from '../../../assets/logo.png'
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
 
 function ProductsDashboard() {
 
@@ -14,7 +15,8 @@ function ProductsDashboard() {
   const [addProductPopup,setAddProductPopup]=useState(false)
   const [refresh,setRefresh]=useState(false)
   const [addProductForm,setAddProductForm]=useState({image:'',name:'',price:'',stockquantity:'',productcode:""})
-
+  const [searchInput,setSearchInput]=useState('')
+  const [filteredResult,setFilteredResult]=useState([])
 
   useEffect(()=>{
     const getProducts =async()=>{
@@ -74,7 +76,12 @@ function ProductsDashboard() {
 
 
 
-
+const handleSearch=(e)=>{
+ const search=e.target.value
+ setSearchInput(search)
+const searchResult = getProductsFromSupabase.filter((item)=>item.name.toLowerCase().includes(search.toLowerCase())||String(item.productcode).toLowerCase().includes(search.toLowerCase()))
+setFilteredResult(searchResult)
+}
 
   return(
     <div >
@@ -85,13 +92,16 @@ function ProductsDashboard() {
        </header>
 
       <div>
-        <button onClick={()=>{setAddProductPopup(true)}} className='homeaddbutton rounded-2 px-3 py-2 text-white'> + Add Product</button>
+        
+        <div className="productTopBar"> <div></div> <div className="productSearch"><FaSearch/><input type="text" placeholder="Search products..." onChange={handleSearch} style={{height:'100%',width:'100%',border:'none',outline:'none'}}/></div> <button onClick={() => { setAddProductPopup(true); }} className="homeaddbutton rounded-2 text-white" > + Add Product </button> </div>
       
         <div className="homecontainer container-fluid py-4">
           
           <div className="homeproductschildcont d-flex gap-4 flex-wrap justify-content-start ">
-      
-            {getProductsFromSupabase.map((item) => (
+
+            {searchInput=='' ? (
+
+            getProductsFromSupabase.map((item) => (
               <div key={item.id} className='homeproducts'>
                 
                 <div className="homeproduct-card" style={{boxShadow: '0 4px 16px rgba(234, 85, 138, 0.10)'}}>
@@ -117,7 +127,36 @@ function ProductsDashboard() {
                 </div>
 
               </div>
-            ))}
+            ))
+            ):filteredResult.length>0?
+            (filteredResult.map(item=>
+             <div key={item.id} className='homeproducts'>
+                
+                <div className="homeproduct-card" style={{boxShadow: '0 4px 16px rgba(234, 85, 138, 0.10)'}}>
+                  {/* <div className="homeimagebox">
+                    <img src={item.image} alt={item.name} className="homeimage" />
+                  </div>           */}
+                    <div className="d-flex align-items-center justify-content-center position-relative homeimagebox">
+                      <img src={item.image} alt={item.name} className="homeimage" />
+                      <p className="position-absolute top-0 end-0 m-1 m-md-2 px-2 px-md-3 py-1 rounded-pill fw-semibold shadow-sm" style={{ backgroundColor: item.stockquantity > 0 ? "#FFF0F6" : "#FFE4EC", color: item.stockquantity > 0 ? "#D6336C" : "#C2185B", border: item.stockquantity > 0 ? "1px solid #FFB6D2" : "1px solid #FF9FBC",letterSpacing: "0.2px", fontSize: "clamp(9px, 1.5vw, 12px)", whiteSpace: "nowrap" }} > {item.stockquantity > 0 ? `${item.stockquantity} in stock` : "Out of Stock"} </p>
+                    </div>
+                  <div className="homeproductscard-lower">
+                   <div className='homeproductscard-lower1'>
+                     <h6 className="homeproductscard-lower1-productcode">Code: {item.productcode} </h6>
+                     <h6 className="homeproductscard-lower1-name"> {item.name} </h6>
+                      <h5 className="homeproductscard-lower1-price"> Rs. {item.price} </h5>
+                   </div>
+               
+
+                    <div>
+                      <button className="btn btn-danger btn-sm flex-grow-1"  onClick={() => navigate(`/productsdetail/${item.id}`)}>Details </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div> )
+            ):(<h5>No Products Found</h5>)}
+
           </div>
 
         </div>
