@@ -13,7 +13,7 @@ function ProductsDashboard() {
   const [getProductsFromSupabase,setGetProductsFromSupabase]=useState([])
   const [addProductPopup,setAddProductPopup]=useState(false)
   const [refresh,setRefresh]=useState(false)
-  const [addProductForm,setAddProductForm]=useState({image:'',name:'',price:'',stockquantity:''})
+  const [addProductForm,setAddProductForm]=useState({image:'',name:'',price:'',stockquantity:'',productcode:""})
 
 
   useEffect(()=>{
@@ -27,6 +27,8 @@ function ProductsDashboard() {
   },[refresh])
   
 
+
+  
   const handleChangeImage = async(e) => {
     const url = await uploadToCloudinary(e.target.files[0]);
      setAddProductForm(prev => ({
@@ -45,11 +47,24 @@ function ProductsDashboard() {
   const handleAddProductDone=async(e)=>{
     e.preventDefault()
 
-    const {data,error}=await supabase.from('products').insert({image:addProductForm.image,name:addProductForm.name,price:addProductForm.price,stockquantity:addProductForm.stockquantity})
+
+    if(getProductsFromSupabase.some(item => item.productcode == addProductForm.productcode)){
+      alert('Product With this Code already Exist')
+      return;
+    }
+
+
+    const {data,error}=await supabase.from('products').insert({image:addProductForm.image,name:addProductForm.name,price:addProductForm.price,stockquantity:addProductForm.stockquantity,productcode:addProductForm.productcode})
     if(!error){   
       
       setAddProductPopup(false)
-      setAddProductForm({image:'',name:'',price:'',stockquantity:""})
+      Swal.fire({
+        icon: "success",
+        title: "Product Added Successfully!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      setAddProductForm({image:'',name:'',price:'',stockquantity:"",productcode:''})
       setRefresh(prev => !prev);
       return;
     }
@@ -80,11 +95,16 @@ function ProductsDashboard() {
               <div key={item.id} className='homeproducts'>
                 
                 <div className="homeproduct-card" style={{boxShadow: '0 4px 16px rgba(234, 85, 138, 0.10)'}}>
-                  <div className="homeimagebox">
+                  {/* <div className="homeimagebox">
                     <img src={item.image} alt={item.name} className="homeimage" />
-                  </div>          
+                  </div>           */}
+                    <div className="d-flex align-items-center justify-content-center position-relative homeimagebox">
+                      <img src={item.image} alt={item.name} className="homeimage" />
+                      <p className="position-absolute top-0 end-0 m-1 m-md-2 px-2 px-md-3 py-1 rounded-pill fw-semibold shadow-sm" style={{ backgroundColor: item.stockquantity > 0 ? "#FFF0F6" : "#FFE4EC", color: item.stockquantity > 0 ? "#D6336C" : "#C2185B", border: item.stockquantity > 0 ? "1px solid #FFB6D2" : "1px solid #FF9FBC",letterSpacing: "0.2px", fontSize: "clamp(9px, 1.5vw, 12px)", whiteSpace: "nowrap" }} > {item.stockquantity > 0 ? `${item.stockquantity} in stock` : "Out of Stock"} </p>
+                    </div>
                   <div className="homeproductscard-lower">
                    <div className='homeproductscard-lower1'>
+                     <h6 className="homeproductscard-lower1-productcode">Code: {item.productcode} </h6>
                      <h6 className="homeproductscard-lower1-name"> {item.name} </h6>
                       <h5 className="homeproductscard-lower1-price"> Rs. {item.price} </h5>
                    </div>
@@ -123,6 +143,9 @@ function ProductsDashboard() {
 
             <label className="form-label fw-semibold">Stock Quantity</label>
             <input type="number" onChange={handleChange} value={addProductForm.stockquantity} placeholder='Enter Your Stock Quantity' name="stockquantity" className="form-control mb-3" required/>
+
+            <label className="form-label fw-semibold">Product Code</label>
+            <input type="number" onChange={handleChange} value={addProductForm.productcode} placeholder='Enter Your Product Code' name="productcode" className="form-control mb-3" required/>
 
             <button type="submit" className="btn text-white w-100 fw-semibold" style={{ backgroundColor: "#ff69b4" }} > Done </button>
           </form>

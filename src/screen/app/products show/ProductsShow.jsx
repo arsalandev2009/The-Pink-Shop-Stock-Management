@@ -12,23 +12,26 @@ function ProductsShow() {
   const [getProducts,setGetProducts]=useState([])
 
   useEffect(()=>{
-    const getProducts=async()=>{
+    const fetchProducts=async()=>{
       const {data,error}=await supabase.from('products').select()
       if(!error){
         setGetProducts(data)
       }
       
     }
-    getProducts()
+    fetchProducts()
 
   
 
   },[])
 
+console.log(getProducts[0]?.productcode)
+
   const handleSearch = (e)=>{
     const Search= e.target.value
     setSearchInput(Search)
-    const result = getProducts.filter((item) => item.name.toLowerCase().includes(Search.toLowerCase()));
+    const result = getProducts.filter((item) => item.name.toLowerCase().includes(Search.toLowerCase()) ||
+String(item.productcode).toLowerCase().includes(Search.toLowerCase()));
     setFiltered(result)
   }
   
@@ -54,25 +57,32 @@ function ProductsShow() {
 
   <div className="productshowproducts">
 
+
+
+
    {searchInput == '' ? (
     getProducts.map((item)=>(
       <div key={item.id} className=" border-0 rounded-3 overflow-hidden productshowcard" >
-        <div className="d-flex align-items-center justify-content-center productshowimagebox">
-          <img src={item.image} alt={item.name} className=" productshowimage" />
+        <div className="d-flex align-items-center justify-content-center position-relative productshowimagebox">
+          <img src={item.image} alt={item.name} className="productshowimage" />
+          <p className="position-absolute top-0 end-0 m-1 m-md-2 px-2 px-md-3 py-1 rounded-pill fw-semibold shadow-sm" style={{ backgroundColor: item.stockquantity > 0 ? "#FFF0F6" : "#FFE4EC", color: item.stockquantity > 0 ? "#D6336C" : "#C2185B", border: item.stockquantity > 0 ? "1px solid #FFB6D2" : "1px solid #FF9FBC",letterSpacing: "0.2px", fontSize: "clamp(9px, 1.5vw, 12px)", whiteSpace: "nowrap" }} > {item.stockquantity > 0 ? `${item.stockquantity} in stock` : "Out of Stock"} </p>
         </div>
         <div className=" d-flex flex-column justify-content-between productshowbody">
+          <h6 className="card-title fw-semibold  mb-1 productshowname"> {item.productcode} </h6>
           <h6 className="card-title fw-semibold  mb-1 productshowname"> {item.name} </h6>
           <p className="card-text fw-bold  mb-0 productshowprice"> {item.price} </p>
         </div>
       </div>
     ))
-   ):filtered.length > 0 ? (
+   ):filtered.length > 0? (
     filtered.map((item)=>(
       <div key={item.id} className=" border-0 rounded-3 overflow-hidden productshowcard" >
-        <div className="d-flex align-items-center justify-content-center productshowimagebox">
-          <img src={item.image} alt={item.name} className=" productshowimage" />
+        <div className="d-flex align-items-center justify-content-center position-relative productshowimagebox">
+          <img src={item.image} alt={item.name} className="productshowimage" />
+          <p className="position-absolute top-0 end-0 m-1 m-md-2 px-2 px-md-3 py-1 rounded-pill fw-semibold shadow-sm" style={{ backgroundColor: item.stockquantity > 0 ? "#FFF0F6" : "#FFE4EC", color: item.stockquantity > 0 ? "#D6336C" : "#C2185B", border: item.stockquantity > 0 ? "1px solid #FFB6D2" : "1px solid #FF9FBC",letterSpacing: "0.2px", fontSize: "clamp(9px, 1.5vw, 12px)", whiteSpace: "nowrap" }} > {item.stockquantity > 0 ? `${item.stockquantity} in stock` : "Out of Stock"} </p>
         </div>
         <div className=" d-flex flex-column justify-content-between productshowbody">
+          <h6 className="card-title fw-semibold productshowname">Code: {item.productcode} </h6>
           <h6 className="card-title fw-semibold mb-1 productshowname"> {item.name} </h6>
           <p className="card-text fw-bold  mb-0 productshowprice"> {item.price} </p>
         </div>

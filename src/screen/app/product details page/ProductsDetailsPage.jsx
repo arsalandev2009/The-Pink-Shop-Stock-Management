@@ -9,7 +9,7 @@ import { uploadToCloudinary } from "../../../utils/cloudinary";
 function ProductsDetailsPage() {
   const [updateProductPopup, setUpdateProductPopup] = useState(false);
   const [productData, setProductData] = useState([]);
-  const [editProductData, setEditProductData] = useState({ image: "", name: "", price: "",stockquantity:'' });
+  const [editProductData, setEditProductData] = useState({ image: "", name: "", price: "",stockquantity:'',productcode:'' });
   const [refresh,setRefresh]=useState()
   const navigate = useNavigate();
   const { id } = useParams();
@@ -54,7 +54,7 @@ function ProductsDetailsPage() {
   const handleUpdateProductDone = async (e) => {
     e.preventDefault();
 
-    const { data, error } = await supabase .from("products") .update({ image: editProductData.image, name: editProductData.name, price: editProductData.price,stockquantity:editProductData.stockquantity }).eq("id", id).select().single();
+    const { data, error } = await supabase .from("products") .update({ image: editProductData.image, name: editProductData.name, price: editProductData.price,stockquantity:editProductData.stockquantity,productcode:editProductData.productcode }).eq("id", id).select().single();
 
     if (error) {
       console.log(error);
@@ -67,7 +67,8 @@ function ProductsDetailsPage() {
       image: "",
       name: "",
       price: "",
-      stockquantity:''
+      stockquantity:'',
+      productcode:''
     });
 
     setRefresh((prev) => !prev);
@@ -159,28 +160,11 @@ function ProductsDetailsPage() {
     {/* Product Information */}
     <div className="border rounded-3 overflow-hidden mb-4">
 
-      <div
-        className="d-flex justify-content-between align-items-center px-3 py-3"
-        style={{ backgroundColor: "#fff8fa" }}
-      >
-        <span className="text-secondary fw-semibold">
-          Stock Quantity
-        </span>
+      <div className="d-flex justify-content-between align-items-center px-3 py-3" style={{ backgroundColor: "#fff8fa" }} > <span className="text-secondary fw-semibold"> Product Code  </span> <span className="fw-bold text-dark"> {productData.productcode} </span> </div>
 
-        <span className="fw-bold text-dark">
-          {productData.stockquantity}
-        </span>
-      </div>
-
-      <div className="border-top d-flex justify-content-between align-items-center px-3 py-3">
-        <span className="text-secondary fw-semibold">
-          In Stock Time
-        </span>
-
-        <span className="fw-semibold text-dark">
-          {new Date(productData.created_at).toLocaleTimeString()}
-        </span>
-      </div>
+      <div className="border-top d-flex justify-content-between align-items-center px-3 py-3"> <span className="text-secondary fw-semibold">Stock Quantity </span> <span className="fw-semibold text-dark">{productData.stockquantity}</span></div>
+      
+      <div className="border-top d-flex justify-content-between align-items-center px-3 py-3"> <span className="text-secondary fw-semibold"> In Stock Time </span> <span className="fw-semibold text-dark">{new Date(productData.created_at).toLocaleTimeString()}</span></div>
 
       <div className="border-top d-flex justify-content-between align-items-center px-3 py-3">
         <span className="text-secondary fw-semibold">
@@ -332,6 +316,25 @@ function ProductsDetailsPage() {
               setEditProductData({
                 ...editProductData,
                 stockquantity: e.target.value,
+              })
+            }
+          />
+        </div>
+
+        {/* Code */}
+        <div className="mb-4">
+          <label className="form-label fw-semibold">
+           Product Code
+          </label>
+
+          <input
+            type="number"
+            className="form-control"
+            value={editProductData.productcode}
+            onChange={(e) =>
+              setEditProductData({
+                ...editProductData,
+                productcode: e.target.value,
               })
             }
           />
