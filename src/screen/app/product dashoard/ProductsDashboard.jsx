@@ -74,7 +74,7 @@ function ProductsDashboard() {
       
         <div className="homecontainer container-fluid py-4">
           
-          <div className="homeproductschildcont d-flex gap-4 flex-wrap justify-content-between ">
+          <div className="homeproductschildcont d-flex gap-4 flex-wrap justify-content-start ">
       
             {getProductsFromSupabase.map((item) => (
               <div key={item.id} className='homeproducts'>
@@ -121,7 +121,7 @@ function ProductsDashboard() {
             <label className="form-label fw-semibold">Price</label>
             <input type="number" onChange={handleChange} value={addProductForm.price} name="price" required className="form-control mb-3" />
 
-            <label className="form-label fw-semibold">STock Quantity</label>
+            <label className="form-label fw-semibold">Stock Quantity</label>
             <input type="number" onChange={handleChange} value={addProductForm.stockquantity} name="stockquantity" required className="form-control mb-3" />
 
             <button type="submit" className="btn text-white w-100 fw-semibold" style={{ backgroundColor: "#ff69b4" }} > Done </button>
