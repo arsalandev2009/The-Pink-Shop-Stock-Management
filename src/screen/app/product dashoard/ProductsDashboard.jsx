@@ -65,7 +65,7 @@ function ProductsDashboard() {
     <div >
 
        <header  className="d-flex align-items-center justify-content-between border bg-white position-fixed top-0 start-0 end-0 z-3 px-2 px-sm-4 py-1">        
-         <img src={Logo} alt="The Pink Shop" className="headerimage img-fluid"  />
+         <img src={Logo} alt="The Pink Shop" className="headerimage img-fluid"  onClick={()=>{navigate('/productsdashboard')}} />
          <button onClick={() =>{ sessionStorage.removeItem('loggedin'); navigate('/')}} className="headerloginbutton  text-white px-3 py-2 rounded-2" style={{ backgroundColor: "#EA558A" }} > Logout </button>
        </header>
 
@@ -113,16 +113,16 @@ function ProductsDashboard() {
             <div className='text-end' ><button style={{border:'none',background:'none'}} type='button' onClick={()=>{setAddProductPopup(false)}}><IoClose size={30}/></button></div>
             
             <label className="form-label fw-semibold">Image</label>
-            <input type="file" onChange={handleChangeImage} name="image" required className="form-control mb-3" />
+            <input type="file" onChange={handleChangeImage} name="image" accept="image/*" className="form-control mb-3" required/>
 
             <label className="form-label fw-semibold">Name</label>
-            <input type="text" onChange={handleChange} value={addProductForm.name} name="name" required className="form-control mb-3" />
+            <input type="text" onChange={handleChange} value={addProductForm.name} placeholder='Enter Your Product Name' name="name" className="form-control mb-3" required/>
 
             <label className="form-label fw-semibold">Price</label>
-            <input type="number" onChange={handleChange} value={addProductForm.price} name="price" required className="form-control mb-3" />
+            <input type="number" onChange={handleChange} value={addProductForm.price} placeholder='Enter Your Product Price' name="price" className="form-control mb-3" required/>
 
             <label className="form-label fw-semibold">Stock Quantity</label>
-            <input type="number" onChange={handleChange} value={addProductForm.stockquantity} name="stockquantity" required className="form-control mb-3" />
+            <input type="number" onChange={handleChange} value={addProductForm.stockquantity} placeholder='Enter Your Stock Quantity' name="stockquantity" className="form-control mb-3" required/>
 
             <button type="submit" className="btn text-white w-100 fw-semibold" style={{ backgroundColor: "#ff69b4" }} > Done </button>
           </form>

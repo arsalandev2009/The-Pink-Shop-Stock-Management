@@ -99,6 +99,7 @@
 }
 .headerimage{
   width: 80px;
+   cursor: pointer;
 }
 .headerloginbutton{
  font-size: 22px;
@@ -160,15 +161,22 @@ height: 140px;
 .homeproductscard-lower1-name{
   font-size: 20px;
 }
-
+.productdetailscontainer{
+  margin-top: 100px;
+}
 
 
 @media (min-width:320px)and (max-width:720px) {
+  .productdetailscontainer{
+  margin-top: 60px;
+}
   .headerloginbutton{
   font-size: 18px;
 }
   .headerimage{
   width: 50px;
+
+ 
 }  
 .productshowmain{
   margin-top: 30px;

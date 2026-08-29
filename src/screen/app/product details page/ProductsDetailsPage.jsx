@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { supabase } from "../../../utils/supabase";
 import Swal from "sweetalert2";
 import { IoClose } from "react-icons/io5";
+import Logo from '../../../assets/logo.png'
 import { uploadToCloudinary } from "../../../utils/cloudinary";
 
 function ProductsDetailsPage() {
@@ -81,43 +82,153 @@ function ProductsDetailsPage() {
   }
 
   return (
-    <div className="container-fluid bg-light p-3">
-  <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
 
-    {/* Product Image */}
-    <div className="bg-pink-light d-flex justify-content-center align-items-center p-3">
-      <img
-        src={productData.image}
-        alt=""
-        width={150}
-        className="img-fluid"
-        style={{ height: "170px", objectFit: "contain" }}
-      />
-    </div>
-
-    {/* Product Details */}
-    <div className="card-body">
-
-      <p className="fw-bold fs-5 mb-2"> {productData.name} </p>
-
-      <p className="fw-bold fs-4 mb-2" style={{ color: "#EA558A" }} > Rs: {productData.price} </p>
-
-      <p className="text-secondary small mb-3"> <span className="fw-semibold">Stock Quantity:</span>{" "} {productData.stockquantity} </p>
-
-      <p className="text-secondary small mb-3"> <span className="fw-semibold">In Stock Time: </span>{new Date(productData.created_at).toLocaleTimeString()}</p>
-
-      <p className="text-secondary small mb-3"> <span className="fw-semibold">In Stock Date: </span>{new Date(productData.created_at).toLocaleDateString()}</p>
+    <div>
+    <header  className="d-flex align-items-center justify-content-between border bg-white position-fixed top-0 start-0 end-0 z-3 px-2 px-sm-4 py-1">        
+         <img src={Logo} alt="The Pink Shop" className="headerimage img-fluid"  onClick={()=>{navigate('/productsdashboard')}} />
+         <button onClick={() =>{ sessionStorage.removeItem('loggedin'); navigate('/')}} className="headerloginbutton  text-white px-3 py-2 rounded-2" style={{ backgroundColor: "#EA558A" }} > Logout </button>
+       </header>
 
 
-      <div className="d-flex gap-2">
+  
+    <div className="productdetailscontainer container-fluid bg-light p-3">
 
-        <button onClick={() => { setEditProductData(productData); setUpdateProductPopup(true); }} className="btn btn-sm flex-grow-1 text-white fw-semibold" style={{ backgroundColor: "#EA558A", borderColor: "#EA558A", }} > Update </button>
-
-        <button onClick={handleDeleteProductButton} className="btn btn-sm flex-grow-1 fw-semibold" style={{ backgroundColor: "#fff0f6", color: "#EA558A", borderColor: "#f3bfd1", }} > Delete </button>
-
-      </div>
-    </div>
+<div
+  className="card border-0 shadow rounded-4 overflow-hidden"
+  style={{ maxWidth: "700px", margin: "0 auto" }}
+>
+  {/* Product Image */}
+  <div
+    className="d-flex justify-content-center align-items-center"
+    style={{
+      width: "100%",
+      height: "360px",
+      background: "linear-gradient(135deg, #fff0f6, #ffe4ef)",
+      borderBottom: "1px solid #f8d5e2",
+    }}
+  >
+    <img
+      src={productData.image}
+      alt={productData.name}
+      className="img-fluid"
+      style={{
+        maxWidth: "90%",
+        maxHeight: "320px",
+        objectFit: "contain",
+      }}
+    />
   </div>
+
+  {/* Product Details */}
+  <div className="card-body p-4 p-md-5">
+
+    {/* Product Name */}
+    <div className="mb-4">
+      <small
+        className="text-uppercase fw-semibold"
+        style={{ color: "#EA558A", letterSpacing: "1px" }}
+      >
+        Product Details
+      </small>
+
+      <p className="fw-bold fs-3 mb-0 mt-2 text-dark">
+        {productData.name}
+      </p>
+    </div>
+
+    {/* Price */}
+    <div
+      className="p-3 rounded-3 mb-4"
+      style={{
+        backgroundColor: "#fff5f8",
+        border: "1px solid #f8d5e2",
+      }}
+    >
+      <small className="text-secondary d-block mb-1">
+        Product Price
+      </small>
+
+      <p
+        className="fw-bold fs-3 mb-0"
+        style={{ color: "#EA558A" }}
+      >
+        Rs: {productData.price}
+      </p>
+    </div>
+
+    {/* Product Information */}
+    <div className="border rounded-3 overflow-hidden mb-4">
+
+      <div
+        className="d-flex justify-content-between align-items-center px-3 py-3"
+        style={{ backgroundColor: "#fff8fa" }}
+      >
+        <span className="text-secondary fw-semibold">
+          Stock Quantity
+        </span>
+
+        <span className="fw-bold text-dark">
+          {productData.stockquantity}
+        </span>
+      </div>
+
+      <div className="border-top d-flex justify-content-between align-items-center px-3 py-3">
+        <span className="text-secondary fw-semibold">
+          In Stock Time
+        </span>
+
+        <span className="fw-semibold text-dark">
+          {new Date(productData.created_at).toLocaleTimeString()}
+        </span>
+      </div>
+
+      <div className="border-top d-flex justify-content-between align-items-center px-3 py-3">
+        <span className="text-secondary fw-semibold">
+          In Stock Date
+        </span>
+
+        <span className="fw-semibold text-dark">
+          {new Date(productData.created_at).toLocaleDateString()}
+        </span>
+      </div>
+
+    </div>
+
+    {/* Actions */}
+    <div className="d-flex gap-3">
+
+      <button
+        onClick={() => {
+          setEditProductData(productData);
+          setUpdateProductPopup(true);
+        }}
+        className="btn flex-grow-1 py-2 fw-semibold text-white rounded-3"
+        style={{
+          backgroundColor: "#EA558A",
+          borderColor: "#EA558A",
+        }}
+      >
+        Update
+      </button>
+
+      <button
+        onClick={handleDeleteProductButton}
+        className="btn flex-grow-1 py-2 fw-semibold rounded-3"
+        style={{
+          backgroundColor: "#fff0f6",
+          color: "#EA558A",
+          borderColor: "#f3bfd1",
+        }}
+      >
+        Delete
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+
 
   {/* Update Popup */}
   {updateProductPopup && (
@@ -254,7 +365,7 @@ function ProductsDetailsPage() {
     </div>
   )}
 </div>
+  </div>
   );
 }
-
 export default ProductsDetailsPage;
