@@ -93,7 +93,7 @@ setFilteredResult(searchResult)
 
       <div>
         
-        <div className="productTopBar"> <div></div> <div className="productSearch"><FaSearch/><input type="text" placeholder="Search products..." onChange={handleSearch} style={{height:'100%',width:'100%',border:'none',outline:'none'}}/></div> <button onClick={() => { setAddProductPopup(true); }} className="homeaddbutton rounded-2 text-white" > + Add Product </button> </div>
+        <div className="productTopBar"> <div></div> <div className="productSearch"><FaSearch/><input type="text"  placeholder="Search products..." onChange={handleSearch} style={{height:'100%',width:'100%',border:'none',outline:'none'}}/></div> <button onClick={() => { setAddProductPopup(true); }} className="homeaddbutton rounded-2 text-white" > + Add Product </button> </div>
       
         <div className="homecontainer container-fluid py-4">
           
@@ -104,7 +104,7 @@ setFilteredResult(searchResult)
             getProductsFromSupabase.map((item) => (
               <div key={item.id} className='homeproducts'>
                 
-                <div className="homeproduct-card" style={{boxShadow: '0 4px 16px rgba(234, 85, 138, 0.10)'}}>
+                <div className="homeproduct-card" style={{boxShadow: '0 4px 16px rgba(234, 85, 138, 0.10)',backgroundColor:'#FFF5F8'}}>
                   {/* <div className="homeimagebox">
                     <img src={item.image} alt={item.name} className="homeimage" />
                   </div>           */}
@@ -121,7 +121,7 @@ setFilteredResult(searchResult)
                
 
                     <div>
-                      <button className="btn btn-danger btn-sm flex-grow-1"  onClick={() => navigate(`/productsdetail/${item.id}`)}>Details </button>
+                      <button className="btn btn-sm flex-grow-1" style={{margin:'0',backgroundColor:'#92003A ',color:'#ffffff'}}  onClick={() => navigate(`/productsdetail/${item.id}`)}>Details </button>
                     </div>
                   </div>
                 </div>
@@ -132,7 +132,7 @@ setFilteredResult(searchResult)
             (filteredResult.map(item=>
              <div key={item.id} className='homeproducts'>
                 
-                <div className="homeproduct-card" style={{boxShadow: '0 4px 16px rgba(234, 85, 138, 0.10)'}}>
+                <div className="homeproduct-card" style={{boxShadow: '0 4px 16px rgba(234, 85, 138, 0.10)',backgroundColor:'#FFF5F8'}}>
                   {/* <div className="homeimagebox">
                     <img src={item.image} alt={item.name} className="homeimage" />
                   </div>           */}
@@ -149,7 +149,7 @@ setFilteredResult(searchResult)
                
 
                     <div>
-                      <button className="btn btn-danger btn-sm flex-grow-1"  onClick={() => navigate(`/productsdetail/${item.id}`)}>Details </button>
+                      <button className="btn btn-sm flex-grow-1" style={{margin:'0',backgroundColor:'#92003A ',color:'#ffffff'}}  onClick={() => navigate(`/productsdetail/${item.id}`)}>Details </button>
                     </div>
                   </div>
                 </div>
