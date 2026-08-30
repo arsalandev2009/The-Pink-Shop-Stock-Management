@@ -359,7 +359,7 @@ gap: 5px;
   }
   .productshowcard {
     width: 190px;
-    height: 210px;
+    height: 250px;
   }
   .productshowimagebox {
     height: 130px;
@@ -371,7 +371,7 @@ gap: 5px;
   }
   .productshowname {
     /* color: #3b202b; */
-    font-size: 20px;
+    font-size: 16px;
     margin-top: 10px;
   }
   .productshowbody {
