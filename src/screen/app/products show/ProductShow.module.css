@@ -1,0 +1,147 @@
+.container{
+    background-color: whitesmoke;
+    width: 100%;
+    min-height: 100dvh;
+}
+.header{
+    position: fixed;
+    top: 0px;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+.searchbar{
+    position: fixed;
+    top: 0px;
+    padding-top: 100px !important;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+.maincontent{
+    width: 100%;
+    padding: 170px 30px 50px 30px !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.productcontainer{
+    border: 1px solid pink;
+    width: 250px;
+    height: 300px;
+    border-radius:10px ;
+    box-shadow: 0px 0px 5px 0px pink;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+.productupper{
+    height: 55%;
+    box-shadow: 0px 0px 5px 0px pink;
+    position: relative;
+}
+.productstock{
+    position: absolute;
+    top: 5px;
+    right: 5px;    
+    border-radius: 20px;
+    background: #ff1493;
+    font-weight: 600;   
+    border: none;
+    padding:02px 8px !important; 
+    border: 2px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+.image{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+.productlower{
+    padding:0px 10px 10px 10px !important;
+    height: 40%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.productcode{
+    font-size: 16px;
+}
+.productname{
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #e91e63;
+}
+.productprice{
+    font-size: 20px;
+}
+
+
+@media (min-width:320px) and (max-width:720px) {
+.searchbar{
+    padding-top: 80px !important;
+}
+.maincontent{
+    padding: 150px 5px 50px 5px !important;
+    gap: 5px;
+    justify-content: center;
+}
+.productcontainer{
+    width: 160px;
+    height: 200px;
+}
+.productstock{
+    font-size: 12px;
+}
+.productlower{
+    padding:05px 10px 10px 10px !important;
+    height: 45%;
+}
+.productcode{
+    font-size: 14px;
+}
+.productname{
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: normal;
+}
+.productprice{
+    font-size: 16px;
+} 
+}
+
+@media (min-width:721px) and (max-width:1120px) {
+.searchbar{
+    padding-top: 80px !important;
+}
+.maincontent{
+    padding: 150px 5px 50px 5px !important;
+    gap: 10px;
+    justify-content: center;
+}
+.productcontainer{
+    width: 200px;
+    height: 230px;
+}
+.productstock{
+    font-size: 14px;
+}
+.productlower{
+    padding:05px 10px 10px 10px !important;
+    height: 45%;
+}
+.productcode{
+    font-size: 16px;
+}
+.productname{
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: normal;
+}
+.productprice{
+    font-size: 18px;
+} 
+}

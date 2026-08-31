@@ -1,0 +1,52 @@
+.container{
+    display: flex;
+    height: 80px;
+    border-bottom: 1px solid pink;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 30px 0px 20px !important;
+    box-shadow: 0px 0px 5px 0px pink;
+    background-color: pink;
+}
+.image{
+    width: 70px;
+}
+.button{
+    font-size: 22px;
+    border-radius: 10px;
+    padding: 3px 15px !important;
+    border: 2px solid white;
+    background-color:#FF1493 ;
+    color: whitesmoke;
+    font-weight: 600;
+}
+
+@media (min-width:320px) and (max-width:720px) {
+.container{
+    height: 70px;
+    padding: 0px 10px 0px 10px !important;
+}
+.image{
+    width: 50px;
+}
+.button{
+    font-size: 18px;
+    padding: 5px 10px !important;
+
+}
+}
+
+@media (min-width:721px) and (max-width:1120px) {
+.container{
+    height: 70px;
+    padding: 0px 20px 0px 20px !important;
+}
+.image{
+    width: 60px;
+}
+.button{
+    font-size: 20px;
+    padding: 5px 10px !important;
+
+}
+}
