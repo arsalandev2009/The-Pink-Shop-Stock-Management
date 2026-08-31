@@ -104,7 +104,7 @@ function ProductsDashboard() {
                      <span className={style.edit}>Edit</span>
                    <div className={style.productupper} onClick={() => navigate(`/productsdetail/${item.id}`)}>
                      <img src={item.image} alt={item.name} className={style.image}/>
-                     <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {item.stockquantity > 0 ? `${item.stockquantity} in stock` : "Out of Stock"} </p>
+                     <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>
                    </div>
                    <div className={style.productlower} onClick={() => navigate(`/productsdetail/${item.id}`)}>
                      <p className={style.productcode}>Code: <b>{item.productcode}</b></p>
@@ -119,7 +119,7 @@ function ProductsDashboard() {
                         <span className={style.edit}>Edit</span>
                       <div className={style.productupper} onClick={() => navigate(`/productsdetail/${item.id}`)}>
                         <img src={item.image} alt={item.name} className={style.image}/>
-                        <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {item.stockquantity > 0 ? `${item.stockquantity} in stock` : "Out of Stock"} </p>
+                        <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>
                       </div>
                       <div className={style.productlower} onClick={() => navigate(`/productsdetail/${item.id}`)}>
                         <p className={style.productcode}>Code: <b>{item.productcode}</b> </p>
@@ -129,9 +129,7 @@ function ProductsDashboard() {
                     </div>
                   )):(
                   <h5>No Products Found</h5>
-                  )}
-    
-            
+                  )}            
         </div>   
     </div>
 
@@ -141,7 +139,7 @@ function ProductsDashboard() {
         <div className={style.overlay}> 
           <form onSubmit={handleAddProductDone} className={style.popup}> 
             <div className={style.close}> 
-              <button type="button" onClick={() => setAddProductPopup(false)} className={style.closeBtn} > <IoClose size={30} /> </button> 
+              <button type="button" onClick={() =>{ setAddProductPopup(false), setAddProductForm({image:'',name:'',price:'',stockquantity:'',productcode:"",instockdate:''})}} className={style.closeBtn} > <IoClose size={30} /> </button> 
             </div> 
 
             <label className={style.label}>Image</label> 
@@ -157,7 +155,7 @@ function ProductsDashboard() {
             <input type="number" onChange={handleChange} value={addProductForm.price} placeholder="Enter Your Product Price" name="price" className={style.input} required /> 
 
             <label className={style.label}>Stock Quantity</label> 
-            <input type="number" onChange={handleChange} value={addProductForm.stockquantity} placeholder="Enter Your Stock Quantity" name="stockquantity" className={style.input} required /> 
+            <input type="text" onChange={handleChange} value={addProductForm.stockquantity} placeholder="Enter Your Stock Quantity" name="stockquantity" className={style.input} required /> 
 
             <label className={style.label}>In Stock Date</label> 
             <input type="date" onChange={handleChange} value={addProductForm.instockdate} name="instockdate" className={style.input} placeholder='ddd' required /> 

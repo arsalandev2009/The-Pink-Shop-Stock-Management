@@ -46,8 +46,8 @@ function ProductsShow() {
             getProducts.map((item)=>(
              <div key={item.id} className={style.productcontainer}>
                <div className={style.productupper}>
-                 <img src={item.image} alt={item.name} className={style.image}/>
-                 <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {item.stockquantity > 0 ? `${item.stockquantity} in stock` : "Out of Stock"} </p>
+                <img src={item.image} alt={item.name} className={style.image}/>
+                <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>
                </div>
                <div className={style.productlower}>
                  <p className={style.productcode}>Code: <b>{item.productcode}</b> </p>
@@ -59,8 +59,8 @@ function ProductsShow() {
               filtered.map(item=>
                <div key={item.id} className={style.productcontainer}>
                  <div className={style.productupper}>
-                   <img src={item.image} alt={item.name} className={style.image}/>
-                   <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {item.stockquantity > 0 ? `${item.stockquantity} in stock` : "Out of Stock"} </p>
+                    <img src={item.image} alt={item.name} className={style.image}/>
+                    <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>
                  </div>
                  <div className={style.productlower}>
                    <p className={style.productcode}>Code: <b>{item.productcode}</b> </p>

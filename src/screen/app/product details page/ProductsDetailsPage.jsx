@@ -116,156 +116,44 @@ function ProductsDetailsPage() {
   {updateProductPopup && (
    <div className={style.updateProductOverlay}>
 
-  <form
-    onSubmit={handleUpdateProductDone}
-    className={style.updateProductModal}
-  >
+  <form onSubmit={handleUpdateProductDone} className={style.updateProductModal} >
 
-    {/* Header */}
     <div className={style.updateProductHeader}>
-
       <div className={style.updateProductTitleSection}>
-        <h4 className={style.updateProductTitle}>
-          Update Product
-        </h4>
-
-        <small className={style.updateProductSubtitle}>
-          Edit product information
-        </small>
+        <h4 className={style.updateProductTitle}> Update Product </h4>
+        <small className={style.updateProductSubtitle}> Edit product information </small>
       </div>
-
-      <button
-        type="button"
-        onClick={() => setUpdateProductPopup(false)}
-        className={style.updateProductCloseButton}
-      >
-        ×
-      </button>
-
+      <button type="button" onClick={() => setUpdateProductPopup(false)} className={style.updateProductCloseButton} > × </button>
     </div>
 
-
-    {/* Product Image */}
     <div className={style.updateProductField}>
-
-      <label className={style.updateProductLabel}>
-        Product Image
-      </label>
-
-      <input
-        type="file"
-        className={style.updateProductFileInput}
-        onChange={handleChangeImage}
-      />
-
+      <label className={style.updateProductLabel}> Product Image </label>
+      <input type="file" className={style.updateProductFileInput} onChange={handleChangeImage} />
     </div>
 
-
-    {/* Product Name */}
     <div className={style.updateProductField}>
-
-      <label className={style.updateProductLabel}>
-        Product Name
-      </label>
-
-      <input
-        type="text"
-        className={style.updateProductInput}
-        value={editProductData.name}
-        onChange={(e) =>
-          setEditProductData({
-            ...editProductData,
-            name: e.target.value,
-          })
-        }
-      />
-
+      <label className={style.updateProductLabel}> Product Name </label>
+      <input type="text" className={style.updateProductInput} value={editProductData.name} onChange={(e) => setEditProductData({ ...editProductData, name: e.target.value, }) } />
     </div>
 
-
-    {/* Price */}
     <div className={style.updateProductField}>
-
-      <label className={style.updateProductLabel}>
-        Price
-      </label>
-
-      <input
-        type="number"
-        className={style.updateProductInput}
-        value={editProductData.price}
-        onChange={(e) =>
-          setEditProductData({
-            ...editProductData,
-            price: e.target.value,
-          })
-        }
-      />
-
+      <label className={style.updateProductLabel}> Price </label>
+      <input type="number" className={style.updateProductInput} value={editProductData.price} onChange={(e) => setEditProductData({ ...editProductData, price: e.target.value, }) } />
     </div>
 
-
-    {/* Stock */}
     <div className={style.updateProductField}>
-
-      <label className={style.updateProductLabel}>
-        Stock Quantity
-      </label>
-
-      <input
-        type="number"
-        className={style.updateProductInput}
-        value={editProductData.stockquantity}
-        onChange={(e) =>
-          setEditProductData({
-            ...editProductData,
-            stockquantity: e.target.value,
-          })
-        }
-      />
-
+      <label className={style.updateProductLabel}> Stock Quantity </label>
+      <input type="text" className={style.updateProductInput} value={editProductData.stockquantity} onChange={(e) => setEditProductData({ ...editProductData, stockquantity: e.target.value, }) } />
     </div>
 
-
-    {/* Product Code */}
     <div className={style.updateProductField}>
-
-      <label className={style.updateProductLabel}>
-        Product Code
-      </label>
-
-      <input
-        type="number"
-        className={style.updateProductInput}
-        value={editProductData.productcode}
-        onChange={(e) =>
-          setEditProductData({
-            ...editProductData,
-            productcode: e.target.value,
-          })
-        }
-      />
-
+      <label className={style.updateProductLabel}> Product Code </label>
+      <input type="number" className={style.updateProductInput} value={editProductData.productcode} onChange={(e) => setEditProductData({ ...editProductData, productcode: e.target.value, }) } />
     </div>
-    {/*Update Time */}
+
     <div className={style.updateProductField}>
-
-      <label className={style.updateProductLabel}>
-        In Stock Date
-      </label>
-
-      <input
-        type="date"
-        className={style.updateProductInput}
-        value={editProductData.instockdate}
-        onChange={(e) =>
-          setEditProductData({
-            ...editProductData,
-            instockdate: e.target.value,
-          })
-        }
-      />
-
+      <label className={style.updateProductLabel}> In Stock Date </label>
+      <input type="date" className={style.updateProductInput} value={editProductData.instockdate} onChange={(e) => setEditProductData({ ...editProductData, instockdate: e.target.value, }) } />
     </div>
 
 
