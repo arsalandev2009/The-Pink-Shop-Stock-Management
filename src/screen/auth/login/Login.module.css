@@ -5,8 +5,8 @@
     height: 100dvh;
 }
 .form{
+    width: 350px;
     border: 2px solid pink;
-    /* background-color: #F5F5F5; */
     padding: 30px !important;
     border-radius: 20px;
     display: flex;
@@ -66,4 +66,10 @@
     padding: 5px 10px !important;
     font-size: 18px;
     font-weight: 600;
+}
+@media (max-width:480px) {
+    .form{
+        width: 300px;
+    }
+    
 }

@@ -71,9 +71,13 @@
 }
 .productname{
     font-size: 18px;
-    line-height: 20px;
     font-weight: 600;
     color: #e91e63;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .productprice{
     font-size: 20px;
@@ -104,9 +108,14 @@
     font-size: 14px;
 }
 .productname{
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 14px;
+    /* line-height: 18px; */
     font-weight: normal;
+      display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .productprice{
     font-size: 16px;
@@ -138,8 +147,12 @@
 }
 .productname{
     font-size: 18px;
-    line-height: 18px;
     font-weight: normal;
+       display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .productprice{
     font-size: 18px;

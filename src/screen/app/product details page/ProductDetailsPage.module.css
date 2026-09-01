@@ -107,9 +107,10 @@ min-height: 100dvh;
   margin-bottom: 5px !important;
 }
 .detailsHeader h2 {
-  font-size: 28px;
+  font-size: 26px;
   color: #263238;
   margin: 0 !important;
+  overflow-wrap: anywhere;
 }
 .priceBox {
   border: 1px solid #f1c4d1;

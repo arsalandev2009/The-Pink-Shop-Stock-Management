@@ -109,9 +109,13 @@
 }
 .productname{
     font-size: 18px;
-    line-height: 20px;
     font-weight: 600;
     color: #e91e63;
+       display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .productprice{
     font-size: 20px;
@@ -223,14 +227,14 @@
 
   .productcontainer {
     width: 100%;
-    height: 120px;
+    height: 110px;
     display: flex;
     flex-direction: row;
     position: relative;
   }
 
   .productupper {
-    width: 40%;
+    width: 35%;
     height: 100%;
   }
 
@@ -259,7 +263,7 @@
   }
 
   .productlower {
-    width: 60%;
+    width: 65%;
     height: 100%;
     padding: 10px 12px !important;
   }
@@ -270,8 +274,8 @@
 
   .productname {
     font-size: 16px;
-    line-height: 18px;
     font-weight: 500;
+ 
   }
 
   .productprice {
@@ -304,14 +308,12 @@
   }
 }
 @media (min-width: 721px) and (max-width: 1120px) {
-
   .searchbar {
     top: 80px;
     left: 15px;
     width: calc(100% - 120px);
     padding-top: 0 !important;
   }
-
   .addproductbutton {
     top: 80px;
     right: 15px;
@@ -332,7 +334,7 @@
   }
 .productcontainer{
   height: 280px;
-  width: 200px;
+  width: 210px;
 }
 .productstock{
     font-weight: 500;
@@ -346,12 +348,17 @@
 
 }
 .productname{
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: normal;
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .productprice{
     font-size: 18px;
 
 }
 }
-
