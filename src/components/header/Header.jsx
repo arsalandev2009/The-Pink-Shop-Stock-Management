@@ -6,7 +6,7 @@ function Header({HeaderButtonOnClick,HeaderButtonText}){
     return(
     <div className={styles.container}>
         
-          <img className={styles.image} src={Logo} alt=""/>
+          <img className={styles.image} src={Logo} alt="logo"/>
            <button onClick={HeaderButtonOnClick} className={styles.button}>{HeaderButtonText}</button>
         
     </div>
