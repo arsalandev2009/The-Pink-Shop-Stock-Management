@@ -1,18 +1,11 @@
 
-.header{
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 9999;
-}
 .maincontainer{
     display: flex;
     padding: 0 !important;
     margin: auto !important;
     height: 100dvh;
-    gap: 20px;
-    background-color: whitesmoke;
+    /* gap: 20px; */
+    background-color: #FCFAF9;
     overflow: hidden;
 
 }
@@ -23,7 +16,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    width: 13%;
+    width: 250px;
     padding-top: 0px !important;
     gap: 10px;
     height: 100dvh;
@@ -73,10 +66,10 @@ margin-bottom: 10px !important;
     color:#635054;
 }
 .content{
-    padding-top: 0px !important;
-    width: 87%;
-    background-color: whitesmoke;
-    overflow-y: auto;
+flex: 1;
+min-width: 0;
+    /* width: 87%; */
+    padding: 0px 50px 0px 30px !important;
 }
 
 

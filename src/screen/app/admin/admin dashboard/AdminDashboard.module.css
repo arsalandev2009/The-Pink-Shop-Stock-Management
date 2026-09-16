@@ -1,7 +1,7 @@
 .header{
     height: 70px;
     border-bottom: 2px solid #EFE0E2;
-    background: whitesmoke;
+    background: #FCFAF9;
     margin-bottom: 10px !important;
     position: fixed;
     top: 0;
@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0px 70px 0px 30px !important;
-    /* left: 0; */
+    left: 250px;
     
 }
 .header > p{
@@ -45,10 +45,22 @@ transition: transform (0.4s);
 }
 .container{
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
+    gap: 10px;
+
     margin-top: 100px !important;
     
 }
 .boxes{
-    border: 1px solid black;
+    box-shadow: 0px 0px 011px 0px #E4E4E7;
+    border: 1px solid #E4E4E7;
+    border-radius: 15px;
+   width: 250px;
+   height: 100px;
+   display: flex;
+
+   flex-direction: column;
+   /* align-items: center; */
+   justify-content: space-between;
+   padding: 10px 20px !important;
 }

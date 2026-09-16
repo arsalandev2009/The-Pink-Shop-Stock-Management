@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import style from './AdminDashboard.module.css'
 import { supabase } from '../../../../utils/supabase'
 import { FiLogOut, FiUser } from 'react-icons/fi'
-import { CgProfile } from 'react-icons/cg'
+import { useNavigate } from 'react-router-dom'
+
 
 function AdminDashboard() {
+  const navigate = useNavigate()
   const [getProductDataFromSupabase,setGetProductDataFromSupabase]=useState([])
   const [getCustomersDataFromSupabase,setGetCustomersDataFromSupabase]=useState([])
 
@@ -31,20 +33,31 @@ function AdminDashboard() {
    }
     getData()
   },[])
+
+    const handleLogout =async()=>{
+        const {data,error}=await supabase.auth.signOut()
+          if(error){
+            alert(error.message)
+            return
+          }else{
+            navigate('/')
+          }
+      }
+
   return (
   <>
   <div className={style.header}>
     <p> <span style={{color:'#71717B'}}>Admin / </span>Dashboard</p>
-    <button><FiLogOut/> Logout</button>
+    <button onClick={handleLogout} type='button'><FiLogOut/> Logout</button>
   </div>
     <div className={style.container}>
       <div className={style.boxes}>
-        <h2>Total Products</h2>
-        {getProductDataFromSupabase.length}
+        <p style={{color:'#71717B'}}>Total Products</p>
+        <h2>{getProductDataFromSupabase.length}</h2>
       </div>
       <div className={style.boxes}>
-        <h2>Total Customers</h2>
-        {getCustomersDataFromSupabase.length}
+        <p style={{color:'#71717B'}}>Total Customers</p>
+        <h2>{getCustomersDataFromSupabase.length}</h2>
       </div>
     </div>
   </>

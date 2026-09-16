@@ -1,28 +1,15 @@
 import React, { useState } from 'react'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import {Header} from '../../../../components/component'
+import { NavLink, Outlet } from 'react-router-dom'
 import style from './AdminSidebar.module.css'
-import { supabase } from '../../../../utils/supabase'
 import { FiMenu, FiUsers } from 'react-icons/fi'
 import { IoMdClose } from 'react-icons/io'
 import { LuBox, LuLayoutDashboard } from 'react-icons/lu'
 import { IoSettingsOutline } from 'react-icons/io5'
 import Logo from '../../../../asset/logo.png'
-function AdminSidebar() {
-  const navigate= useNavigate()
-  const [mobileSideBar,setMobileSideBar]=useState(false)
-  
-  const handleLogout =async()=>{
-      const {data,error}=await supabase.auth.signOut()
-        if(error){
-          alert(error.message)
-          return
-        }else{
-          navigate('/')
-        }
-    }
 
-    const handleClose = ()=>{setMobileSideBar(false)}
+function AdminSidebar() {
+  const [mobileSideBar,setMobileSideBar]=useState(false)
+  const handleClose = ()=>{setMobileSideBar(false)}
 
   return (
     <div>
