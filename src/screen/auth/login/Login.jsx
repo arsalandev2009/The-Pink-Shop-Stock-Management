@@ -19,10 +19,10 @@ function Login() {
         const {data,error}=await supabase.auth.signInWithPassword({email:loginData.email,password:loginData.password})
             if(!error){
             
-            navigate("/productsdashboard");
+            navigate("/admin");
             return
             }
-            alert('Error! Contact the developer')
+            alert(error)
     }
     return (
         <div className={style.container}>

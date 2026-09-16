@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { IoClose } from 'react-icons/io5'
-import { supabase } from '../../../utils/supabase';
-import { uploadToCloudinary } from '../../../utils/cloudinary';
-import Swal from 'sweetalert2';
+import { supabase } from '../../../../utils/supabase';
+import { uploadToCloudinary } from '../../../../utils/cloudinary';
 import { useNavigate } from 'react-router-dom';
-import { Header, SearchBar } from '../../../components/component';
-import style from './ProductDashboard.module.css'
-// import Logo from '../../../assets/logo.png'
-// import { FaSearch } from 'react-icons/fa';
+import { Header, SearchBar } from '../../../../components/component';
+import style from './AdminProducts.module.css'
 
-function ProductsDashboard() {
+
+function AdminProducts() {
 
   const navigate = useNavigate()
 
@@ -69,7 +67,7 @@ function ProductsDashboard() {
   const handleSearch=(e)=>{
     const search=e.target.value
     setSearchInput(search)
-    const searchResult = getProductsFromSupabase.filter((item)=>item.name.toLowerCase().includes(search.toLowerCase())||String(item.productcode).toLowerCase().includes(search.toLowerCase()))
+    const searchResult = getProductsFromSupabase.filter((item)=>item.name.toLowerCase().includes(search.toLowerCase())||String(item.productcode).toLowerCase().startsWith(search.toLowerCase()))
     setFilteredResult(searchResult)
   }
 
@@ -86,10 +84,10 @@ function ProductsDashboard() {
 
   return(
     <div className={style.container}>
-
+{/* 
     <div className={style.header}>
       <Header HeaderButtonText={'Logout'} HeaderButtonOnClick={handleLogout}/>
-    </div>
+    </div> */}
 
     <div className={style.searchbar}>
       <SearchBar SearchValue={searchInput} SearchOnChange={handleSearch}/>
@@ -102,11 +100,11 @@ function ProductsDashboard() {
                 getProductsFromSupabase.map((item)=>(
                  <div key={item.id} className={style.productcontainer}>
                      <span className={style.edit}>Edit</span>
-                   <div className={style.productupper} onClick={() => navigate(`/productsdetail/${item.id}`)}>
+                   <div className={style.productupper} onClick={() => navigate(`/admindashboard/adminproductsdetail/${item.id}`)}>
                      <img src={item.image} alt={item.name} className={style.image}/>
                      <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>
                    </div>
-                   <div className={style.productlower} onClick={() => navigate(`/productsdetail/${item.id}`)}>
+                   <div className={style.productlower} onClick={() => navigate(`/admindashboard/adminproductsdetail/${item.id}`)}>
                      <p className={style.productcode}>Code: <b>{item.productcode}</b></p>
                      <p className={style.productname}> {item.name} </p>
                      <p className={style.productprice}> <span>Rs: <b>{item.price}</b></span>  </p>
@@ -117,11 +115,11 @@ function ProductsDashboard() {
                   filteredResult.map(item=>
                     <div key={item.id} className={style.productcontainer}>
                         <span className={style.edit}>Edit</span>
-                      <div className={style.productupper} onClick={() => navigate(`/productsdetail/${item.id}`)}>
+                      <div className={style.productupper} onClick={() => navigate(`/admindashboard/adminproductsdetail/${item.id}`)}>
                         <img src={item.image} alt={item.name} className={style.image}/>
                         <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>
                       </div>
-                      <div className={style.productlower} onClick={() => navigate(`/productsdetail/${item.id}`)}>
+                      <div className={style.productlower} onClick={() => navigate(`/admindashboard/adminproductsdetail/${item.id}`)}>
                         <p className={style.productcode}>Code: <b>{item.productcode}</b> </p>
                         <p className={style.productname}> {item.name} </p>
                         <p className={style.productprice}> <span>Rs: <b>{item.price}</b></span>  </p>
@@ -168,4 +166,17 @@ function ProductsDashboard() {
   )
 }
 
-export default ProductsDashboard
+export default AdminProducts
+
+
+
+
+// import React from 'react'
+
+// function AdminProducts() {
+//   return (
+//     <div>AdminProducts</div>
+//   )
+// }
+
+// export default AdminProducts

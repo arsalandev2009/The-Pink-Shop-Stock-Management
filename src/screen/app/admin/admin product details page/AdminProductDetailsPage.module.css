@@ -5,7 +5,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     z-index: 9999;
 }
 
@@ -13,10 +12,8 @@
     background: white;
     width: 400px;
     max-width: 90%;
-
     padding: 30px !important;
     border-radius: 15px;
-
     text-align: center;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
@@ -54,22 +51,33 @@
     color: white;
 }
 
+.backButton {
+  background: transparent;
+  color: #ff1493;
+  border: 1px solid #ff1493;
+  padding: 8px 18px !important;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+  position: sticky;
+  top: 10px;
+}
 
+.backButton:hover {
+  background: #ff1493;
+  color: white;
+}
 .container{
-background-color: whitesmoke;
-width: 100%;
-min-height: 100dvh;
+    background-color: whitesmoke;
+    width: 100%;
+    height: fit-content;
+    min-height: 100dvh;
+  
 }
-.header{
-    position: fixed;
-    top: 0px;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-}
-
 .maincontent {
-    padding: 100px 30px 00px !important;
+    padding: 20px 00px 00px !important;
     max-width: 800px;
     margin: auto !important;
 }
@@ -346,8 +354,14 @@ min-height: 100dvh;
 @media (min-width:320px) and (max-width: 720px) {
 
   .maincontent {
-    padding: 90px 15px 15px !important;
+    padding: 30px 10px 0px !important;
   }
+  .backButton {
+  padding: 0px 10px !important;
+  position: sticky;
+  top: 60px;
+  left: 20px;
+}
   .imagebox{
     height: 220px; 
 }

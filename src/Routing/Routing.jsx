@@ -1,6 +1,6 @@
 import React from 'react'
-import { ProductsDashboard, Login, ProductsShow, ProductsDetailsPage, ForgetPassword, UpdatePassword } from '../screen/screen'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { AdminProducts, Login, ProductsShow, AdminProductsDetailsPage, ForgetPassword, UpdatePassword,  AdminDashboard, AdminSidebar, AdminCustomers, AdminSettings } from '../screen/screen'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute'
 
 export default function Routing() {
@@ -13,8 +13,15 @@ export default function Routing() {
     <Route path='/login' element={<Login/>}/>
     <Route path='/forgetpassword' element={<ForgetPassword/>}/>
     <Route path='/updatepassword' element={<UpdatePassword/>}/>
-    <Route path='/productsdashboard' element={ <ProtectedRoute> <ProductsDashboard/> </ProtectedRoute> }/>
-    <Route path='/productsdetail/:id' element={<ProductsDetailsPage/>}/>
+
+    <Route path='/admin' element={ <ProtectedRoute> <AdminSidebar/> </ProtectedRoute>}>
+    <Route index element={<Navigate to="admindashboard" replace />} />
+    <Route path='admindashboard' element={  <AdminDashboard/>  }/>
+    <Route path='adminproducts' element={  <AdminProducts/> }/>
+    <Route path='admincustomers' element={  <AdminCustomers/>  }/>
+    <Route path='adminsettings' element={  <AdminSettings/>  }/>
+    <Route path='adminproductsdetail/:id' element={<AdminProductsDetailsPage/>}/>
+    </Route>
 </Routes>
 </BrowserRouter>
         

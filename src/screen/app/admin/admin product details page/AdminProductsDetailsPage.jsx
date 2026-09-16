@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { supabase } from "../../../utils/supabase";
-import { uploadToCloudinary } from "../../../utils/cloudinary";
-import Header from "../../../components/header/Header";
-import style from './ProductDetailsPage.module.css'
+import { supabase } from "../../../../utils/supabase";
+import { uploadToCloudinary } from "../../../../utils/cloudinary";
+import Header from "../../../../components/header/Header";
+import style from './AdminProductDetailsPage.module.css'
 
-function ProductsDetailsPage() {
+function AdminProductsDetailsPage() {
   const [getProductsFromSupabase,setGetProductsFromSupabase]=useState([])
   const [updateProductPopup, setUpdateProductPopup] = useState(false);
   const [deleteProductPopup, setDeleteProductPopup] = useState(false);
@@ -82,19 +82,12 @@ function ProductsDetailsPage() {
       })) 
   }
 
-    const handleLogout =async()=>{
-      const {data,error}=await supabase.auth.signOut()
-        if(error){
-          alert(error.message)
-          return
-        }else{
-          navigate('/')
-        }
-    }
+
   return (
 
     <div className={style.container}>
-      <div className={style.header}> <Header HeaderButtonText={'Logout'} HeaderButtonOnClick={handleLogout}/> </div>
+      {/* <div className={style.header}> <Header HeaderButtonText={'Logout'} HeaderButtonOnClick={handleLogout}/> </div> */}
+      <button className={style.backButton} onClick={()=>navigate('/admindashboard/adminproducts')}> Back</button>
       <div className={style.maincontent}>
         <div className={style.maincontentchild}>
           <div className={style.imagebox}><img className={style.image} src={productData.image} alt={productData.name} /></div>
@@ -196,4 +189,4 @@ function ProductsDetailsPage() {
     </div>
   );
 }
-export default ProductsDetailsPage;
+export default AdminProductsDetailsPage;

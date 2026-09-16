@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { supabase } from '../../../utils/supabase'
-import { Header, SearchBar } from '../../../components/component'
+import { supabase } from '../../../../utils/supabase'
+import { Header, SearchBar } from '../../../../components/component'
 import style from './ProductShow.module.css'
 
 function ProductsShow() {

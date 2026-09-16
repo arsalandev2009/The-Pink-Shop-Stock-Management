@@ -1,8 +1,15 @@
-import ProductsDashboard from "./app/product dashoard/ProductsDashboard";
-import ProductsDetailsPage from "./app/product details page/ProductsDetailsPage";
-import ProductsShow from "./app/products show/ProductsShow";
 import ForgetPassword from "./auth/forget password/ForgetPassword";
 import Login from "./auth/login/Login";
 import UpdatePassword from "./auth/update password/UpdatePassword";
 
-export {ProductsDashboard,Login,ForgetPassword,UpdatePassword,ProductsShow,ProductsDetailsPage}
+import AdminSidebar from "./app/admin/admin sidebar/AdminSidebar";
+import AdminDashboard from "./app/admin/admin dashboard/AdminDashboard";
+import AdminProducts from "./app/admin/admin products/AdminProducts";
+import AdminCustomers from "./app/admin/admin customers/AdminCustomers";
+import AdminSettings from "./app/admin/admin settings/AdminSettings";
+import AdminProductsDetailsPage from "./app/admin/admin product details page/AdminProductsDetailsPage";
+
+import ProductsShow from "./app/user/products show/ProductsShow";
+
+
+export {AdminCustomers,AdminSidebar,AdminDashboard,AdminProducts,AdminSettings,Login,ForgetPassword,UpdatePassword,ProductsShow,AdminProductsDetailsPage}

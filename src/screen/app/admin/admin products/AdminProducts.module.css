@@ -1,17 +1,11 @@
 .container{
-    background-color: whitesmoke;
     width: 100%;
-    min-height: 100dvh;
-}
-.header{
-    position: fixed;
-    top: 0px;
-    left: 0;
-    right: 0;
-    z-index: 9999;
+    height: fit-content;
+    /* min-height: 80dvh; */
+    background-color: whitesmoke;
 }
 .searchbar{
-  padding-top: 100px !important;
+    padding-top: 100px !important;
     position: fixed;
     top: 0px;
     left: 0;
@@ -19,10 +13,10 @@
     z-index: 999;
 }
 .addproductbutton{
-  position: fixed;
-  z-index: 999;
-  right: 40px;
-  top: 100px;
+    position: fixed;
+    z-index: 999;
+    right: 40px;
+    top: 100px;
     font-size: 22px;
     border-radius: 10px;
     padding: 3px 15px !important;
@@ -30,6 +24,10 @@
     background-color:#FF1493 ;
     color: whitesmoke;
     font-weight: 600;
+    transition: transform 0.3s ease;
+}
+.addproductbutton:hover{
+transform: translateY(-3px);
 }
 .mobilescreen{
   display: none;
@@ -38,13 +36,14 @@
   display: block;
 }
 .maincontent{
-  padding: 170px 30px 50px 30px !important;
+  padding: 70px 30px 50px 30px !important;
 }
 .maincontentwrapper{
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
+  padding-top: 10px !important;
 }
 .productcontainer{
     cursor: pointer;
@@ -58,6 +57,10 @@
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
+    transition: transform 0.3s ease;
+}
+.productcontainer:hover{
+  transform:translateY(-3px);
 }
 .productupper{
     height: 55%;
@@ -192,14 +195,15 @@
 @media (min-width: 320px) and (max-width: 720px) {
 
   .searchbar {
-    top: 80px;
-    left: 15px;
-    width: calc(100% - 120px);
-    padding-top: 0 !important;
+    top: 70px;
+    left: 0px;
+    /* width: calc(100% - 120px); */
+    padding: 20px 80px 10px 25px !important;
+    background-color: whitesmoke;
   }
 
   .addproductbutton {
-    top: 80px;
+    top: 95px;
     right: 15px;
     font-size: 18px;
     padding: 3px 8px !important;
@@ -215,7 +219,8 @@
   }
 
   .maincontent {
-    padding: 140px 15px 40px !important;
+    padding: 60px 0px 40px !important;
+    
   }
 
   .maincontentwrapper {
@@ -309,13 +314,13 @@
 }
 @media (min-width: 721px) and (max-width: 1120px) {
   .searchbar {
-    top: 80px;
+    top: 90px;
     left: 15px;
     width: calc(100% - 120px);
     padding-top: 0 !important;
   }
   .addproductbutton {
-    top: 80px;
+    top: 90px;
     right: 15px;
     font-size: 20px;
     padding: 3px 8px !important;
@@ -329,36 +334,36 @@
   .mobilescreen {
     display: block;
   }
-    .maincontent {
-    padding: 140px 20px 40px !important;
+  .maincontent {
+    padding: 50px 0px 40px !important;
   }
-.productcontainer{
-  height: 280px;
-  width: 210px;
-}
-.productstock{
-    font-weight: 500;
-    font-size: 14px;   
-}
-.edit {
-    font-size: 14px;
-}
-.productcode{
-    font-size: 16px;
+  .productcontainer{
+    height: 250px;
+    width: 200px;
+  }
+  .productstock{
+      font-weight: 500;
+      font-size: 12px;   
+  }
+  .edit {
+      font-size: 12px;
+  }
+  .productcode{
+      font-size: 14px;
 
-}
-.productname{
-    font-size: 18px;
-    font-weight: normal;
-    line-height: normal;
-    display: -webkit-box;
-    line-clamp: 1;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-.productprice{
-    font-size: 18px;
+  }
+  .productname{
+      font-size: 16px;
+      font-weight: normal;
+      line-height: normal;
+      display: -webkit-box;
+      line-clamp: 1;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+  }
+  .productprice{
+      font-size: 16px;
 
-}
+  }
 }

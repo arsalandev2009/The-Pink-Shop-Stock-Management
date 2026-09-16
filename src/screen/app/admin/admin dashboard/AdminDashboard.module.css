@@ -1,0 +1,54 @@
+.header{
+    height: 70px;
+    border-bottom: 2px solid #EFE0E2;
+    background: whitesmoke;
+    margin-bottom: 10px !important;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 87%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 70px 0px 30px !important;
+    /* left: 0; */
+    
+}
+.header > p{
+    font-size: 16px;
+}
+.header > button{
+    border: none;
+    font-size: 20px;
+    background: #e7437e;
+    border-radius: 10px;
+    padding: 5px 10px !important;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10PX;
+transition: transform (0.4s);
+}
+.header > button:hover {
+    animation: buttonScale 0.2s ease forwards;
+}
+
+@keyframes buttonScale {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.05);
+    }
+
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px !important;
+    
+}
+.boxes{
+    border: 1px solid black;
+}
