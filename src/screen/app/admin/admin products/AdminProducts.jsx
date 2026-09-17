@@ -3,7 +3,6 @@ import { IoClose } from 'react-icons/io5'
 import { supabase } from '../../../../utils/supabase';
 import { uploadToCloudinary } from '../../../../utils/cloudinary';
 import { useNavigate } from 'react-router-dom';
-import { Header, SearchBar } from '../../../../components/component';
 import style from './AdminProducts.module.css'
 import { FiLogOut } from 'react-icons/fi';
 import { FaSearch } from 'react-icons/fa';
@@ -20,7 +19,6 @@ function AdminProducts() {
   const [refresh,setRefresh]=useState(false)
   const [addProductForm,setAddProductForm]=useState({image:'',name:'',price:'',stockquantity:'',productcode:"",instockdate:''})
   const [updateProductPopup, setUpdateProductPopup] = useState(false);
-  const [productData, setProductData] = useState([]);
   const [editProductData, setEditProductData] = useState({ image: "", name: "", price: "",stockquantity:'',productcode:'',instockdate:'' });
   const [deleteProductPopup, setDeleteProductPopup] = useState(false);
   const [searchInput,setSearchInput]=useState('')
@@ -210,20 +208,6 @@ function AdminProducts() {
                     </div>                   
                   </div>
 
-                //  <div key={item.id} className={style.productcontainer}>
-                //      <span className={style.edit}>Edit</span>
-                //    <div className={style.productupper} onClick={() => navigate(`/admin/adminproductsdetail/${item.id}`)}>
-                //      <img src={item.image} alt={item.name} className={style.image}/>
-                //      <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>
-                //    </div>
-                //    <div className={style.productlower} onClick={() => navigate(`/admin/adminproductsdetail/${item.id}`)}>
-                //      <p className={style.productcode}>Code: <b>{item.productcode}</b></p>
-                //      <p className={style.productname}> {item.name} </p>
-                //      <p className={style.productprice}> <span>Rs: <b>{item.price}</b></span>  </p>
-                
-                //    </div>
-                //  </div>
-
                 ))):filteredResult.length>0?(
                   filteredResult.map(item=>
                   <div key={item.id} className={style.productcontainer}>
@@ -246,20 +230,8 @@ function AdminProducts() {
                       )}
                     </div>                   
                   </div>
-                    // <div key={item.id} className={style.productcontainer}>
-                    //     <span className={style.edit}>Edit</span>
-                    //   <div className={style.productupper} onClick={() => navigate(`/admin/adminproductsdetail/${item.id}`)}>
-                    //     <img src={item.image} alt={item.name} className={style.image}/>
-                    //     <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>
-                    //   </div>
-                    //   <div className={style.productlower} onClick={() => navigate(`/admin/adminproductsdetail/${item.id}`)}>
-                    //     <p className={style.productcode}>Code: <b>{item.productcode}</b> </p>
-                    //     <p className={style.productname}> {item.name} </p>
-                    //     <p className={style.productprice}> <span>Rs: <b>{item.price}</b></span>  </p>
-                    //   </div>
-                    // </div>
                 )):(
-                  <h5>No Products Found</h5>
+                  <h5 className={style.noproducts}>No Products Found</h5>
             )}            
           </div>   
         </div>
@@ -297,7 +269,7 @@ function AdminProducts() {
         </div>
       )}
 
-        {updateProductPopup && (
+      {updateProductPopup && (
          <div className={style.updateProductOverlay}>
       
         <form onSubmit={handleUpdateProductDone} className={style.updateProductModal} >
@@ -363,8 +335,9 @@ function AdminProducts() {
       
         </form>
       </div>
-        )}
-          {deleteProductPopup && (
+      )}
+      
+      {deleteProductPopup && (
             <div className={style.overlay}>
                 <div className={style.deletePopup}>
                     <h3 className={style.h3}>Are you sure?</h3>
@@ -375,7 +348,7 @@ function AdminProducts() {
                     </div>
                 </div>
             </div>
-        )}
+      )}
     </div>
   )
 }
