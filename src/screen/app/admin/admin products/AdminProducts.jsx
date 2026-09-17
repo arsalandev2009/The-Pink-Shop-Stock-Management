@@ -7,18 +7,26 @@ import { Header, SearchBar } from '../../../../components/component';
 import style from './AdminProducts.module.css'
 import { FiLogOut } from 'react-icons/fi';
 import { FaSearch } from 'react-icons/fa';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 
 
 function AdminProducts() {
 
   const navigate = useNavigate()
 
+  const [menu,setMenu] =useState(null)
   const [getProductsFromSupabase,setGetProductsFromSupabase]=useState([])
   const [addProductPopup,setAddProductPopup]=useState(false)
   const [refresh,setRefresh]=useState(false)
   const [addProductForm,setAddProductForm]=useState({image:'',name:'',price:'',stockquantity:'',productcode:"",instockdate:''})
+  const [updateProductPopup, setUpdateProductPopup] = useState(false);
+  const [productData, setProductData] = useState([]);
+  const [editProductData, setEditProductData] = useState({ image: "", name: "", price: "",stockquantity:'',productcode:'',instockdate:'' });
+  const [deleteProductPopup, setDeleteProductPopup] = useState(false);
   const [searchInput,setSearchInput]=useState('')
   const [filteredResult,setFilteredResult]=useState([])
+
+  // setTimeout(()=>{setMenu(null)},10000)
 
   useEffect(()=>{
     const getProducts =async()=>{
@@ -30,6 +38,55 @@ function AdminProducts() {
     getProducts()
   },[refresh])
   
+    const handleDeleteProductButton = async () => {   
+        const { data, error } = await supabase .from("products") .delete() .eq("id", editProductData.id);
+        if (!error) {
+           setDeleteProductPopup(false);
+          setRefresh(prev => !prev);
+          setMenu(null)
+          return;
+        }
+        console.log(error);
+    };
+  
+    const handleUpdateProductDone = async (e) => {
+      e.preventDefault();
+      if(getProductsFromSupabase.some((item) => item.productcode == editProductData.productcode && item.id !=editProductData.id)){
+        alert('Product With this Code already Exist')
+        return;
+      }
+      if(addProductForm.productcode < 0){
+      alert('wrong code')
+      return
+    }
+      const { data, error } = await supabase .from("products") .update({ image: editProductData.image, name: editProductData.name, price: editProductData.price,stockquantity:editProductData.stockquantity,productcode:editProductData.productcode,instockdate:editProductData.instockdate }).eq("id", editProductData.id).select().single();
+      if (error) {
+        console.log(error);
+        return;
+      }
+  
+      setUpdateProductPopup(false);
+      setMenu(null)
+      setEditProductData({
+        image: "",
+        name: "",
+        price: "",
+        stockquantity:'',
+        productcode:'',
+        instockdate:''
+      });
+  
+      setRefresh((prev) => !prev);
+    };
+
+  const handleChangeUpdateImage = async(e) => {
+    const url = await uploadToCloudinary(e.target.files[0]);
+     setEditProductData(prev => ({
+        ...prev,
+        image: url
+      })) 
+  }
+
   const handleChangeImage = async(e) => {
     const url = await uploadToCloudinary(e.target.files[0]);
      setAddProductForm(prev => ({
@@ -47,13 +104,14 @@ function AdminProducts() {
 
   const handleAddProductDone=async(e)=>{
     e.preventDefault()
-
-
     if(getProductsFromSupabase.some(item => item.productcode == addProductForm.productcode)){
       alert('Product With this Code already Exist')
       return;
     }
-
+    if(addProductForm.productcode < 0){
+      alert('wrong code')
+      return
+    }
     const {data,error}=await supabase.from('products').insert({image:addProductForm.image,name:addProductForm.name,price:addProductForm.price,stockquantity:addProductForm.stockquantity,productcode:addProductForm.productcode , instockdate:addProductForm.instockdate})
     if(!error){       
       setAddProductPopup(false)
@@ -72,7 +130,6 @@ function AdminProducts() {
     const searchResult = getProductsFromSupabase.filter((item)=>item.name.toLowerCase().includes(search.toLowerCase())||String(item.productcode).toLowerCase().startsWith(search.toLowerCase()))
     setFilteredResult(searchResult)
   }
-
 
   const handleLogout =async()=>{
     const {data,error}=await supabase.auth.signOut()
@@ -116,15 +173,14 @@ function AdminProducts() {
           <div className={style.maincontentwrapperupper}>
             <div className={style.maincontentwrappertop}>
               <h4> {getProductsFromSupabase.length} products</h4>
-              <p> out of stock</p>
+              <p> keep your inventory loaded</p>
             </div>
             <div className={style.maincontentwrappermid}>
               <p>CODE</p>
               <p>PRODUCTS</p>
               <p>PRICE</p>
-              <p>INVENTORY</p>
-              <p>STATUS</p>
-              <p>UPDATED</p>
+              <p>QUANTITY</p>
+              <p>RE-STOCK DATE</p>
               <p>ACTIONS</p>
             </div>
           </div>
@@ -136,17 +192,24 @@ function AdminProducts() {
 
                   <div key={item.id} className={style.productcontainer}>
                     <div className={style.productcode}> {item.productcode}</div>
-                    <div className={style.productname}> <img src={item.image} width={30} alt="" /> {item.name} </div>
+                    <div className={style.productname}>
+                        <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
+                       {item.name} 
+                    </div>
                     <div className={style.productprice}> <span>{item.price} /-</span>  </div>
                     <div className={style.productstock}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </div>
-
-                    <div>5</div>
                     <div className={style.productinstockdate}>  {new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
-                    
-                    <div>:</div>
-
-                   
+                    <div className={style.productmenubutton}>
+                      <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
+                      {menu  === item.id && (
+                        <div className={style.productmenubuttoncontent}>
+                          <button style={{background:'green'}}  onClick={() => { setEditProductData(item); setUpdateProductPopup(true); setMenu(null) }} >Update</button>
+                          <button style={{background:'red'}} onClick={() => { setEditProductData(item); setDeleteProductPopup(true); setMenu(null)}}>Delete</button>
+                        </div>
+                      )}
+                    </div>                   
                   </div>
+
                 //  <div key={item.id} className={style.productcontainer}>
                 //      <span className={style.edit}>Edit</span>
                 //    <div className={style.productupper} onClick={() => navigate(`/admin/adminproductsdetail/${item.id}`)}>
@@ -163,18 +226,38 @@ function AdminProducts() {
 
                 ))):filteredResult.length>0?(
                   filteredResult.map(item=>
-                    <div key={item.id} className={style.productcontainer}>
-                        <span className={style.edit}>Edit</span>
-                      <div className={style.productupper} onClick={() => navigate(`/admin/adminproductsdetail/${item.id}`)}>
-                        <img src={item.image} alt={item.name} className={style.image}/>
-                        <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>
-                      </div>
-                      <div className={style.productlower} onClick={() => navigate(`/admin/adminproductsdetail/${item.id}`)}>
-                        <p className={style.productcode}>Code: <b>{item.productcode}</b> </p>
-                        <p className={style.productname}> {item.name} </p>
-                        <p className={style.productprice}> <span>Rs: <b>{item.price}</b></span>  </p>
-                      </div>
+                  <div key={item.id} className={style.productcontainer}>
+                    <div className={style.productcode}> {item.productcode}</div>
+                    <div className={style.productname}>
+                        <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
+                       {item.name} 
                     </div>
+                    <div className={style.productprice}> <span>{item.price} /-</span>  </div>
+                    <div className={style.productstock}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </div>
+                    
+                    <div className={style.productinstockdate}>  {new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
+                    <div className={style.productmenubutton}>
+                      <BsThreeDotsVertical onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
+                      {menu  === item.id && (
+                        <div className={style.productmenubuttoncontent}>
+                          <button style={{background:'green'}}  onClick={() => { setEditProductData(item); setUpdateProductPopup(true); setMenu(null)}} >Update</button>
+                          <button style={{background:'red'}} onClick={() => { setEditProductData(item); setDeleteProductPopup(true); setMenu(null)}}>Delete</button>
+                        </div>
+                      )}
+                    </div>                   
+                  </div>
+                    // <div key={item.id} className={style.productcontainer}>
+                    //     <span className={style.edit}>Edit</span>
+                    //   <div className={style.productupper} onClick={() => navigate(`/admin/adminproductsdetail/${item.id}`)}>
+                    //     <img src={item.image} alt={item.name} className={style.image}/>
+                    //     <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>
+                    //   </div>
+                    //   <div className={style.productlower} onClick={() => navigate(`/admin/adminproductsdetail/${item.id}`)}>
+                    //     <p className={style.productcode}>Code: <b>{item.productcode}</b> </p>
+                    //     <p className={style.productname}> {item.name} </p>
+                    //     <p className={style.productprice}> <span>Rs: <b>{item.price}</b></span>  </p>
+                    //   </div>
+                    // </div>
                 )):(
                   <h5>No Products Found</h5>
             )}            
@@ -213,6 +296,86 @@ function AdminProducts() {
           </form> 
         </div>
       )}
+
+        {updateProductPopup && (
+         <div className={style.updateProductOverlay}>
+      
+        <form onSubmit={handleUpdateProductDone} className={style.updateProductModal} >
+      
+          <div className={style.updateProductHeader}>
+            <div className={style.updateProductTitleSection}>
+              <h4 className={style.updateProductTitle}> Update Product </h4>
+              <small className={style.updateProductSubtitle}> Edit product information </small>
+            </div>
+            <button type="button" onClick={() => setUpdateProductPopup(false)} className={style.updateProductCloseButton} > × </button>
+          </div>
+      
+          <div className={style.updateProductField}>
+            <label className={style.updateProductLabel}> Product Image </label>
+            <input type="file" className={style.updateProductFileInput} onChange={handleChangeUpdateImage} />
+          </div>
+      
+          <div className={style.updateProductField}>
+            <label className={style.updateProductLabel}> Product Name </label>
+            <input type="text" className={style.updateProductInput} value={editProductData.name} onChange={(e) => setEditProductData({ ...editProductData, name: e.target.value, }) } />
+          </div>
+      
+          <div className={style.updateProductField}>
+            <label className={style.updateProductLabel}> Price </label>
+            <input type="number" className={style.updateProductInput} value={editProductData.price} onChange={(e) => setEditProductData({ ...editProductData, price: e.target.value, }) } />
+          </div>
+      
+          <div className={style.updateProductField}>
+            <label className={style.updateProductLabel}> Stock Quantity </label>
+            <input type="text" className={style.updateProductInput} value={editProductData.stockquantity} onChange={(e) => setEditProductData({ ...editProductData, stockquantity: e.target.value, }) } />
+          </div>
+      
+          <div className={style.updateProductField}>
+            <label className={style.updateProductLabel}> Product Code </label>
+            <input type="number" className={style.updateProductInput} value={editProductData.productcode} onChange={(e) => setEditProductData({ ...editProductData, productcode: e.target.value, }) } />
+          </div>
+      
+          <div className={style.updateProductField}>
+            <label className={style.updateProductLabel}> In Stock Date </label>
+            <input type="date" className={style.updateProductInput} value={editProductData.instockdate} onChange={(e) => setEditProductData({ ...editProductData, instockdate: e.target.value, }) } />
+          </div>
+      
+      
+          {/* Buttons */}
+          <div className={style.updateProductButtons}>
+      
+            <button
+              type="button"
+              onClick={() => setUpdateProductPopup(false)}
+              className={style.updateProductCancelButton}
+            >
+              Cancel
+            </button>
+      
+            <button
+              type="submit"
+              className={style.updateProductSaveButton}
+            >
+              Save Changes
+            </button>
+      
+          </div>
+      
+        </form>
+      </div>
+        )}
+          {deleteProductPopup && (
+            <div className={style.overlay}>
+                <div className={style.deletePopup}>
+                    <h3 className={style.h3}>Are you sure?</h3>
+                    <p className={style.p}> Are you sure you want to delete this item? </p>
+                    <div className={style.popupButtons}>
+                        <button className={style.cancelBtn} onClick={() => setDeleteProductPopup(false)} > Cancel </button>
+                        <button className={style.deleteBtn} onClick={handleDeleteProductButton} > Yes, Delete </button>
+                    </div>
+                </div>
+            </div>
+        )}
     </div>
   )
 }

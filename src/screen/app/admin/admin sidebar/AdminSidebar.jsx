@@ -34,8 +34,8 @@ function AdminSidebar() {
             <p style={{color:'#635054'}}>Admin Panel</p>
           </div>
           <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''} `} to={'admindashboard'}> <LuLayoutDashboard className={style.icon} size={20}  /> Dashboard</NavLink>
-          <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`} to={'adminproducts'}> <FiUsers className={style.icon} size={20} /> Products</NavLink>
-          <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`} to={'admincustomers'}> <LuBox className={style.icon} size={20} /> Customers</NavLink>
+          <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`} to={'adminproducts'}> < LuBox className={style.icon} size={20} /> Products</NavLink>
+          <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`} to={'admincustomers'}> <FiUsers className={style.icon} size={20} /> Customers</NavLink>
           <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`} to={'adminsettings'}> <IoSettingsOutline className={style.icon} size={20} /> Settings</NavLink>
         </div>
 

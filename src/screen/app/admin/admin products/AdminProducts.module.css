@@ -117,9 +117,10 @@ transition: transform 0.2s ease;
   /* gap: 15px; */
   display: flex;
   flex-direction: column;
-  border: 1px solid #E4E4E7;
-  box-shadow: 0px 0px 10px 0px #E4E4E7;
-  border-radius: 10px;
+  overflow: hidden;
+  border: 0px solid #E4E4E7;
+  box-shadow: 0px 03px 10px 01px #cecece;
+  border-radius: 15px;
   width: 100%;
   height: 500px;
 }
@@ -147,7 +148,7 @@ height: fit-content;
 color: #71717B;
 font-size: 16px;
 font-weight: 500;
-grid-template-columns: 0.5fr 3fr 1fr 1fr 1fr 1fr 1fr;
+grid-template-columns: 0.5fr 3fr 1fr 1fr  1fr 1fr;
 gap: 5px;
 
 }
@@ -161,9 +162,12 @@ gap: 5px;
 
 }
 .productcontainer{
-  padding: 20px 30px !important;
+  padding: 0px 30px !important;
   display: grid;
-  grid-template-columns: 0.5fr 3fr 1fr 1fr 1fr 1fr 1fr;
+  align-content: center;
+  height: 70px;
+  /* overflow: hidden; */
+  grid-template-columns: 0.5fr 3fr 1fr 1fr 1fr 1fr;
   border-bottom: 1px solid #d6d6da;
   /* box-shadow: 0px 0px 5px 0px #71717B; */
 }
@@ -172,26 +176,308 @@ gap: 5px;
   padding-right: 10px !important;
 }
 
+.productname{
+  font-size: 16px;
+  display: flex;
+  align-items:center;
+  gap: 10px;
+    
+    
+}
+.imagecontainer {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.imagecontainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    
+}
 
 .productstock{
-font-size: 16px;
+  font-size: 16px;
+    display: flex;
+  align-self:center;
 }
 .productcode{
-    font-size: 16px;
-}
-.productname{
-    font-size: 16px;
+  font-size: 16px;
+  display: flex;
+  align-self:center;
 }
 .productprice{
-    font-size: 16px;
+  font-size: 16px;
+  display: flex;
+  align-self:center;
 }
 .productinstockdate{
   color: #71717B;
   font-size: 16px;
+  display: flex;
+  align-self:center;
+}
+.productmenubutton{
+  position: relative;
+  display: flex;
+  align-self:center;
+  justify-content: end;
+ 
+}
+.productmenubuttoncontent {
+    position: absolute;
+    /* top: auto; */
+    right: 30px;
+    top: -10px;
+    padding: 10px !important;
+    display: flex;
+    gap: 5px;
+    background: #FCFAF9;
+    border: 1px solid #E4E4E7;
+    border-radius: 10px 0px 10px 10px;
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.08),
+        0 10px 20px rgba(0, 0, 0, 0.10);
+    z-index: 100;
+}
+
+.productmenubuttoncontent button {
+    border: none;
+    background: transparent;
+    padding: 8px 10px !important;
+    border-radius: 7px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    /* background: red; */
+    color: white;
+    text-align: center;
+}
+
+.productmenubuttoncontent button:hover {
+    background: #F4E8EC;
+}
+
+/* update product popup*/
+
+
+.updateProductOverlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px !important;
+  background: rgba(0, 0, 0, .55);
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+.updateProductModal {
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  animation: updateProductPopup .3s ease;
+}
+
+@keyframes updateProductPopup {
+  from { opacity: 0; transform: scale(.9) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.updateProductHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px !important;
+  padding-bottom: 18px !important;
+  border-bottom: 1px solid #f1d5df;
+}
+
+.updateProductTitleSection,
+.updateProductField {
+  display: flex;
+  flex-direction: column;
+}
+
+.updateProductTitle {
+  margin: 0 !important;
+  font-size: 25px;
+  font-weight: 700;
+  color: #2d2d2d;
+}
+
+.updateProductSubtitle {
+  margin-top: 5px !important;
+  font-size: 14px;
+  color: #8b8b8b;
+}
+
+.updateProductCloseButton {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 50%;
+  background: #fff0f4;
+  color: #ea558a;
+  font-size: 26px;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.updateProductCloseButton:hover {
+  background: #ea558a;
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.updateProductField { margin-bottom: 18px !important; }
+
+.updateProductLabel {
+  margin-bottom: 8px !important;
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+}
+
+.updateProductInput {
+  width: 100%;
+  padding: 13px 14px !important;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  outline: none;
+  font-size: 15px;
+  transition: .25s;
+  background: #fafafa;
+}
+
+.updateProductInput:focus {
+  border-color: #ea558a;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(234,85,138,.12);
+}
+
+.updateProductFileInput {
+  width: 100%;
+  padding: 10px !important;
+  border: 1px dashed #ea558a;
+  border-radius: 10px;
+  background: #fff8fa;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.updateProductFileInput:hover { background: #fff0f4; }
+
+.updateProductButtons {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px !important;
+}
+
+.updateProductCancelButton,
+.updateProductSaveButton {
+  flex: 1;
+  padding: 13px 15px !important;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.updateProductCancelButton {
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #666;
+}
+
+.updateProductCancelButton:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+.updateProductSaveButton {
+  border: 1px solid #ea558a;
+  background: #ea558a;
+  color: #fff;
+}
+
+.updateProductSaveButton:hover {
+  background: #d94378;
+  border-color: #d94378;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(234,85,138,.3);
+}
+
+/*delete product popup*/
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.deletePopup {
+    background: white;
+    width: 400px;
+    max-width: 90%;
+    padding: 30px !important;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.deletePopup .h3 {
+    margin-bottom: 10px !important;
+}
+
+.deletePopup .p {
+    color: #666;
+}
+
+.popupButtons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px !important;
+}
+
+.cancelBtn,
+.deleteBtn {
+    border: none;
+    padding: 10px 20px !important;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancelBtn {
+    background: #eee;
+}
+
+.deleteBtn {
+    background: #dc3545;
+    color: white;
 }
 
 /* add product popup */
-
 
 .overlay {
   position: fixed;

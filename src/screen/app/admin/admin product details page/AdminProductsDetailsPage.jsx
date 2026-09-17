@@ -13,6 +13,7 @@ function AdminProductsDetailsPage() {
   const [editProductData, setEditProductData] = useState({ image: "", name: "", price: "",stockquantity:'',productcode:'',instockdate:'' });
   const [refresh,setRefresh]=useState()
   const navigate = useNavigate();
+  
   const { id } = useParams();
 
     useEffect(() => {
