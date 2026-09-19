@@ -12,20 +12,14 @@ function AdminSidebar() {
   const handleClose = ()=>{setMobileSideBar(false)}
 
   return (
-    <div>
+    <>
       {/* <div className={style.header}><Header HeaderButtonText={'Logout'} HeaderButtonOnClick={handleLogout}/></div> */}
       <div className={style.maincontainer}>
         <div className={style.sidebarmobile}>
-          {!mobileSideBar? (<FiMenu className={style.sidebarmenubutton} color='#AD1457' size={30} onClick={()=>{setMobileSideBar(true)}}/>):(<></>)}
-          {mobileSideBar && (
-            <div className={style.sidebar}>
-              <button ><IoMdClose onClick={handleClose} color='#ff1493' size={30}/></button>
-              <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'admindashboard'}> Dashboard</NavLink>
-              <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'adminproducts'}>Products</NavLink>
-              <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'admincustomers'}>Customers</NavLink>
-              <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'adminsettings'}>Settings</NavLink>
-            </div>
-          )}
+              <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'admindashboard'}> <LuLayoutDashboard size={20}/> Dashboard</NavLink>
+              <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'adminproducts'}> <LuBox size={20}/> Products</NavLink>
+              <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'admincustomers'}> <FiUsers size={20}/> Customers</NavLink>
+              <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'adminsettings'}> <IoSettingsOutline size={20}/> Settings</NavLink>
         </div>
         <div className={style.sidebardesktop}>
           <div className={style.sidebardesktopupper}>
@@ -41,7 +35,7 @@ function AdminSidebar() {
 
         <div className={style.content}> <Outlet/> </div>
       </div>
-    </div>
+    </>
   )
 }
 
