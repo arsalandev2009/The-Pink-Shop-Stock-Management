@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { IoClose } from 'react-icons/io5'
 import { supabase } from '../../../../utils/supabase';
 import { uploadToCloudinary } from '../../../../utils/cloudinary';
@@ -17,12 +17,15 @@ function AdminProducts() {
   const [getProductsFromSupabase,setGetProductsFromSupabase]=useState([])
   const [addProductPopup,setAddProductPopup]=useState(false)
   const [refresh,setRefresh]=useState(false)
-  const [addProductForm,setAddProductForm]=useState({image:'',name:'',price:'',stockquantity:'',productcode:"",instockdate:''})
+  const [addProductForm,setAddProductForm]=useState({image:'',name:'',price:'',stockquantity:'',productcode:"",instockdate:'',productcategory:''})
   const [updateProductPopup, setUpdateProductPopup] = useState(false);
-  const [editProductData, setEditProductData] = useState({ image: "", name: "", price: "",stockquantity:'',productcode:'',instockdate:'' });
+  const [editProductData, setEditProductData] = useState({ image: "", name: "", price: "",stockquantity:'',productcode:'',instockdate:'',productcategory:'' });
   const [deleteProductPopup, setDeleteProductPopup] = useState(false);
   const [searchInput,setSearchInput]=useState('')
   const [filteredResult,setFilteredResult]=useState([])
+  const [category,setCategory]=useState("beautyproducts")
+
+// console.log(category)
 
   setTimeout(()=>{setMenu(null)},10000)
 
@@ -37,7 +40,7 @@ function AdminProducts() {
   },[refresh])
   
     const handleDeleteProductButton = async () => {   
-        const { data, error } = await supabase .from("products") .delete() .eq("id", editProductData.id);
+        const { data, error } = await supabase .from("productCosmetics") .delete() .eq("id", editProductData.id);
         if (!error) {
            setDeleteProductPopup(false);
           setRefresh(prev => !prev);
@@ -57,7 +60,7 @@ function AdminProducts() {
       alert('wrong code')
       return
     }
-      const { data, error } = await supabase .from("products") .update({ image: editProductData.image, name: editProductData.name, price: editProductData.price,stockquantity:editProductData.stockquantity,productcode:editProductData.productcode,instockdate:editProductData.instockdate }).eq("id", editProductData.id).select().single();
+      const { data, error } = await supabase .from("productCosmetics") .update({ image: editProductData.image, name: editProductData.name, price: editProductData.price,stockquantity:editProductData.stockquantity,productcode:editProductData.productcode,instockdate:editProductData.instockdate,productcategory:editProductData.productcategory }).eq("id", editProductData.id).select().single();
       if (error) {
         console.log(error);
         return;
@@ -110,7 +113,7 @@ function AdminProducts() {
       alert('wrong code')
       return
     }
-    const {data,error}=await supabase.from('productCosmetics').insert({image:addProductForm.image,name:addProductForm.name,price:addProductForm.price,stockquantity:addProductForm.stockquantity,productcode:addProductForm.productcode , instockdate:addProductForm.instockdate})
+    const {data,error}=await supabase.from('productCosmetics').insert({image:addProductForm.image,name:addProductForm.name,price:addProductForm.price,stockquantity:addProductForm.stockquantity,productcode:addProductForm.productcode , instockdate:addProductForm.instockdate,productcategory:editProductData.productcategory})
     if(!error){       
       setAddProductPopup(false)
       setAddProductForm({image:'',name:'',price:'',stockquantity:"",productcode:'',instockdate:''})
@@ -139,6 +142,7 @@ function AdminProducts() {
     }
   }
 
+  const filterProductsByCategory = getProductsFromSupabase.filter((item)=>item.productcategory === category)
   return(
     <div className={style.container}>
   <div className={style.header}>
@@ -174,9 +178,9 @@ function AdminProducts() {
                   <p> Total Products {getProductsFromSupabase.length} </p>
                 </div>
                 <div>
-                  <select name="category" >
+                  <select className={style.categorySelect} name="category" value={category} onChange={(e) => setCategory(e.target.value)} >
+                    <option value="beautyproducts">Beauty Products</option>
                     <option value="undergarments">Under Garments</option>
-                    <option value="cosmetics">Beauty Products</option>
                   </select>
                 </div>
             </div>
@@ -193,9 +197,9 @@ function AdminProducts() {
           <div className={style.maincontentwrapperbottom}>
 
             {searchInput == ''?(
-                getProductsFromSupabase.map((item)=>(
-                <>
-                  <div key={item.id} className={style.productcontainer}>
+                filterProductsByCategory.map((item)=>(
+                <Fragment key={item.id} >
+                  <div className={style.productcontainer}>
                     <div className={style.productcode}> {item.productcode}</div>
                     <div className={style.productname}>
                         <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
@@ -215,7 +219,7 @@ function AdminProducts() {
                     </div>                   
                   </div>
 
-                  <div key={item.id} className={style.productcontainermobile}>
+                  <div className={style.productcontainermobile}>
                     <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
                     <div className={style.mid}>
                       {/* <div className={style.productcode}>  </div> */}
@@ -234,12 +238,11 @@ function AdminProducts() {
                       )}
                     </div>                   
                   </div>
-
-                </>
+                </Fragment>
                 ))):filteredResult.length>0?(
                   filteredResult.map(item=>
-                <>
-                  <div key={item.id} className={style.productcontainer}>
+                <Fragment key={item.id} >
+                  <div className={style.productcontainer}>
                     <div className={style.productcode}> {item.productcode}</div>
                     <div className={style.productname}>
                         <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
@@ -260,7 +263,7 @@ function AdminProducts() {
                     </div>                   
                   </div>
 
-                  <div key={item.id} className={style.productcontainermobile}>
+                  <div  className={style.productcontainermobile}>
                     <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
                     <div className={style.mid}>
                       {/* <div className={style.productcode}>  </div> */}
@@ -279,7 +282,7 @@ function AdminProducts() {
                       )}
                     </div>                   
                   </div>  
-                </>                
+                </Fragment>                
                 )):(
                   <h5 className={style.noproducts}>No Products Found</h5>
             )}            
@@ -298,6 +301,13 @@ function AdminProducts() {
 
             <label className={style.label}>Image</label> 
             <input type="file" onChange={handleChangeImage} name="image" accept="image/*" className={style.input} required /> 
+
+            <label className={style.label}> Product Category </label>
+            <select className={style.input} name="category" value={editProductData.productcategory}  onChange={(e) => setEditProductData({ ...editProductData, productcategory: e.target.value, })} >
+              <option value="beautyproducts">Beauty Products</option>
+              <option value="undergarments">Under Garments</option>
+            </select>
+
 
             <label className={style.label}>Product Code</label> 
             <input type="number" onChange={handleChange} value={addProductForm.productcode} placeholder="Enter Your Product Code" name="productcode" className={style.input} required /> 
@@ -336,7 +346,15 @@ function AdminProducts() {
             <label className={style.updateProductLabel}> Product Image </label>
             <input type="file" className={style.updateProductFileInput} onChange={handleChangeUpdateImage} />
           </div>
-      
+
+          <div className={style.updateProductField}>
+            <label className={style.updateProductLabel}> Product Category </label>
+            <select className={style.updateProductFileInput} name="category" value={editProductData.productcategory}  onChange={(e) => setEditProductData({ ...editProductData, productcategory: e.target.value, })} >
+              <option value="beautyproducts">Beauty Products</option>
+              <option value="undergarments">Under Garments</option>
+            </select>
+          </div>
+
           <div className={style.updateProductField}>
             <label className={style.updateProductLabel}> Product Name </label>
             <input type="text" className={style.updateProductInput} value={editProductData.name} onChange={(e) => setEditProductData({ ...editProductData, name: e.target.value, }) } />

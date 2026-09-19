@@ -23,7 +23,7 @@ function AdminDashboard() {
     const {data:customerdata,error:customererror}=await supabase.from('customers').select('*')
     if(!customererror){
       setGetCustomersDataFromSupabase(customerdata)
-      console.log(customerdata)
+
       return
     }else{
       alert('Error! Contact the developer')

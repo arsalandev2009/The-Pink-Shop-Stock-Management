@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import style from './AdminCustomers.module.css'
 import { FiLogOut } from 'react-icons/fi';
 import { FaSearch } from 'react-icons/fa';
@@ -160,8 +160,8 @@ function AdminCustomers() {
    
                {searchInput == ''?(
                    getCustomersFromSupabase.map((item)=>(   
-                    <>
-                      <div key={item.id} className={style.customercontainer}>
+                    <Fragment key={item.id} >
+                      <div  className={style.customercontainer}>
                        <div className={style.customername}> {item.name}  </div>
                        <div className={style.customerphonenumber}> <span>{item.phonenumber} </span>  </div>
                        <div className={style.customeremail}> <span>{item.email} </span>  </div>
@@ -178,7 +178,7 @@ function AdminCustomers() {
                        </div>                   
                       </div>
 
-                      <div key={item.id} className={style.customercontainermobile}>
+                      <div  className={style.customercontainermobile}>
             
                         <div className={style.mid}>
                           <div>
@@ -202,12 +202,12 @@ function AdminCustomers() {
                           )}
                         </div>                   
                       </div>                   
-                    </>
+                    </Fragment>
 
                    ))):filteredResult.length>0?(
                      filteredResult.map(item=>
-                      <>
-                     <div key={item.id} className={style.customercontainer}>
+                      <Fragment key={item.id} >
+                     <div className={style.customercontainer}>
                        <div className={style.customername}> {item.name}  </div>
                        <div className={style.customerphonenumber}> <span>{item.phonenumber} </span>  </div>
                        <div className={style.customeremail}> <span>{item.email} </span>  </div>
@@ -217,14 +217,14 @@ function AdminCustomers() {
                          <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
                          {menu  === item.id && (
                            <div className={style.customermenubuttoncontent}>
-                             <button style={{background:'green'}}  onClick={() => {console.log(item); setEditCustomerData(item); setUpdateCustomerPopup(true); setMenu(null) }} >Update</button>
+                             <button style={{background:'green'}}  onClick={() => {setEditCustomerData(item); setUpdateCustomerPopup(true); setMenu(null) }} >Update</button>
                              <button style={{background:'red'}} onClick={() => { setEditCustomerData(item); setDeleteCustomerPopup(true); setMenu(null)}}>Delete</button>
                            </div>
                          )}
                        </div>                   
                      </div>
 
-                     <div key={item.id} className={style.customercontainermobile}>
+                     <div  className={style.customercontainermobile}>
             
                         <div className={style.mid}>
                           <div>
@@ -249,7 +249,7 @@ function AdminCustomers() {
                           )}
                         </div>                   
                       </div>   
-                    </>
+                    </Fragment>
                    )):(
                   <h5 className={style.nocustomer}>No Customers Found</h5>
                )}            
