@@ -28,7 +28,7 @@ function AdminProducts() {
 
   useEffect(()=>{
     const getProducts =async()=>{
-      const {data,error}=await supabase.from('productsCosmetics').select().order("productcode", { ascending: true });
+      const {data,error}=await supabase.from('productCosmetics').select().order("productcode", { ascending: true });
       if(!error){
         setGetProductsFromSupabase(data)
       }
@@ -110,7 +110,7 @@ function AdminProducts() {
       alert('wrong code')
       return
     }
-    const {data,error}=await supabase.from('productsCosmetics').insert({image:addProductForm.image,name:addProductForm.name,price:addProductForm.price,stockquantity:addProductForm.stockquantity,productcode:addProductForm.productcode , instockdate:addProductForm.instockdate})
+    const {data,error}=await supabase.from('productCosmetics').insert({image:addProductForm.image,name:addProductForm.name,price:addProductForm.price,stockquantity:addProductForm.stockquantity,productcode:addProductForm.productcode , instockdate:addProductForm.instockdate})
     if(!error){       
       setAddProductPopup(false)
       setAddProductForm({image:'',name:'',price:'',stockquantity:"",productcode:'',instockdate:''})

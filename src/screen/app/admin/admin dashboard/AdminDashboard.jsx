@@ -12,11 +12,11 @@ function AdminDashboard() {
 
   useEffect(()=>{
    async function getData(){
-    const {data,error}=await supabase.from('productsCosmetics').select('*')
+    const {data,error}=await supabase.from('productCosmetics').select('*')
     if(!error){
       setGetProductDataFromSupabase(data)
     }else{
-      alert('Error! Contact the developer')
+      alert('Error!h Contact the developer')
       console.log(error)
     }
 
