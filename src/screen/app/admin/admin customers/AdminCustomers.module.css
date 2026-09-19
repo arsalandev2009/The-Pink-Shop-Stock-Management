@@ -170,7 +170,7 @@ gap: 5px;
   padding: 0px 30px !important;
   display: grid;
   align-content: center;
-  height: 70px;
+  height: 80px;
   /* overflow: hidden; */
   grid-template-columns: 1.5fr 1fr 1.5fr 1fr 2fr 1fr;
   border-bottom: 1px solid #d6d6da;
