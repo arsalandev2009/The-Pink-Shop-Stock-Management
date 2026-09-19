@@ -206,6 +206,7 @@ function AdminCustomers() {
 
                    ))):filteredResult.length>0?(
                      filteredResult.map(item=>
+                      <>
                      <div key={item.id} className={style.customercontainer}>
                        <div className={style.customername}> {item.name}  </div>
                        <div className={style.customerphonenumber}> <span>{item.phonenumber} </span>  </div>
@@ -223,6 +224,32 @@ function AdminCustomers() {
                        </div>                   
                      </div>
 
+                     <div key={item.id} className={style.customercontainermobile}>
+            
+                        <div className={style.mid}>
+                          <div>
+                            <div className={style.customername}><span><b>Name: </b>{item.name} </span></div>
+                            <div className={style.customeremail}><span><b>Email: </b> {item.email}</span> </div>                          
+                          </div>
+                          <div>
+                            <div className={style.customermobileshoppingdate}>  <p><b>Ph. no. : </b>{item.phonenumber} </p> </div>
+                            <div className={style.customermobileshoppingdate}> <p><b>Shopped at :</b> {new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
+                            <div className={style.customeraddress}><span><b>Address :</b> {item.address}</span> </div>
+                          </div>
+
+                        </div> 
+
+                        <div className={style.customermenubutton}>
+                          <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
+                          {menu  === item.id && (
+                            <div className={style.customermenubuttoncontent}>
+                              <button style={{background:'green'}}   onClick={() => { setEditCustomerData(item); setUpdateCustomerPopup(true); setMenu(null) }} >Edit</button>
+                              <button style={{background:'red'}} onClick={() => { setEditCustomerData(item); setDeleteCustomerPopup(true); setMenu(null)}}>Delete</button>
+                            </div>
+                          )}
+                        </div>                   
+                      </div>   
+                    </>
                    )):(
                   <h5 className={style.nocustomer}>No Customers Found</h5>
                )}            

@@ -118,7 +118,7 @@ margin-bottom: 10px !important;
         display: flex;
         min-height: 100dvh;
         justify-self: center;
-
+        background-color: #fcfaf9;
     }
 }
 
