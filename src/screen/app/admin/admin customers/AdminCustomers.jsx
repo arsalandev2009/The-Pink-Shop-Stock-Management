@@ -268,19 +268,19 @@ function AdminCustomers() {
                    </div> 
        
                    <label className={style.label}>Name</label> 
-                   <input type="text" onChange={handleChange} value={addCustomerForm.name} placeholder="Enter Customer's Name" name="name" className={style.input} required /> 
+                   <input type="text" onChange={handleChange} value={addCustomerForm.name} placeholder="Enter Customer's Name" name="name" className={style.input}  /> 
                    
                    <label className={style.label}>Email</label> 
-                   <input type="text" onChange={handleChange} value={addCustomerForm.email} placeholder="Enter Customer's email" name="email" className={style.input} required /> 
+                   <input type="text" onChange={handleChange} value={addCustomerForm.email} placeholder="Enter Customer's email" name="email" className={style.input}  /> 
        
                    <label className={style.label}>Phone Number</label> 
-                   <input type="number" onChange={handleChange} value={addCustomerForm.phonenumber} placeholder="Enter Customer's Phone number" name="phonenumber" className={style.input} required /> 
+                   <input type="number" onChange={handleChange} value={addCustomerForm.phonenumber} placeholder="Enter Customer's Phone number" name="phonenumber" className={style.input}  /> 
        
                    <label className={style.label}>Shopping Date</label> 
-                   <input type="date" onChange={handleChange} value={addCustomerForm.shoppingdate} name="shoppingdate" className={style.input} required /> 
+                   <input type="date" onChange={handleChange} value={addCustomerForm.shoppingdate} name="shoppingdate" className={style.input}  /> 
                    
                    <label className={style.label}>Address</label> 
-                   <input type="text" onChange={handleChange} value={addCustomerForm.address} placeholder="Enter Your Stock Quantity" name="address" className={style.input} required /> 
+                   <input type="text" onChange={handleChange} value={addCustomerForm.address} placeholder="Enter Your Stock Quantity" name="address" className={style.input}  /> 
        
                    <button type="submit" className={style.submitBtn}> Done </button> 
                  </form> 

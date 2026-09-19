@@ -30,7 +30,7 @@ function AdminProductsDetailsPage() {
 
     useEffect(()=>{
       const getProducts =async()=>{
-        const {data,error}=await supabase.from('products').select().order("productcode", { ascending: true });
+        const {data,error}=await supabase.from('productsCosmetics').select().order("productcode", { ascending: true });
         if(!error){
           setGetProductsFromSupabase(data)
           return

@@ -13,7 +13,7 @@ function ProductsShow() {
 
   useEffect(()=>{
     const fetchProducts=async()=>{
-      const {data,error}=await supabase.from('products').select().order("productcode", { ascending: true })
+      const {data,error}=await supabase.from('productsCosmetics').select().order("productcode", { ascending: true })
       if(error){
         alert('Error Plz Contact The Developer')
         return
