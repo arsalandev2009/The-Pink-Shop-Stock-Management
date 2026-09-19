@@ -1,5 +1,5 @@
 import React from 'react'
-import { AdminProducts, Login, ProductsShow, AdminProductsDetailsPage, ForgetPassword, UpdatePassword,  AdminDashboard, AdminSidebar, AdminCustomers, AdminSettings } from '../screen/screen'
+import { AdminProducts, Login, ProductsShow,  ForgetPassword, UpdatePassword,  AdminDashboard, AdminSidebar, AdminCustomers, AdminSettings, ComingSoon } from '../screen/screen'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute'
 
@@ -19,8 +19,9 @@ export default function Routing() {
     <Route path='admindashboard' element={  <AdminDashboard/>  }/>
     <Route path='adminproducts' element={  <AdminProducts/> }/>
     <Route path='admincustomers' element={  <AdminCustomers/>  }/>
-    <Route path='adminsettings' element={  <AdminSettings/>  }/>
-    <Route path='adminproductsdetail/:id' element={<AdminProductsDetailsPage/>}/>
+    {/* <Route path='adminsettings' element={  <AdminSettings/>  }/> */}
+    <Route path='adminsettings' element={  <ComingSoon/> }/>
+
     </Route>
 </Routes>
 </BrowserRouter>

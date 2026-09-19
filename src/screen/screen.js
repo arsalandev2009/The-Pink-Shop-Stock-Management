@@ -10,6 +10,7 @@ import AdminSettings from "./app/admin/admin settings/AdminSettings";
 import AdminProductsDetailsPage from "./app/admin/admin product details page/AdminProductsDetailsPage";
 
 import ProductsShow from "./app/user/products show/ProductsShow";
+import ComingSoon from "./app/comingsoon/ComingSoon";
 
 
-export {AdminCustomers,AdminSidebar,AdminDashboard,AdminProducts,AdminSettings,Login,ForgetPassword,UpdatePassword,ProductsShow,AdminProductsDetailsPage}
+export {ComingSoon,AdminCustomers,AdminSidebar,AdminDashboard,AdminProducts,AdminSettings,Login,ForgetPassword,UpdatePassword,ProductsShow,AdminProductsDetailsPage}

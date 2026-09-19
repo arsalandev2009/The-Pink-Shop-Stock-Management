@@ -61,7 +61,7 @@ transition: transform (0.4s);
    padding: 10px 20px !important;
 }
 @media (min-width:320px ) and (max-width:1100px) {
-    .header{
+.header{
     left: 0px;
     padding: 0px 20px 0px 20px !important;
 }

@@ -1,0 +1,216 @@
+.comingsoon {
+  width: 100%;
+  height: 100vh;
+  min-height: 500px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #fff0f5;
+
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.comingsooncontent {
+  width: 100%;
+  max-width: 1000px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+}
+
+/* SHOP NAME */
+
+.shopname {
+  font-family: Georgia, serif;
+  font-size: 48px;
+  color: #a8004f;
+
+  margin-bottom: 35px;
+}
+
+.shopname span {
+  color: #f13b82;
+  font-style: italic;
+  font-family: cursive;
+  font-size: 65px;
+}
+
+.shopname b {
+  color: #f13b82;
+  font-size: 40px;
+  margin-left: 5px;
+}
+
+/* HEADING */
+
+.comingsoon h1 {
+  margin: 0;
+
+  font-family: Georgia, serif;
+  font-size: 100px;
+  line-height: 1;
+
+  color: #a8004f;
+}
+
+.comingsoon h1 span {
+  color: #f13b82;
+}
+
+/* TEXT */
+
+.comingsoon p {
+  margin: 35px 0 45px;
+
+  font-size: 22px;
+  color: #a8004f;
+
+  font-family: Arial, sans-serif;
+}
+
+/* SHOPPING BAG */
+
+.shoppingbag {
+  position: relative;
+
+  width: 180px;
+  height: 180px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/* BAG */
+
+.bag {
+  width: 125px;
+  height: 125px;
+
+  background: linear-gradient(
+    135deg,
+    #ff5b9a,
+    #e91e63
+  );
+
+  position: relative;
+
+  border-radius: 5px 5px 12px 12px;
+
+  box-shadow: 0 15px 25px rgba(216, 35, 105, 0.2);
+
+  transform: perspective(300px) rotateY(-5deg);
+}
+
+/* BAG HANDLE */
+
+.baghandle {
+  position: absolute;
+
+  width: 65px;
+  height: 55px;
+
+  border: 7px solid #a8004f;
+  border-bottom: none;
+
+  border-radius: 40px 40px 0 0;
+
+  top: 12px;
+
+  z-index: 2;
+}
+
+/* BAG HEART */
+
+.bagheart {
+  position: absolute;
+
+  top: 42px;
+  left: 43px;
+
+  color: white;
+
+  font-size: 48px;
+}
+
+/* SMALL HEARTS */
+
+.heart {
+  position: absolute;
+
+  color: #f13b82;
+
+  font-size: 30px;
+
+  animation: floatHeart 2.5s ease-in-out infinite;
+}
+
+.heart1 {
+  left: 5px;
+  top: 60px;
+}
+
+.heart2 {
+  right: 5px;
+  top: 35px;
+
+  animation-delay: 0.5s;
+}
+
+.heart3 {
+  right: 15px;
+  bottom: 15px;
+
+  animation-delay: 1s;
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .shopname {
+    font-size: 32px;
+    margin-bottom: 25px;
+  }
+
+  .shopname span {
+    font-size: 45px;
+  }
+
+  .shopname b {
+    font-size: 28px;
+  }
+
+  .comingsoon h1 {
+    font-size: 58px;
+  }
+
+  .comingsoon p {
+    font-size: 16px;
+    padding: 0 20px;
+    margin: 25px 0 35px;
+  }
+
+  .shoppingbag {
+    transform: scale(0.8);
+  }
+}
