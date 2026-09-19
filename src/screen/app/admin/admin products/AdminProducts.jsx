@@ -170,8 +170,15 @@ function AdminProducts() {
         <div className={style.maincontentwrapper}>
           <div className={style.maincontentwrapperupper}>
             <div className={style.maincontentwrappertop}>
-              <h4> {getProductsFromSupabase.length} products</h4>
-              <p> keep your inventory loaded</p>
+                <div>
+                  <p> Total Products {getProductsFromSupabase.length} </p>
+                </div>
+                <div>
+                  <select name="category" >
+                    <option value="undergarments">Under Garments</option>
+                    <option value="cosmetics">Beauty Products</option>
+                  </select>
+                </div>
             </div>
             <div className={style.maincontentwrappermid}>
               <p>CODE</p>
