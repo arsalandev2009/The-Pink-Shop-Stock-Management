@@ -52,12 +52,18 @@ function AdminDashboard() {
   </div>
     <div className={style.container}>
       <div className={style.boxes}>
-        <p style={{color:'#71717B'}}>Total Products</p>
-        <h2>{getProductDataFromSupabase.length}</h2>
+        <div className={style.boxesupper}>
+          <p style={{color:'#71717B'}}>Total Products</p>
+          <h2>{getProductDataFromSupabase.length}</h2>
+        </div>
+        <button onClick={()=>{navigate('/admin/adminproducts')}}>View</button>
       </div>
       <div className={style.boxes}>
-        <p style={{color:'#71717B'}}>Total Customers</p>
-        <h2>{getCustomersDataFromSupabase.length}</h2>
+        <div className={style.boxesupper}>
+          <p style={{color:'#71717B'}}>Total Customers</p>
+          <h2>{getCustomersDataFromSupabase.length}</h2>
+        </div>
+        <button onClick={()=>{navigate('/admin/admincustomers')}}>View</button>
       </div>
     </div>
   </>

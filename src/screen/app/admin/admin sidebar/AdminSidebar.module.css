@@ -66,9 +66,8 @@ margin-bottom: 10px !important;
     color:#635054;
 }
 .content{
-flex: 1;
-min-width: 0;
-    /* width: 87%; */
+    flex: 1;
+    min-width: 0;
     padding: 0px 50px 0px 30px !important;
 }
 
@@ -76,7 +75,6 @@ min-width: 0;
 @media (min-width: 320px) and (max-width: 1100px) {
     .maincontainer {
         display: flex;
-
         height: 100dvh;
         width: 100%;
         background-color: whitesmoke;
@@ -116,7 +114,7 @@ min-width: 0;
 
     .content {
         width: 100%;
-        padding-top: 0px !important;
+        padding: 0px !important;
         display: flex;
         min-height: 100dvh;
         justify-self: center;
