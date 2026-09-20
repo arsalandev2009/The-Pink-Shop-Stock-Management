@@ -123,7 +123,7 @@ transition: transform 0.2s ease;
   box-shadow: 0px 03px 10px 01px #cecece;
   border-radius: 15px;
   width: 100%;
-  height: 500px;
+  height: 600px;
 }
 .maincontentwrapperupper{
   position: sticky;
@@ -145,7 +145,12 @@ transition: transform 0.2s ease;
   color: #d94378;
   border: none;
   font-size: 20px;
-  background: none;
+   padding: 0px 5px !important;
+  border-radius: 5px;
+  font-size: 16px;
+  border: 1px solid white;
+  background-color: white;
+  box-shadow: 0px 0px 05px 01px rgb(190, 190, 190);
 }
 .maincontentwrappertop > p{
 color: #71717B;
@@ -161,7 +166,7 @@ height: fit-content;
 color: #71717B;
 font-size: 16px;
 font-weight: 500;
-grid-template-columns: 1.5fr 1fr 1.5fr 1fr  2fr 1fr;
+grid-template-columns: 1.5fr 1fr 1fr  2fr 1.5fr;
 gap: 5px;
 
 }
@@ -179,8 +184,7 @@ gap: 5px;
   display: grid;
   align-content: center;
   height: 80px;
-  /* overflow: hidden; */
-  grid-template-columns: 1.5fr 1fr 1.5fr 1fr 2fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr  2fr 1.5fr;
   border-bottom: 1px solid #d6d6da;
   gap: 5px;
   /* box-shadow: 0px 0px 5px 0px #71717B; */
@@ -217,43 +221,22 @@ gap: 5px;
   display: flex;
   align-self:center;
 }
-.customermenubutton{
-  position: relative;
-  display: flex;
-  align-self:center;
-  justify-content: end;
- 
-}
 .customermenubuttoncontent {
-    position: absolute;
-    /* top: auto; */
-    right: 30px;
-    top: -10px;
-    padding: 10px !important;
-    display: flex;
-    gap: 5px;
-    background: #FCFAF9;
-    border: 1px solid #E4E4E7;
-    border-radius: 10px 0px 10px 10px;
-    box-shadow:
-        0 4px 8px rgba(0, 0, 0, 0.08),
-        0 10px 20px rgba(0, 0, 0, 0.10);
-    z-index: 100;
+display: flex;
+justify-self: end;
+gap: 20px;
+align-items: center;
+
+}
+.customermenubuttoncontent button{
+  border: none;
+  background: none;
+}
+.customermenubuttoncontent button :hover{
+    background: #fcfaf9;
+    border-color: #fcfaf9;
 }
 
-.customermenubuttoncontent button {
-    border: none;
-    background: transparent;
-    padding: 8px 10px !important;
-    border-radius: 7px;
-    text-align: left;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    /* background: red; */
-    color: white;
-    text-align: center;
-}
 
 .customermenubuttoncontent button:hover {
     background: #F4E8EC;
@@ -549,30 +532,53 @@ gap: 5px;
       font-size: 14px;
   }
   .header > button{
-      font-size: 16px;
+      font-size: 14px;
       padding: 8px 10px !important;
   }
   .container{
-      width: 100%;
-      height: 100dvh;
-      overflow: scroll;
-      scrollbar-width: none;
-      padding: 30px 10px 50px 10px !important;
+    width: 100%;
+    height: 100dvh;
+    overflow: scroll;
+    scrollbar-width: none;
+    padding: 30px 10px 50px 10px !important;
   }
   .fullscreen {
     display: none;
   }
-
   .mobilescreen {
     display: flex;
-    width: 60px;
+    width: 50px;
   }
-
   .maincontent {
-    padding: 60px 0px 40px !important;
+    padding: 50px 0px 40px !important;
+    gap: 20px;
   }
+.toptop{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px !important;
+}
+.toptop h2{
+ font-size: 23px;
+}
+.toptop p{
+  color: #71717B;
+  font-size: 12px;
+}
+.addcustomerbutton{
+  font-size: 14px;
+padding: 5px 10px !important;
+}
+  .searchbar{
+    width: 230px;
+    height: 35px;
+  }
+.searchinput{
+    font-size: 14px;
+}
   .maincontentwrapper {
     width: 100%;
+    height: 400px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -635,45 +641,21 @@ gap: 5px;
     font-size: 14px;
 
   }
-  .customermenubutton{
-    position: relative;
-    display: flex;
-    align-self:center;
-    justify-content: end;
-  
-  }
   .customermenubuttoncontent {
-      position: absolute;
-      /* top: auto; */
-      right: 30px;
-      top: -10px;
-      padding: 10px !important;
-      display: flex;
-      gap: 5px;
-      background: #FCFAF9;
-      border: 1px solid #E4E4E7;
-      border-radius: 10px 0px 10px 10px;
-      box-shadow:
-          0 4px 8px rgba(0, 0, 0, 0.08),
-          0 10px 20px rgba(0, 0, 0, 0.10);
-      z-index: 100;
-  }
+display: flex;
+justify-self: end;
+gap: 20px;
+align-items: center;
 
-  .customermenubuttoncontent button {
-      border: none;
-      background: transparent;
-      padding: 8px 10px !important;
-      border-radius: 7px;
-      text-align: left;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 500;
-      color: white;
-      text-align: center;
-  }
-  .customermenubuttoncontent button:hover {
-      background: #F4E8EC;
-  }
+}
+.customermenubuttoncontent button{
+  border: none;
+  background: none;
+}
+.customermenubuttoncontent button :hover{
+    background: #fcfaf9;
+    border-color: #fcfaf9;
+}
     /* Add Product Popup */
 
   .overlay {

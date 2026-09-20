@@ -1,7 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import style from './AdminCustomers.module.css'
-import { FiDownload, FiLogOut } from 'react-icons/fi';
-import { FaSearch } from 'react-icons/fa';
+import { FiDownload, FiEdit, FiLogOut } from 'react-icons/fi';
+import { CiEdit } from "react-icons/ci";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaRegTrashAlt, FaSearch } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5'
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { supabase } from '../../../../utils/supabase';
@@ -20,8 +22,8 @@ function AdminCustomers() {
   const [getCustomersFromSupabase,setGetCustomersFromSupabase]=useState([])
   const [menu,setMenu] =useState(null)
   const [addCustomerPopup,setAddCustomerPopup]=useState(false)
-  const [addCustomerForm,setAddCustomerForm]=useState({name:'',email:'',phonenumber:'',address:"",shoppingdate:''})
-  const [editCustomerData, setEditCustomerData] = useState({  name: "", email: "",phonenumber:'',address:'',shoppingdate:'' });
+  const [addCustomerForm,setAddCustomerForm]=useState({name:'',phonenumber:'',comment:"",shoppingdate:''})
+  const [editCustomerData, setEditCustomerData] = useState({  name: "", phonenumber:'',comment:'',shoppingdate:'' });
   const [updateCustomerPopup, setUpdateCustomerPopup] = useState(false);
   const [deleteCustomerPopup, setDeleteCustomerPopup] = useState(false);
   const [filteredResult,setFilteredResult]=useState([])
@@ -39,9 +41,9 @@ function AdminCustomers() {
       const handleExportProducts = () => {
       const customersToExport = getCustomersFromSupabase.map((item) => ({
         "Name": item.name,
+        "Shopping Date":item.shoppingdate,
         "Phone number": item.phonenumber,
-        "Email" : item.email,
-        "Address":item.address,
+        "Comment":item.comment,
       }));
     
       if (customersToExport.length === 0) {
@@ -64,10 +66,10 @@ function AdminCustomers() {
           alert('Customer already Exist')
           return;
         }
-        const {data,error}=await supabase.from('customers').insert({name:addCustomerForm.name,phonenumber:addCustomerForm.phonenumber,email:addCustomerForm.email,address:addCustomerForm.address , shoppingdate:addCustomerForm.shoppingdate})
+        const {data,error}=await supabase.from('customers').insert({name:addCustomerForm.name,phonenumber:addCustomerForm.phonenumber,comment:addCustomerForm.comment , shoppingdate:addCustomerForm.shoppingdate})
         if(!error){       
           setAddCustomerPopup(false)
-          setAddCustomerForm({name:'',phonenumber:'',email:"",address:'',shoppingdate:''})
+          setAddCustomerForm({name:'',phonenumber:'',comment:'',shoppingdate:''})
           setRefresh(prev => !prev);
           return;
         }
@@ -84,7 +86,7 @@ function AdminCustomers() {
           }
 
        
-          const { data, error } = await supabase .from("customers") .update({name: editCustomerData.name,email: editCustomerData.email,shoppingdate:editCustomerData.shoppingdate,address:editCustomerData.address,phonenumber:editCustomerData.phonenumber }).eq("id", editCustomerData.id).select().single();
+          const { data, error } = await supabase .from("customers") .update({name: editCustomerData.name,shoppingdate:editCustomerData.shoppingdate,comment:editCustomerData.comment,phonenumber:editCustomerData.phonenumber }).eq("id", editCustomerData.id).select().single();
           if (error) {
             console.log(error);
             return;
@@ -95,8 +97,7 @@ function AdminCustomers() {
           setEditCustomerData({
             name: "",
             phonenumber: "",
-            email:'',
-            address:'',
+            comment:'',
             shoppingdate:''
           });
       
@@ -117,7 +118,7 @@ function AdminCustomers() {
     const handleSearch=(e)=>{
       const search=e.target.value
       setSearchInput(search)
-      const searchResult = getCustomersFromSupabase.filter((item)=>item.phonenumber.toLowerCase().includes(search.toLowerCase())||String(item.email).toLowerCase().startsWith(search.toLowerCase()))
+      const searchResult = getCustomersFromSupabase.filter((item)=>item.phonenumber.toLowerCase().includes(search.toLowerCase()))
       setFilteredResult(searchResult)
     }
 
@@ -139,6 +140,7 @@ function AdminCustomers() {
     };
 
   return (
+
     <div className={style.container}>
      <div className={style.header}>
        <p> <span style={{color:'#71717B'}}>Admin / </span>Customers</p>
@@ -176,9 +178,8 @@ function AdminCustomers() {
                 
                  <p>NAME</p>
                  <p>PHONE</p>
-                 <p>EMAIL</p>
                  <p>SHOPPING DATE</p>
-                 <p>ADDRESS</p>
+                 <p>COMMENT</p>
                  <p>ACTIONS</p>
                </div>
              </div>
@@ -191,92 +192,63 @@ function AdminCustomers() {
                       <div  className={style.customercontainer}>
                        <div className={style.customername}> {item.name}  </div>
                        <div className={style.customerphonenumber}> <span>{item.phonenumber} </span>  </div>
-                       <div className={style.customeremail}> <span>{item.email} </span>  </div>
                        <div className={style.customershoppingdate}>  {new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
-                       <div className={style.customeraddress}> <span>{item.address} </span>  </div>
-                       <div className={style.customermenubutton}>
-                         <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
-                         {menu  === item.id && (
-                           <div className={style.customermenubuttoncontent}>
-                             <button style={{background:'green'}}  onClick={() => { setEditCustomerData(item); setUpdateCustomerPopup(true); setMenu(null) }} >Update</button>
-                             <button style={{background:'red'}} onClick={() => { setEditCustomerData(item); setDeleteCustomerPopup(true); setMenu(null)}}>Delete</button>
-                           </div>
-                         )}
-                       </div>                   
+                       <div className={style.customeraddress}> <span>{item.comment} </span>  </div>
+                       <div className={style.customermenubuttoncontent}>
+                         <button onClick={() => { setEditCustomerData(item); setUpdateCustomerPopup(true);}} ><CiEdit color='black' size={25}/></button>
+                         <button onClick={() => { setEditCustomerData(item); setDeleteCustomerPopup(true);}}><FaRegTrashAlt color='red' size={23}/></button>
+                       </div>
                       </div>
 
                       <div  className={style.customercontainermobile}>
-            
                         <div className={style.mid}>
                           <div>
                             <div className={style.customername}><span><b>Name: </b>{item.name} </span></div>
-                            <div className={style.customeremail}><span><b>Email: </b> {item.email}</span> </div>                          
+                            <div className={style.customermobileshoppingdate}>  <p><b>Ph. no. : </b>{item.phonenumber} </p> </div>                       
                           </div>
                           <div>
-                            <div className={style.customermobileshoppingdate}>  <p><b>Ph. no. : </b>{item.phonenumber} </p> </div>
                             <div className={style.customermobileshoppingdate}> <p><b>Shopped at :</b> {new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
-                            <div className={style.customeraddress}><span><b>Address :</b> {item.address}</span> </div>
+                            <div className={style.customeraddress}><span><b>Comment :</b> {item.comment}</span> </div>
                           </div>
-
                         </div> 
-                        <div className={style.customermenubutton}>
-                          <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
-                          {menu  === item.id && (
-                            <div className={style.customermenubuttoncontent}>
-                              <button style={{background:'green'}}   onClick={() => { setEditCustomerData(item); setUpdateCustomerPopup(true); setMenu(null) }} >Edit</button>
-                              <button style={{background:'red'}} onClick={() => { setEditCustomerData(item); setDeleteCustomerPopup(true); setMenu(null)}}>Delete</button>
-                            </div>
-                          )}
-                        </div>                   
+                        <div className={style.customermenubuttoncontent}>
+                          <button onClick={() => { setEditCustomerData(item); setUpdateCustomerPopup(true);}} ><CiEdit color='black' size={25}/></button>
+                          <button onClick={() => { setEditCustomerData(item); setDeleteCustomerPopup(true);}}><FaRegTrashAlt color='red' size={23}/></button>
+                        </div>        
                       </div>                   
                     </Fragment>
 
                    ))):filteredResult.length>0?(
                      filteredResult.map(item=>
                       <Fragment key={item.id} >
-                     <div className={style.customercontainer}>
-                       <div className={style.customername}> {item.name}  </div>
-                       <div className={style.customerphonenumber}> <span>{item.phonenumber} </span>  </div>
-                       <div className={style.customeremail}> <span>{item.email} </span>  </div>
-                       <div className={style.customershoppingdate}>  {new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
-                       <div className={style.customeraddress}> <span>{item.address} </span>  </div>
-                       <div className={style.customermenubutton}>
-                         <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
-                         {menu  === item.id && (
-                           <div className={style.customermenubuttoncontent}>
-                             <button style={{background:'green'}}  onClick={() => {setEditCustomerData(item); setUpdateCustomerPopup(true); setMenu(null) }} >Update</button>
-                             <button style={{background:'red'}} onClick={() => { setEditCustomerData(item); setDeleteCustomerPopup(true); setMenu(null)}}>Delete</button>
-                           </div>
-                         )}
-                       </div>                   
-                     </div>
+                        <div className={style.customercontainer}>
+                          <div className={style.customername}> {item.name}  </div>
+                          <div className={style.customerphonenumber}> <span>{item.phonenumber} </span>  </div>
+                          <div className={style.customershoppingdate}>  {new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
+                          <div className={style.customeraddress}> <span>{item.comment} </span>  </div>
+                          <div className={style.customermenubuttoncontent}>
+                            <button onClick={() => { setEditCustomerData(item); setUpdateCustomerPopup(true);}} ><CiEdit color='black' size={25}/></button>
+                            <button onClick={() => { setEditCustomerData(item); setDeleteCustomerPopup(true);}}><FaRegTrashAlt color='red' size={23}/></button>
+                          </div>                   
+                        </div>
 
-                     <div  className={style.customercontainermobile}>
-            
-                        <div className={style.mid}>
-                          <div>
-                            <div className={style.customername}><span><b>Name: </b>{item.name} </span></div>
-                            <div className={style.customeremail}><span><b>Email: </b> {item.email}</span> </div>                          
-                          </div>
-                          <div>
-                            <div className={style.customermobileshoppingdate}>  <p><b>Ph. no. : </b>{item.phonenumber} </p> </div>
-                            <div className={style.customermobileshoppingdate}> <p><b>Shopped at :</b> {new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
-                            <div className={style.customeraddress}><span><b>Address :</b> {item.address}</span> </div>
-                          </div>
-
-                        </div> 
-
-                        <div className={style.customermenubutton}>
-                          <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
-                          {menu  === item.id && (
-                            <div className={style.customermenubuttoncontent}>
-                              <button style={{background:'green'}}   onClick={() => { setEditCustomerData(item); setUpdateCustomerPopup(true); setMenu(null) }} >Edit</button>
-                              <button style={{background:'red'}} onClick={() => { setEditCustomerData(item); setDeleteCustomerPopup(true); setMenu(null)}}>Delete</button>
+                        <div  className={style.customercontainermobile}>
+                          <div className={style.mid}>
+                            <div>
+                              <div className={style.customername}><span><b>Name: </b>{item.name} </span></div>
+                              <div className={style.customermobileshoppingdate}>  <p><b>Ph. no. : </b>{item.phonenumber} </p> </div>
                             </div>
-                          )}
-                        </div>                   
-                      </div>   
-                    </Fragment>
+                            <div>
+                              <div className={style.customermobileshoppingdate}> <p><b>Shopped at :</b> {new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
+                              <div className={style.customeraddress}><span><b>Comment :</b> {item.comment}</span> </div>
+                            </div>
+                          </div> 
+                          <div className={style.customermenubuttoncontent}>
+                            <button onClick={() => { setEditCustomerData(item); setUpdateCustomerPopup(true);}} ><CiEdit color='black' size={25}/></button>
+                            <button onClick={() => { setEditCustomerData(item); setDeleteCustomerPopup(true);}}><FaRegTrashAlt color='red' size={23}/></button>
+                          </div>        
+                        </div>   
+                      </Fragment>
                    )):(
                   <h5 className={style.nocustomer}>No Customers Found</h5>
                )}            
@@ -291,23 +263,20 @@ function AdminCustomers() {
                <div className={style.overlay}> 
                  <form onSubmit={handleAddCustomerDone} className={style.popup}> 
                    <div className={style.close}> 
-                     <button type="button" onClick={() =>{ setAddCustomerPopup(false), setAddCustomerForm({name:'',phonenumber:'',email:'',address:"",shoppingdate:''})}} className={style.closeBtn} > <IoClose size={30} /> </button> 
+                     <button type="button" onClick={() =>{ setAddCustomerPopup(false), setAddCustomerForm({name:'',phonenumber:'',comment:"",shoppingdate:''})}} className={style.closeBtn} > <IoClose size={30} /> </button> 
                    </div> 
        
                    <label className={style.label}>Name</label> 
                    <input type="text" onChange={handleChange} value={addCustomerForm.name} placeholder="Enter Customer's Name" name="name" className={style.input}  /> 
                    
-                   <label className={style.label}>Email</label> 
-                   <input type="text" onChange={handleChange} value={addCustomerForm.email} placeholder="Enter Customer's email" name="email" className={style.input}  /> 
-       
                    <label className={style.label}>Phone Number</label> 
                    <input type="number" onChange={handleChange} value={addCustomerForm.phonenumber} placeholder="Enter Customer's Phone number" name="phonenumber" className={style.input}  /> 
        
                    <label className={style.label}>Shopping Date</label> 
                    <input type="date" onChange={handleChange} value={addCustomerForm.shoppingdate} name="shoppingdate" className={style.input}  /> 
                    
-                   <label className={style.label}>Address</label> 
-                   <input type="text" onChange={handleChange} value={addCustomerForm.address} placeholder="Enter Your Stock Quantity" name="address" className={style.input}  /> 
+                   <label className={style.label}>Comment</label> 
+                   <input type="text" onChange={handleChange} value={addCustomerForm.comment} placeholder="Type comment ..." name="comment" className={style.input}  /> 
        
                    <button type="submit" className={style.submitBtn}> Done </button> 
                  </form> 
@@ -330,22 +299,17 @@ function AdminCustomers() {
              
                  <div className={style.updatecustomerField}>
                    <label className={style.updatecustomerLabel}> Customer Name </label>
-                   <input type="text" className={style.updatecustomerInput} value={editCustomerData.name} onChange={(e) => setEditCustomerData({ ...editCustomerData, name: e.target.value, }) } />
+                   <input type="text" className={style.updatecustomerInput} value={editCustomerData.name} onChange={(e) => setEditCustomerData({ ...editCustomerData, name: e.target.value, }) } placeholder="Edit Customer's Name"/>
                  </div>
              
                  <div className={style.updatecustomerField}>
                    <label className={style.updatecustomerLabel}> Phone Number </label>
-                   <input type="text" className={style.updatecustomerInput} value={editCustomerData.phonenumber} onChange={(e) => setEditCustomerData({ ...editCustomerData, phonenumber: e.target.value.replace(/\D/g,'') }) } />
+                   <input type="text" className={style.updatecustomerInput} value={editCustomerData.phonenumber} onChange={(e) => setEditCustomerData({ ...editCustomerData, phonenumber: e.target.value.replace(/\D/g,'') }) } placeholder="Edit Customer's Phone number"/>
                  </div>
              
                  <div className={style.updatecustomerField}>
-                   <label className={style.updatecustomerLabel}> Email </label>
-                   <input type="text" className={style.updatecustomerInput} value={editCustomerData.email} onChange={(e) => setEditCustomerData({ ...editCustomerData, email: e.target.value, }) } />
-                 </div>
-             
-                 <div className={style.updatecustomerField}>
-                   <label className={style.updatecustomerLabel}>Address</label>
-                   <input type="text" className={style.updatecustomerInput} value={editCustomerData.address} onChange={(e) => setEditCustomerData({ ...editCustomerData, address: e.target.value, }) } />
+                   <label className={style.updatecustomerLabel}>Comment</label>
+                   <input type="text" className={style.updatecustomerInput} value={editCustomerData.comment} onChange={(e) => setEditCustomerData({ ...editCustomerData, comment: e.target.value, }) } placeholder='Edit Comment ...'/>
                  </div>
              
                  <div className={style.updatecustomerField}>
@@ -377,7 +341,8 @@ function AdminCustomers() {
                    </div>
              )}
 
-      </div>
+    </div>
+    
   )
 }
 

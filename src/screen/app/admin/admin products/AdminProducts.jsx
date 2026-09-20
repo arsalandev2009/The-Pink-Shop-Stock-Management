@@ -204,11 +204,8 @@ function AdminProducts() {
         <div className={style.maincontentwrapper}>
           <div className={style.maincontentwrapperupper}>
             <div className={style.maincontentwrappertop}>
-                <div>
-                  <p> Total Products {filterProductsByCategory.length} </p>
-                </div>
-                <button onClick={handleExportProducts}> <FiDownload/> <p>Export</p></button>
-
+              <p> Total Products {filterProductsByCategory.length} </p>
+              <button onClick={handleExportProducts}> <FiDownload/> <p>Export</p></button>
             </div>
             <div className={style.maincontentwrappermid}>
               <p>CODE</p>

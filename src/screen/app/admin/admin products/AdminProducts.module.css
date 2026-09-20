@@ -60,9 +60,11 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  /* gap: 0px; */
 }
 .toptop{
   display: flex;
+  gap: 10px;
   justify-content: space-between;
   padding: 0px !important;
 }
@@ -119,21 +121,7 @@
   color: #111827;
   font-size: 15px;
 }
-.maincontentwrappertop{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 
-}
-.maincontentwrappertop > button{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #d94378;
-  border: none;
-  font-size: 20px;
-  background: none;
-}
 .searchbar{
     display: flex;
     align-items: center;
@@ -166,6 +154,7 @@
     padding: 3px 15px !important;
     border: none;
     height: fit-content;
+    /* width: fit-content; */
     background-color:#E7437E ;
     color: white;
     font-weight: 400;
@@ -181,17 +170,17 @@
   flex-direction: column;
   overflow: hidden;
   border: 0px solid #E4E4E7;
-  box-shadow: 0px 03px 10px 01px #cecece;
+  box-shadow: 0px 03px 5px 5px #cecece;
   border-radius: 15px;
   width: 100%;
-  height: 500px;
+  height: 600px;
 }
 .maincontentwrapperupper{
   position: sticky;
   top: 0;
 }
 .maincontentwrappertop{
-  padding: 10px 10px !important;
+  padding: 10px 30px !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -203,6 +192,20 @@
 .maincontentwrappertop > p{
 color: #71717B;
 margin-top: 05px !important;
+}
+.maincontentwrappertop > button{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #d94378;
+  border: none;
+  font-size: 20px;
+  padding: 0px 5px !important;
+  border-radius: 5px;
+  font-size: 16px;
+  border: 1px solid white;
+  background-color: white;
+  box-shadow: 0px 0px 05px 01px rgb(190, 190, 190);
 }
 .maincontentwrappermidmobile{
   display: none;
@@ -606,14 +609,7 @@ gap: 5px;
 
 
 
-/* Mobile */
-@media (max-width: 600px) {
-  .categorySelect {
-    width: 145px;
-    height: 40px;
-    font-size: 14px;
-  }
-}
+
 
 
 @media (min-width: 320px) and (max-width: 1100px) {
@@ -626,7 +622,7 @@ gap: 5px;
       font-size: 14px;
   }
   .header > button{
-      font-size: 16px;
+      font-size: 14px;
       padding: 8px 10px !important;
   }
   .container{
@@ -634,7 +630,7 @@ gap: 5px;
       height: 100dvh;
       overflow: scroll;
       scrollbar-width: none;
-      padding: 30px 10px 50px 10px !important;
+      padding: 20px 10px 50px 10px !important;
   }
   .fullscreen {
     display: none;
@@ -642,18 +638,25 @@ gap: 5px;
 
   .mobilescreen {
     display: flex;
-    width: 60px;
+    width: 50px;
   }
 
   .maincontent {
     padding: 60px 0px 40px !important;
+  }
+  .toptop h2{
+    font-size: 22px;
+  }
+  .toptop p{
+    font-size: 12px;
   }
   .topbottom{
     gap: 15px;
   }
 
 .categorySelect {
-  width: 150px;
+  width: 80px;
+  height: 35px;
 }
 .categorySelect option {
   background: #ffffff;
@@ -663,23 +666,39 @@ gap: 5px;
 }
   .maincontentwrapper {
     width: 100%;
+  height: 400px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
   }
-
+.maincontentwrappertop{
+  padding: 10px 10px !important;
+}
 .maincontentwrappertop > button{
+  padding: 0px 5px !important;
+  border-radius: 5px;
   font-size: 16px;
+  border: 1px solid white;
+  background-color: white;
+  box-shadow: 0px 0px 05px 01px rgb(190, 190, 190);
 
 }
 
   .maincontentwrappermid{
     display: none;
   }
+  .searchbar{
+    width: 230px;
+    height: 35px;
+  }
+.searchinput{
+    font-size: 14px;
+}
   .maincontentwrapperbottom{
     scrollbar-width: none;
     overflow: scroll;
     padding: 0px 0px 0px 0px !important;
+    /* margin: 50px !important; */
   }
   .productcontainer {
     display: none;
@@ -729,7 +748,7 @@ gap: 5px;
 }
 
   .productstock{
-    font-size: 14px;
+    font-size: 12px;
     display: flex;
     align-self:start;
     justify-content: space-between;
@@ -738,7 +757,7 @@ gap: 5px;
   }
 
   .productinstockdate{
-    font-size: 14px;
+    font-size: 12px;
     display: flex;
     align-self:start;
     justify-content: space-between;
@@ -790,7 +809,10 @@ gap: 5px;
       background: #F4E8EC;
   }
     /* Add Product Popup */
-
+.addproductbutton{
+font-size: 14px;
+padding: 5px 10px !important;
+}
   .overlay {
     padding: 15px !important;
   }
