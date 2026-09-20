@@ -38,7 +38,7 @@ function AdminCustomers() {
       getCustomers()
     },[refresh])
 
-      const handleExportProducts = () => {
+    const handleExportProducts = () => {
       const customersToExport = getCustomersFromSupabase.map((item) => ({
         "Name": item.name,
         "Shopping Date":item.shoppingdate,
@@ -190,10 +190,10 @@ function AdminCustomers() {
                    getCustomersFromSupabase.map((item)=>(   
                     <Fragment key={item.id} >
                       <div  className={style.customercontainer}>
-                       <div className={style.customername}> {item.name}  </div>
-                       <div className={style.customerphonenumber}> <span>{item.phonenumber} </span>  </div>
-                       <div className={style.customershoppingdate}>  {new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
-                       <div className={style.customeraddress}> <span>{item.comment} </span>  </div>
+                       <div className={style.customername}> {item.name?item.name:(<span>No Name</span>)}  </div>
+                       <div className={style.customerphonenumber}> {item.phonenumber?item.phonenumber:(<span>No Phone number</span>)} </div>
+                       <div className={style.customershoppingdate}> {item.shoppingdate?new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"}):(<span>No Date</span>)} </div>
+                       <div className={style.customercomment}> {item.comment?item.comment:(<span>No Comment</span>)}  </div>
                        <div className={style.customermenubuttoncontent}>
                          <button onClick={() => { setEditCustomerData(item); setUpdateCustomerPopup(true);}} ><CiEdit color='black' size={25}/></button>
                          <button onClick={() => { setEditCustomerData(item); setDeleteCustomerPopup(true);}}><FaRegTrashAlt color='red' size={23}/></button>
@@ -203,12 +203,12 @@ function AdminCustomers() {
                       <div  className={style.customercontainermobile}>
                         <div className={style.mid}>
                           <div>
-                            <div className={style.customername}><span><b>Name: </b>{item.name} </span></div>
-                            <div className={style.customermobileshoppingdate}>  <p><b>Ph. no. : </b>{item.phonenumber} </p> </div>                       
+                            <div className={style.customername}><b>Name : </b> &nbsp; {item.name?item.name:( <span> No Name</span>)} </div>
+                            <div className={style.customermobileshoppingdate}>  <b>Ph. no. : </b> &nbsp; {item.phonenumber?item.phonenumber:(<span>No Phone number</span>)} </div>                       
                           </div>
                           <div>
-                            <div className={style.customermobileshoppingdate}> <p><b>Shopped at :</b> {new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
-                            <div className={style.customeraddress}><span><b>Comment :</b> {item.comment}</span> </div>
+                          <div className={style.customermobileshoppingdate}> <p><b>Shopped at :</b> {item.shoppingdate?new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"}):(<span>No Date</span>)}</p> </div>
+                          <div className={style.customercomment}> <b>Comment :  </b> &nbsp; {item.comment?item.comment: (<span>No Comment</span>)}  </div>
                           </div>
                         </div> 
                         <div className={style.customermenubuttoncontent}>
@@ -222,10 +222,10 @@ function AdminCustomers() {
                      filteredResult.map(item=>
                       <Fragment key={item.id} >
                         <div className={style.customercontainer}>
-                          <div className={style.customername}> {item.name}  </div>
-                          <div className={style.customerphonenumber}> <span>{item.phonenumber} </span>  </div>
-                          <div className={style.customershoppingdate}>  {new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
-                          <div className={style.customeraddress}> <span>{item.comment} </span>  </div>
+                          <div className={style.customername}> {item.name?item.name:(<span>No Name</span>)}  </div>
+                          <div className={style.customerphonenumber}> {item.phonenumber?item.phonenumber:(<span>No Phone number</span>)} </div>
+                          <div className={style.customermobileshoppingdate}> {item.shoppingdate?new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"}):(<span>No Date</span>)} </div>
+                          <div className={style.customercomment}> {item.comment?item.comment:(<span>No Comment</span>)}  </div>
                           <div className={style.customermenubuttoncontent}>
                             <button onClick={() => { setEditCustomerData(item); setUpdateCustomerPopup(true);}} ><CiEdit color='black' size={25}/></button>
                             <button onClick={() => { setEditCustomerData(item); setDeleteCustomerPopup(true);}}><FaRegTrashAlt color='red' size={23}/></button>
@@ -235,12 +235,12 @@ function AdminCustomers() {
                         <div  className={style.customercontainermobile}>
                           <div className={style.mid}>
                             <div>
-                              <div className={style.customername}><span><b>Name: </b>{item.name} </span></div>
-                              <div className={style.customermobileshoppingdate}>  <p><b>Ph. no. : </b>{item.phonenumber} </p> </div>
+                              <div className={style.customername}><b>Name : </b> &nbsp; {item.name?item.name:( <span> No Name</span>)} </div>
+                              <div className={style.customermobileshoppingdate}>  <b>Ph. no. : </b> &nbsp; {item.phonenumber?item.phonenumber:(<span>No Phone number</span>)} </div> 
                             </div>
                             <div>
-                              <div className={style.customermobileshoppingdate}> <p><b>Shopped at :</b> {new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
-                              <div className={style.customeraddress}><span><b>Comment :</b> {item.comment}</span> </div>
+                              <div className={style.customermobileshoppingdate}> <b>Shopped at :</b> {item.shoppingdate?new Date(item.shoppingdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"}):(<span>No Date</span>)}</div>
+                              <div className={style.customercomment}> <b>Comment :  </b> &nbsp; {item.comment?item.comment: (<span>No Comment</span>)}  </div>
                             </div>
                           </div> 
                           <div className={style.customermenubuttoncontent}>
@@ -342,7 +342,7 @@ function AdminCustomers() {
              )}
 
     </div>
-    
+
   )
 }
 

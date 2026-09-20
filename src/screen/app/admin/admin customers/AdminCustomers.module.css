@@ -200,26 +200,35 @@ gap: 5px;
   align-self:center;
   font-weight: 500;
 }
-.customeremail{
-  font-size: 16px;
-    display: flex;
-  align-self:center;
+.customername span{
+  color: rgb(179, 179, 179);
 }
 .customerphonenumber{
   font-size: 16px;
   display: flex;
   align-self:center;
 }
-.customeraddress{
+.customerphonenumber span {
+  color: rgb(179, 179, 179);
+
+}
+
+.customercomment{
   font-size: 16px;
   display: flex;
   align-self:center;
 }
+.customercomment > span{
+  color: rgb(179, 179, 179);
+}
 .customershoppingdate{
-  color: #71717B;
   font-size: 16px;
   display: flex;
   align-self:center;
+}
+.customershoppingdate span{
+  color: rgb(179, 179, 179);
+
 }
 .customermenubuttoncontent {
 display: flex;
@@ -615,10 +624,7 @@ padding: 5px 10px !important;
     /* background: red; */
     border-top: 2px  solid #E4E4E7;
     border-bottom: 2px  solid #E4E4E7;
-
   }
-  
-
   .mid{
     display: flex;
     flex-direction: column;
@@ -630,17 +636,28 @@ padding: 5px 10px !important;
 .customername {
   font-size: 14px;
 }
-.customeremail {
+.customername span{
+    color: rgb(179, 179, 179);
+}
+.customercomment{
   font-size: 14px;
 }
-.customeraddress{
-  font-size: 14px;
+.customercomment span{
+    color: rgb(179, 179, 179);
 }
 
-  .customermobileshoppingdate {
-    font-size: 14px;
+.customermobilephonenumber span {
+  color: rgb(179, 179, 179);
+  
+}
 
-  }
+.customermobileshoppingdate {
+  font-size: 14px; 
+}
+.customermobileshoppingdate span{
+  color: rgb(179, 179, 179);
+}
+
   .customermenubuttoncontent {
 display: flex;
 justify-self: end;
