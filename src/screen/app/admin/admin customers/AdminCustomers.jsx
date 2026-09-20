@@ -1,11 +1,14 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import style from './AdminCustomers.module.css'
-import { FiLogOut } from 'react-icons/fi';
+import { FiDownload, FiLogOut } from 'react-icons/fi';
 import { FaSearch } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5'
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { supabase } from '../../../../utils/supabase';
 import { useNavigate } from 'react-router-dom';
+
+import * as XLSX from 'xlsx';
+
 
 function AdminCustomers() {
 
@@ -32,6 +35,28 @@ function AdminCustomers() {
       }
       getCustomers()
     },[refresh])
+
+      const handleExportProducts = () => {
+      const customersToExport = getCustomersFromSupabase.map((item) => ({
+        "Name": item.name,
+        "Phone number": item.phonenumber,
+        "Email" : item.email,
+        "Address":item.address,
+      }));
+    
+      if (customersToExport.length === 0) {
+        alert("No Customers found");
+        return;
+      }
+    
+      const worksheet = XLSX.utils.json_to_sheet(customersToExport);
+    
+      const workbook = XLSX.utils.book_new();
+    
+      XLSX.utils.book_append_sheet(workbook, worksheet, "customers");
+    
+      XLSX.writeFile(workbook, `Customers.xlsx`);
+    };
 
     const handleAddCustomerDone=async(e)=>{
         e.preventDefault()
@@ -144,7 +169,9 @@ function AdminCustomers() {
              <div className={style.maincontentwrapperupper}>
                <div className={style.maincontentwrappertop}>
                  <p>Total Customers {getCustomersFromSupabase.length} </p>
+                <button onClick={handleExportProducts}> <FiDownload/> <p>Export</p></button>
                </div>
+               
                <div className={style.maincontentwrappermid}>
                 
                  <p>NAME</p>

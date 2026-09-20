@@ -4,10 +4,11 @@ import { supabase } from '../../../../utils/supabase';
 import { uploadToCloudinary } from '../../../../utils/cloudinary';
 import { useNavigate } from 'react-router-dom';
 import style from './AdminProducts.module.css'
-import { FiLogOut } from 'react-icons/fi';
+import { FiDownload, FiLogOut } from 'react-icons/fi';
 import { FaSearch } from 'react-icons/fa';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
+import * as XLSX from 'xlsx';
 
 function AdminProducts() {
 
@@ -23,7 +24,7 @@ function AdminProducts() {
   const [deleteProductPopup, setDeleteProductPopup] = useState(false);
   const [searchInput,setSearchInput]=useState('')
   const [filteredResult,setFilteredResult]=useState([])
-  const [category,setCategory]=useState("beautyproducts")
+  const [category,setCategory]=useState("all")
 
 // console.log(category)
 
@@ -39,6 +40,31 @@ function AdminProducts() {
     getProducts()
   },[refresh])
   
+  const filterProductsByCategory = getProductsFromSupabase.filter((item)=>category == 'all'||item.productcategory === category)
+
+
+  const handleExportProducts = () => {
+  const productsToExport = filterProductsByCategory.map((item) => ({
+    "Product Code": item.productcode,
+    "Product Category":item.productcategory,
+    "Product Name": item.name,
+    "Product Price" : item.price,
+  }));
+
+  if (productsToExport.length === 0) {
+    alert("No products found");
+    return;
+  }
+
+  const worksheet = XLSX.utils.json_to_sheet(productsToExport);
+
+  const workbook = XLSX.utils.book_new();
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Products");
+
+  XLSX.writeFile(workbook, `${category}-products.xlsx`);
+  };
+
     const handleDeleteProductButton = async () => {   
         const { data, error } = await supabase .from("productCosmetics") .delete() .eq("id", editProductData.id);
         if (!error) {
@@ -128,7 +154,7 @@ function AdminProducts() {
   const handleSearch=(e)=>{
     const search=e.target.value
     setSearchInput(search)
-    const searchResult = getProductsFromSupabase.filter((item)=>item.name.toLowerCase().includes(search.toLowerCase())||String(item.productcode).toLowerCase().startsWith(search.toLowerCase()))
+    const searchResult = filterProductsByCategory.filter((item)=>item.name.toLowerCase().includes(search.toLowerCase())||String(item.productcode).toLowerCase().startsWith(search.toLowerCase()))
     setFilteredResult(searchResult)
   }
 
@@ -142,7 +168,6 @@ function AdminProducts() {
     }
   }
 
-  const filterProductsByCategory = getProductsFromSupabase.filter((item)=>item.productcategory === category)
   return(
     <div className={style.container}>
   <div className={style.header}>
@@ -163,11 +188,16 @@ function AdminProducts() {
           <button className={style.addproductbutton} onClick={()=>{setAddProductPopup(true)}}><span className={style.fullscreen}>+ Add Product</span><span className={style.mobilescreen}>+ Add</span></button>
         </div>
 
-        <div>
+        <div className={style.topbottom}>
           <div className={style.searchbar}>
             <FaSearch color='#71717B' size={20}/> 
             <input className={style.searchinput} type="text" name='search' value={searchInput} onChange={handleSearch} placeholder="Search Your Product..." /> 
           </div>
+          <select className={style.categorySelect} name="category" value={category} onChange={(e) => setCategory(e.target.value)} >
+            <option value="all">All</option>
+            <option value="beautyproducts">Beauty Products</option>
+            <option value="undergarments">Under Garments</option>
+          </select>
         </div>
       </div>
 
@@ -175,14 +205,10 @@ function AdminProducts() {
           <div className={style.maincontentwrapperupper}>
             <div className={style.maincontentwrappertop}>
                 <div>
-                  <p> Total Products {getProductsFromSupabase.length} </p>
+                  <p> Total Products {filterProductsByCategory.length} </p>
                 </div>
-                <div>
-                  <select className={style.categorySelect} name="category" value={category} onChange={(e) => setCategory(e.target.value)} >
-                    <option value="beautyproducts">Beauty Products</option>
-                    <option value="undergarments">Under Garments</option>
-                  </select>
-                </div>
+                <button onClick={handleExportProducts}> <FiDownload/> <p>Export</p></button>
+
             </div>
             <div className={style.maincontentwrappermid}>
               <p>CODE</p>
