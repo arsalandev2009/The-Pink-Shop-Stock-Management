@@ -18,9 +18,9 @@ function AdminProducts() {
   const [getProductsFromSupabase,setGetProductsFromSupabase]=useState([])
   const [addProductPopup,setAddProductPopup]=useState(false)
   const [refresh,setRefresh]=useState(false)
-  const [addProductForm,setAddProductForm]=useState({image:'',name:'',price:'',stockquantity:'',productcode:"",instockdate:'',productcategory:''})
+  const [addProductForm,setAddProductForm]=useState({image:'',name:'',stockquantity:'',productcode:"",instockdate:'',productcategory:'',discount:'',discountprice:'',originalprice:''})
   const [updateProductPopup, setUpdateProductPopup] = useState(false);
-  const [editProductData, setEditProductData] = useState({ image: "", name: "", price: "",stockquantity:'',productcode:'',instockdate:'',productcategory:'' });
+  const [editProductData, setEditProductData] = useState({ image: "", name: "",stockquantity:'',productcode:'',instockdate:'',productcategory:'',discount:'' ,discountprice:'',originalprice:''});
   const [deleteProductPopup, setDeleteProductPopup] = useState(false);
   const [searchInput,setSearchInput]=useState('')
   const [filteredResult,setFilteredResult]=useState([])
@@ -28,7 +28,7 @@ function AdminProducts() {
 
 // console.log(category)
 
-  setTimeout(()=>{setMenu(null)},10000)
+  // setTimeout(()=>{setMenu(null)},10000)
 
   useEffect(()=>{
     const getProducts =async()=>{
@@ -48,7 +48,7 @@ function AdminProducts() {
     "Product Code": item.productcode,
     "Product Category":item.productcategory,
     "Product Name": item.name,
-    "Product Price" : item.price,
+    "Product Price" : item.originalprice,
   }));
 
   if (productsToExport.length === 0) {
@@ -78,6 +78,8 @@ function AdminProducts() {
   
     const handleUpdateProductDone = async (e) => {
       e.preventDefault();
+
+
       if(getProductsFromSupabase.some((item) => item.productcode == editProductData.productcode && item.id !=editProductData.id)){
         alert('Product With this Code already Exist')
         return;
@@ -86,12 +88,14 @@ function AdminProducts() {
       alert('wrong code')
       return
     }
-      const { data, error } = await supabase .from("productCosmetics") .update({ image: editProductData.image, name: editProductData.name, price: editProductData.price,stockquantity:editProductData.stockquantity,productcode:editProductData.productcode,instockdate:editProductData.instockdate,productcategory:editProductData.productcategory }).eq("id", editProductData.id).select().single();
+      const percentage = editProductData.discount*editProductData.originalprice/100
+      const finalPrice =  editProductData.originalprice-percentage 
+    if(editProductData.discount <= 0){
+      const { data, error } = await supabase .from("productCosmetics") .update({ image: editProductData.image, name: editProductData.name, originalprice: editProductData.originalprice,discount:editProductData.discount,discountprice:editProductData.originalprice,stockquantity:editProductData.stockquantity,productcode:editProductData.productcode,instockdate:editProductData.instockdate,productcategory:editProductData.productcategory}).eq("id", editProductData.id).select().single();
       if (error) {
         console.log(error);
         return;
       }
-  
       setUpdateProductPopup(false);
       setMenu(null)
       setEditProductData({
@@ -100,10 +104,37 @@ function AdminProducts() {
         price: "",
         stockquantity:'',
         productcode:'',
-        instockdate:''
+        instockdate:'',
+        discount:'',
+        discountprice:'',
+        originalprice:''
       });
   
       setRefresh((prev) => !prev);
+      return
+    }
+    console.log(finalPrice)
+    const { data, error } = await supabase .from("productCosmetics") .update({ image: editProductData.image, name: editProductData.name, originalprice: editProductData.originalprice,discount:editProductData.discount,discountprice:finalPrice,stockquantity:editProductData.stockquantity,productcode:editProductData.productcode,instockdate:editProductData.instockdate,productcategory:editProductData.productcategory}).eq("id", editProductData.id).select().single();
+    if (error) {
+      console.log(error);
+      return;
+    }
+    setUpdateProductPopup(false);
+    setMenu(null)
+    setEditProductData({
+      image: "",
+      name: "",
+      price: "",
+      stockquantity:'',
+      productcode:'',
+      instockdate:'',
+      discount:'',
+      discountprice:'',
+      originalprice:''
+    });
+
+    setRefresh((prev) => !prev);
+  
     };
 
   const handleChangeUpdateImage = async(e) => {
@@ -131,6 +162,7 @@ function AdminProducts() {
 
   const handleAddProductDone=async(e)=>{
     e.preventDefault()
+
     if(getProductsFromSupabase.some(item => item.productcode == addProductForm.productcode)){
       alert('Product With this Code already Exist')
       return;
@@ -139,10 +171,25 @@ function AdminProducts() {
       alert('wrong code')
       return
     }
-    const {data,error}=await supabase.from('productCosmetics').insert({image:addProductForm.image,name:addProductForm.name,price:addProductForm.price,stockquantity:addProductForm.stockquantity,productcode:addProductForm.productcode , instockdate:addProductForm.instockdate,productcategory:editProductData.productcategory})
+    const percentage = addProductForm.discount*addProductForm.originalprice/100
+    const finalPrice = addProductForm.originalprice-percentage 
+    if(addProductForm.discount <= 0){
+
+      const {data,error}=await supabase.from('productCosmetics').insert({image:addProductForm.image,name:addProductForm.name,originalprice:addProductForm.originalprice,discount:addProductForm.discount,discountprice:addProductForm.originalprice,stockquantity:addProductForm.stockquantity,productcode:addProductForm.productcode , instockdate:addProductForm.instockdate,productcategory:editProductData.productcategory})
+      if(!error){       
+        setAddProductPopup(false)
+        setAddProductForm({image:'',name:'',price:'',stockquantity:"",productcode:'',instockdate:'',discount:''})
+        setRefresh(prev => !prev);
+        return;
+      }
+      alert('Error! Contact the developer')
+      console.log(error)
+      return
+    }
+    const {data,error}=await supabase.from('productCosmetics').insert({image:addProductForm.image,name:addProductForm.name,originalprice:addProductForm.originalprice,discount:addProductForm.discount,discountprice:finalPrice,stockquantity:addProductForm.stockquantity,productcode:addProductForm.productcode , instockdate:addProductForm.instockdate,productcategory:editProductData.productcategory})
     if(!error){       
       setAddProductPopup(false)
-      setAddProductForm({image:'',name:'',price:'',stockquantity:"",productcode:'',instockdate:''})
+      setAddProductForm({image:'',name:'',price:'',stockquantity:"",productcode:'',instockdate:'',discount:'',originalprice:'',discountprice:''})
       setRefresh(prev => !prev);
       return;
     }
@@ -228,7 +275,7 @@ function AdminProducts() {
                         <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
                        {item.name} 
                     </div>
-                    <div className={style.productprice}> <span>{item.price} /-</span>  </div>
+                    <div className={style.productprice}> <span>{item.discountprice} /-</span>  </div>
                     <div className={style.productstock}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </div>
                     <div className={style.productinstockdate}>  {new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
                     <div className={style.productmenubutton}>
@@ -246,8 +293,8 @@ function AdminProducts() {
                     <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
                     <div className={style.mid}>
                       {/* <div className={style.productcode}>  </div> */}
-                      <div className={style.productname}>{item.name} </div>
-                      <div className={style.productstock}> <p>Code: {item.productcode} </p><p>Rs: {item.price} /-</p> </div>
+                      <div className={style.productname}><p>{item.name}</p><p>Rs: {item.discountprice} /-</p> </div>
+                      <div className={style.productstock}> <p>Code: {item.productcode} </p>  <p>Discount: {item.discount}%</p> </div>
                       {/* <div className={style.productprice}>  </div> */}
                       <div className={style.productinstockdate}> <p style={{backgroundColor:`${item.stockquantity >0 ? '#DCFCE7' : '#FEF3C6'}`,color:`${item.stockquantity>0?'#008236 ':'#BB4D00'}`}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>   <p>{new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
                     </div> 
@@ -271,7 +318,7 @@ function AdminProducts() {
                         <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
                        {item.name} 
                     </div>
-                    <div className={style.productprice}> <span>{item.price} /-</span>  </div>
+                    <div className={style.productprice}> <span>{item.discountprice} /-</span>  </div>
                     <div className={style.productstock}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </div>
                     
                     <div className={style.productinstockdate}>  {new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
@@ -290,8 +337,8 @@ function AdminProducts() {
                     <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
                     <div className={style.mid}>
                       {/* <div className={style.productcode}>  </div> */}
-                      <div className={style.productname}>{item.name} </div>
-                      <div className={style.productstock}> <p>Code: {item.productcode} </p><p>Rs: {item.price} /-</p> </div>
+                      <div className={style.productname}><p>{item.name}</p> <p>Rs: {item.discountprice} /-</p>  </div>
+                      <div className={style.productstock}> <p>Code: {item.productcode} </p>  <p>Discount: {item.discount}%</p></div>
                       {/* <div className={style.productprice}>  </div> */}
                       <div className={style.productinstockdate}> <p style={{backgroundColor:`${item.stockquantity >0 ? '#DCFCE7' : '#FEF3C6'}`,color:`${item.stockquantity>0?'#008236 ':'#BB4D00'}`}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>   <p>{new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
                     </div> 
@@ -319,7 +366,7 @@ function AdminProducts() {
         <div className={style.overlay}> 
           <form onSubmit={handleAddProductDone} className={style.popup}> 
             <div className={style.close}> 
-              <button type="button" onClick={() =>{ setAddProductPopup(false), setAddProductForm({image:'',name:'',price:'',stockquantity:'',productcode:"",instockdate:''})}} className={style.closeBtn} > <IoClose size={30} /> </button> 
+              <button type="button" onClick={() =>{ setAddProductPopup(false), setAddProductForm({image:'',name:'',price:'',stockquantity:'',productcode:"",instockdate:'',discount:''})}} className={style.closeBtn} > <IoClose size={30} /> </button> 
             </div> 
 
             <label className={style.label}>Image</label> 
@@ -338,8 +385,11 @@ function AdminProducts() {
             <label className={style.label}>Name</label> 
             <input type="text" onChange={handleChange} value={addProductForm.name} placeholder="Enter Your Product Name" name="name" className={style.input} required /> 
 
-            <label className={style.label}>Price</label> 
-            <input type="number" onChange={handleChange} value={addProductForm.price} placeholder="Enter Your Product Price" name="price" className={style.input} required /> 
+            <label className={style.label}>Original Price</label> 
+            <input type="number" onChange={handleChange} value={addProductForm.originalprice} placeholder="Enter Your Product Price" name="originalprice" className={style.input} required /> 
+            
+            <label className={style.label}>Discount</label> 
+            <input type="number" onChange={handleChange} value={addProductForm.discount} placeholder="Enter Discount in percentage" name="discount" className={style.input} required /> 
 
             <label className={style.label}>Stock Quantity</label> 
             <input type="text" onChange={handleChange} value={addProductForm.stockquantity} placeholder="Enter Your Stock Quantity" name="stockquantity" className={style.input} required /> 
@@ -384,8 +434,13 @@ function AdminProducts() {
           </div>
       
           <div className={style.updateProductField}>
-            <label className={style.updateProductLabel}> Price </label>
-            <input type="number" className={style.updateProductInput} value={editProductData.price} onChange={(e) => setEditProductData({ ...editProductData, price: e.target.value, }) } />
+            <label className={style.updateProductLabel}> Original Price </label>
+            <input type="number" className={style.updateProductInput} value={editProductData.originalprice} onChange={(e) => setEditProductData({ ...editProductData, originalprice: e.target.value, }) } />
+          </div>
+
+          <div className={style.updateProductField}>
+            <label className={style.updateProductLabel}> Discount </label>
+            <input type="number" className={style.updateProductInput} value={editProductData.discount} onChange={(e) => setEditProductData({ ...editProductData, discount: e.target.value }) } />
           </div>
       
           <div className={style.updateProductField}>
