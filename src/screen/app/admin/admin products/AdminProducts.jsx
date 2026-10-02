@@ -257,7 +257,8 @@ function AdminProducts() {
             <div className={style.maincontentwrappermid}>
               <p>CODE</p>
               <p>PRODUCTS</p>
-              <p>PRICE</p>
+              <p>DISCOUNTED PRICE</p>
+              <p>DISCOUNT</p>
               <p>QUANTITY</p>
               <p>RE-STOCK DATE</p>
               <p>ACTIONS</p>
@@ -276,6 +277,7 @@ function AdminProducts() {
                        {item.name} 
                     </div>
                     <div className={style.productprice}> <span>{item.discountprice} /-</span>  </div>
+                    <div className={style.productprice}> <span>{item.discount} %</span>  </div>
                     <div className={style.productstock}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </div>
                     <div className={style.productinstockdate}>  {new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
                     <div className={style.productmenubutton}>
@@ -316,9 +318,10 @@ function AdminProducts() {
                     <div className={style.productcode}> {item.productcode}</div>
                     <div className={style.productname}>
                         <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
-                       {item.name} 
+                        {item.name} 
                     </div>
                     <div className={style.productprice}> <span>{item.discountprice} /-</span>  </div>
+                    <div className={style.productprice}> <span>{item.discount} %</span>  </div>
                     <div className={style.productstock}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </div>
                     
                     <div className={style.productinstockdate}>  {new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
