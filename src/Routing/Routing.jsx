@@ -1,5 +1,5 @@
 import React from 'react'
-import { AdminProducts, Login, ProductsShow,  ForgetPassword, UpdatePassword,  AdminDashboard, AdminSidebar, AdminCustomers, AdminSettings, ComingSoon } from '../screen/screen'
+import { AdminProducts, Login, ProductsShow,  ForgetPassword, UpdatePassword,  AdminDashboard, AdminSidebar, AdminCustomers, AdminSettings, ComingSoon, Signup } from '../screen/screen'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './ProtectedRoute'
 
@@ -10,7 +10,9 @@ export default function Routing() {
 <BrowserRouter>
 <Routes>
     <Route path='/' element={<ProductsShow/>}/>
+    
     <Route path='/login' element={<Login/>}/>
+    <Route path='/signup' element={<Signup/>}/>
     <Route path='/forgetpassword' element={<ForgetPassword/>}/>
     <Route path='/updatepassword' element={<UpdatePassword/>}/>
 

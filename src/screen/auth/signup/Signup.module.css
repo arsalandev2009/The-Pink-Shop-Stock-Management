@@ -2,8 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100dvh;
+    min-height: 100dvh;
     background-color: #FFF3F4;
+    padding: 20px 0;
 }
 
 .form {
@@ -12,7 +13,7 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
     background-color: #ffffff;
     box-shadow: 0px 10px 25px rgba(231, 67, 126, 0.15);
 }
@@ -25,14 +26,24 @@
     color: #E7437E;
 }
 
+.upper h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.upper p {
+    font-size: 14px;
+    color: rgba(231, 67, 126, 0.8);
+}
+
 .mid {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
-.mid .label {
-    font-size: 14px;
+.label {
+    font-size: 13px;
     font-weight: 600;
     color: #E7437E;
     text-transform: uppercase;
@@ -61,7 +72,7 @@
     padding: 12px 15px !important;
     background-color: transparent;
     color: #333333;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .eyebutton {
@@ -80,20 +91,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-}
-
-.link {
-    color: #E7437E;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 0 !important;
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-}
-
-.link:hover {
-    opacity: 0.8;
+    margin-top: 5px;
 }
 
 .button {
@@ -111,6 +109,22 @@
 
 .button:active {
     transform: scale(0.98);
+}
+
+.loginText {
+    font-size: 14px;
+    color: #666666;
+    text-align: center;
+}
+
+.link {
+    color: #E7437E;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
 }
 
 @media (max-width: 480px) {

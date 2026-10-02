@@ -1,5 +1,6 @@
-import ForgetPassword from "./auth/forget password/ForgetPassword";
+import Signup from "./auth/signup/Signup";
 import Login from "./auth/login/Login";
+import ForgetPassword from "./auth/forget password/ForgetPassword";
 import UpdatePassword from "./auth/update password/UpdatePassword";
 
 import AdminSidebar from "./app/admin/admin sidebar/AdminSidebar";
@@ -13,4 +14,5 @@ import ProductsShow from "./app/user/products show/ProductsShow";
 import ComingSoon from "./app/comingsoon/ComingSoon";
 
 
-export {ComingSoon,AdminCustomers,AdminSidebar,AdminDashboard,AdminProducts,AdminSettings,Login,ForgetPassword,UpdatePassword,ProductsShow,AdminProductsDetailsPage}
+
+export {ComingSoon,AdminCustomers,AdminSidebar,AdminDashboard,AdminProducts,AdminSettings,Login,Signup,ForgetPassword,UpdatePassword,ProductsShow,AdminProductsDetailsPage}

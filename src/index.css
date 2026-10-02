@@ -1,9 +1,16 @@
-*{
-  margin: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+/* Universal reset (box-sizing & font sab par chalega) */
+*, *::before, *::after {
+    box-sizing: border-radius;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
+
+/* SweetAlert2 ke kisi bhi element ko chhod kar baaki sabka margin & padding 0 hoga */
+*:not([class^="swal2-"]):not([class*=" swal2-"]) {
+    margin: 0;
+    padding: 0;
+}
+
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
