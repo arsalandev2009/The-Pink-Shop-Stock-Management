@@ -1,25 +1,22 @@
 import React, { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import style from './AdminSidebar.module.css'
-import { FiMenu, FiUsers } from 'react-icons/fi'
-import { IoMdClose } from 'react-icons/io'
+import {  FiUsers } from 'react-icons/fi'
+import { FiShoppingBag } from "react-icons/fi";
 import { LuBox, LuLayoutDashboard } from 'react-icons/lu'
-import { IoSettingsOutline } from 'react-icons/io5'
 import Logo from '../../../../asset/logo.png'
 
 function AdminSidebar() {
   const [mobileSideBar,setMobileSideBar]=useState(false)
-  const handleClose = ()=>{setMobileSideBar(false)}
 
   return (
     <>
-      {/* <div className={style.header}><Header HeaderButtonText={'Logout'} HeaderButtonOnClick={handleLogout}/></div> */}
       <div className={style.maincontainer}>
         <div className={style.sidebarmobile}>
               <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'admindashboard'}> <LuLayoutDashboard size={20}/> Dashboard</NavLink>
               <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'adminproducts'}> <LuBox size={20}/> Products</NavLink>
               <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'admincustomers'}> <FiUsers size={20}/> Customers</NavLink>
-              <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'adminsettings'}> <IoSettingsOutline size={20}/> Settings</NavLink>
+              <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`}  onClick={()=>{setMobileSideBar(false)}} to={'adminorders'}> <FiShoppingBag size={20}/> Orders</NavLink>
         </div>
         <div className={style.sidebardesktop}>
           <div className={style.sidebardesktopupper}>
@@ -30,7 +27,7 @@ function AdminSidebar() {
           <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''} `} to={'admindashboard'}> <LuLayoutDashboard className={style.icon} size={20}  /> Dashboard</NavLink>
           <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`} to={'adminproducts'}> < LuBox className={style.icon} size={20} /> Products</NavLink>
           <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`} to={'admincustomers'}> <FiUsers className={style.icon} size={20} /> Customers</NavLink>
-          <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`} to={'adminsettings'}> <IoSettingsOutline className={style.icon} size={20} /> Settings</NavLink>
+          <NavLink className={({isActive})=> `${style.navlink} ${isActive ? style.active : ''}`} to={'adminorders'}> <FiShoppingBag className={style.icon} size={20} /> Orders</NavLink>
         </div>
 
         <div className={style.content}> <Outlet/> </div>

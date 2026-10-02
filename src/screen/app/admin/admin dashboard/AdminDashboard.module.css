@@ -80,13 +80,13 @@ transition: transform (0.4s);
 @media (min-width:320px ) and (max-width:1100px) {
 .header{
     left: 0px;
-    padding: 0px 20px 0px 20px !important;
+    padding: 0px 10px 0px 10px !important;
 }
 .header > p{
     font-size: 14px;
 }
 .header > button{
-    font-size: 16px;
+    font-size: 14px;
     padding: 8px 10px !important;
 }
 .container{

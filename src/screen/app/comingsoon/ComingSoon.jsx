@@ -11,7 +11,7 @@ const ComingSoon = () => {
         </div>
         <br />
         <h1>
-            <h1>Settings Page</h1>
+            <h1>Orders Page</h1>
           Coming <span>Soon</span>
         </h1>
 

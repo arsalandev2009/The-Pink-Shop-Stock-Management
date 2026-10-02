@@ -1,11 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import style from './AdminCustomers.module.css'
-import { FiDownload, FiEdit, FiLogOut } from 'react-icons/fi';
+import { FiDownload,  FiLogOut } from 'react-icons/fi';
 import { CiEdit } from "react-icons/ci";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaRegTrashAlt, FaSearch } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5'
-import { BsThreeDotsVertical } from 'react-icons/bs';
 import { supabase } from '../../../../utils/supabase';
 import { useNavigate } from 'react-router-dom';
 

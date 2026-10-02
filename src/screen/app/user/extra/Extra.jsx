@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../../../utils/supabase'
 import { Header, SearchBar } from '../../../../components/component'
-import style from './ProductShow.module.css'
+import style from './Extra.module.css'
 
-function ProductsShow() {
+function Extra() {
 
   
   const navigate=useNavigate()
@@ -38,7 +38,7 @@ function ProductsShow() {
 
   return (
     <div className={style.container}>
-      <div className={style.header}><Header HeaderButtonText='Add More Products' HeaderButtonOnClick={()=>{navigate('/login')}} /></div>
+      <div className={style.header}><Header HeaderButtonText='Login' HeaderButtonOnClick={()=>{navigate('/login')}} /></div>
       <div className={style.searchbar}><SearchBar SearchValue={searchInput} SearchOnChange={handleSearch}/></div>
       
       <div className={style.maincontent}>
@@ -79,4 +79,4 @@ function ProductsShow() {
   )
 }
 
-export default ProductsShow
+export default Extra

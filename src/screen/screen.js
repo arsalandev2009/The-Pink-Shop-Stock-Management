@@ -8,11 +8,28 @@ import AdminDashboard from "./app/admin/admin dashboard/AdminDashboard";
 import AdminProducts from "./app/admin/admin products/AdminProducts";
 import AdminCustomers from "./app/admin/admin customers/AdminCustomers";
 import AdminSettings from "./app/admin/admin settings/AdminSettings";
-import AdminProductsDetailsPage from "./app/admin/admin product details page/AdminProductsDetailsPage";
 
-import ProductsShow from "./app/user/products show/ProductsShow";
+
 import ComingSoon from "./app/comingsoon/ComingSoon";
+import LandingPage from "./app/user/landing page/LandingPage";
+import Extra from "./app/user/extra/Extra";
+
+export {
+Extra,
 
 
 
-export {ComingSoon,AdminCustomers,AdminSidebar,AdminDashboard,AdminProducts,AdminSettings,Login,Signup,ForgetPassword,UpdatePassword,ProductsShow,AdminProductsDetailsPage}
+    Login,
+    Signup,
+    ForgetPassword,
+    UpdatePassword,
+
+    AdminCustomers,
+    AdminSidebar,
+    AdminDashboard,
+    AdminProducts,
+    AdminSettings,
+    
+    LandingPage,
+    ComingSoon,
+};

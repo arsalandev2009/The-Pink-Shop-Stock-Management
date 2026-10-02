@@ -1,0 +1,79 @@
+.header{
+    height: 70px;
+    border-bottom: 2px solid #EFE0E2;
+    background: #FCFAF9;
+    margin-bottom: 10px !important;
+    position: fixed;
+    right: 0; 
+    top: 0;
+    left: 0;
+    flex: 1;
+    padding: 0px 50px 0px 30px !important;
+    z-index: 9999;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+.header > p{
+    font-size: 16px;
+}
+.headermid{
+    display: flex;
+    gap: 3vw;
+}
+.headermid a{
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+}
+.header > button{
+    border: none;
+    font-size: 20px;
+    background: #e7437e;
+    border-radius: 10px;
+    padding: 5px 10px !important;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10PX;
+transition: transform (0.4s);
+}
+.header > button:hover {
+    animation: buttonScale 0.2s ease forwards;
+}
+
+@keyframes buttonScale {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.05);
+    }
+
+}
+
+@media (min-width:320px ) and (max-width:1100px) {
+.header{
+    left: 0px;
+    padding: 0px 10px 0px 10px !important;
+}
+.header > p{
+    font-size: 14px;
+}
+.headermid{
+    display: flex;
+    gap: 3vw;
+    /* width: 40%; */
+}
+.headermid a{
+    text-align: center;
+    font-size: 14px;
+}
+.header > button{
+    font-size: 14px;
+    gap: 5PX;
+    padding: 8px 10px !important;
+}
+}
