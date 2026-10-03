@@ -44,15 +44,14 @@ function Extra() {
       <div className={style.maincontent}>
         {searchInput == ''?(
             getProducts.map((item)=>(
-             <div key={item.id} className={style.productcontainer}>
+              <div key={item.id} className={style.productcontainer}>
                <div className={style.productupper}>
                 <img src={item.image} alt={item.name} className={style.image}/>
-                <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>
+                <p> {item.discount != 0 ? <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}>{item.discount}% Off</p> : '' } </p>
                </div>
                <div className={style.productlower}>
-                 <p className={style.productcode}>Code: <b>{item.productcode}</b> </p>
                  <p className={style.productname}> {item.name} </p>
-                 <p className={style.productprice}>Rs:<b> {item.price}</b> </p>
+                 <p className={style.productprice}><span>Rs:<b> {item.discountprice}</b></span> <del>Rs: {item.originalprice}</del></p>
                </div>
              </div>
             ))):filtered.length>0?(
@@ -60,12 +59,11 @@ function Extra() {
                <div key={item.id} className={style.productcontainer}>
                  <div className={style.productupper}>
                     <img src={item.image} alt={item.name} className={style.image}/>
-                    <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>
+                    <p> {item.discount != 0 ? <p className={style.productstock} style={{backgroundColor:item.stockquantity>0?'#ff1493':'#9f1239'}}>{item.discount}% Off</p> : '' } </p>
                  </div>
                  <div className={style.productlower}>
-                   <p className={style.productcode}>Code: <b>{item.productcode}</b> </p>
                    <p className={style.productname}> {item.name} </p>
-                   <p className={style.productprice}>Rs: <b>{item.price}</b> </p>
+                   <p className={style.productprice}>Rs: <b>{item.discountprice}</b> </p>
                  </div>
                 </div>
               )):(

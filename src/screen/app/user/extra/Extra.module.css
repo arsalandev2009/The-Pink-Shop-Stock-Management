@@ -81,6 +81,13 @@
 }
 .productprice{
     font-size: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: end;
+
+}
+.productprice>del{
+    font-size: 16px;
 }
 
 
@@ -120,6 +127,9 @@
 .productprice{
     font-size: 16px;
 } 
+.productprice>del{
+    font-size: 12px;
+}
 }
 
 @media (min-width:721px) and (max-width:1120px) {
@@ -157,4 +167,7 @@
 .productprice{
     font-size: 18px;
 } 
+.productprice>del{
+    font-size: 14px;
+}
 }
