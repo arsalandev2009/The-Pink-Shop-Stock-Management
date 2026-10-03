@@ -251,9 +251,7 @@ gap: 5px;
   font-size: 16px;
   display: flex;
   align-items:center;
-  gap: 10px;
-    
-    
+  gap: 10px;    
 }
 .imagecontainer {
   width: 40px;
@@ -717,7 +715,21 @@ gap: 5px;
     height: 100px;
     overflow: hidden;
     border-bottom: 2px  solid #E4E4E7;
+    position: relative;
   }
+  .discountpercentage{
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  background-color: #ea4c89; /* Admin panel ke buttons wala pink color */
+  color: #ffffff; /* Button text ki tarah white color */
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 8px !important;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(234, 76, 137, 0.4);
+}
+  
 
 .imagecontainer {
   width: 70px;
@@ -755,6 +767,7 @@ gap: 5px;
   width: 100%;
   padding: 0px 10px 0px 0px !important;
 }
+
 
   .productstock{
     font-size: 12px;

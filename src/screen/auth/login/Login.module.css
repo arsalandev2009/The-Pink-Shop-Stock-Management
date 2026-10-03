@@ -2,12 +2,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     min-height: 100dvh;
     background-color: #FFF3F4;
 }
 
 .form {
-    width: 350px;
+    width: 90%;
+    max-width: 350px;
     padding: 30px !important;
     border-radius: 20px;
     display: flex;
@@ -111,7 +113,6 @@
     flex-direction: column;
     gap: 15px;
 }
-
 .button {
     border: none;
     background-color: #E7437E;
@@ -123,8 +124,14 @@
     cursor: pointer;
     transition: transform 0.1s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 12px rgba(231, 67, 126, 0.3);
+} 
+.button:disabled{
+  background-color: #f4a6c1;
+  color: #ffffff; 
+  cursor: not-allowed;
+  opacity: 0.6; 
+  box-shadow: none;
 }
-
 .button:active {
     transform: scale(0.98);
 }
@@ -146,7 +153,7 @@
 }
 
 @media (max-width: 480px) {
-    .form {
+    /* .form {
         width: 300px;
-    }
+    } */
 }

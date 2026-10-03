@@ -8,7 +8,8 @@
 }
 
 .form {
-    width: 350px;
+    width: 90%;
+    max-width: 350px;
     padding: 30px !important;
     border-radius: 20px;
     display: flex;
@@ -127,8 +128,3 @@
     text-decoration: underline;
 }
 
-@media (max-width: 480px) {
-    .form {
-        width: 300px;
-    }
-}

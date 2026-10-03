@@ -36,9 +36,12 @@ function UpdatePassword() {
                   title: 'sweet-alert-title',
                   htmlContainer: 'sweet-alert-text'
                 }
+              }).then(()=>{
+                navigate('/login')
               });
-            navigate('/login')
+              return
             }
+            alert(error.message)
           return
         }
         Swal.fire({
@@ -57,10 +60,9 @@ function UpdatePassword() {
     }
     return (
         <div className={style.container}>
-
           <form onSubmit={handleSubmit} className={style.form}>
             <div className={style.upper}>
-              <h2 style={{color:'#ff1493'}}> THE PINK SHOP </h2>
+              <h2> THE PINK SHOP </h2>
               <p >Enter Your New Password </p>
             </div>
 

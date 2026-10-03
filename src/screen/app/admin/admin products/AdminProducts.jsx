@@ -238,7 +238,7 @@ function AdminProducts() {
         <div className={style.topbottom}>
           <div className={style.searchbar}>
             <FaSearch color='#71717B' size={20}/> 
-            <input className={style.searchinput} type="text" name='search' value={searchInput} onChange={handleSearch} placeholder="Search Your Product..." /> 
+            <input className={style.searchinput} type="search" name='search' value={searchInput} onChange={handleSearch} placeholder="Search Your Product..." /> 
           </div>
           <select className={style.categorySelect} name="category" value={category} onChange={(e) => setCategory(e.target.value)} >
             <option value="all">All</option>
@@ -292,11 +292,14 @@ function AdminProducts() {
                   </div>
 
                   <div className={style.productcontainermobile}>
-                    <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
+                    <div className={style.imagecontainer}><img src={item.image}  alt="" /> 
+                    
+                    </div>
                     <div className={style.mid}>
                       {/* <div className={style.productcode}>  </div> */}
-                      <div className={style.productname}><p>{item.name}</p><p>Rs: {item.discountprice} /-</p> </div>
-                      <div className={style.productstock}> <p>Code: {item.productcode} </p>  <p>Discount: {item.discount}%</p> </div>
+                      <div className={style.productname}>{item.name}</div>
+                      <p> {item.discount != 0 ? <p className={style.discountpercentage}>{item.discount}% Off</p> : ''}</p>
+                      <div className={style.productstock}> <p>Code: {item.productcode} </p>  <p>Rs: {item.discountprice} /-</p> </div>
                       {/* <div className={style.productprice}>  </div> */}
                       <div className={style.productinstockdate}> <p style={{backgroundColor:`${item.stockquantity >0 ? '#DCFCE7' : '#FEF3C6'}`,color:`${item.stockquantity>0?'#008236 ':'#BB4D00'}`}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>   <p>{new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
                     </div> 
@@ -340,8 +343,9 @@ function AdminProducts() {
                     <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
                     <div className={style.mid}>
                       {/* <div className={style.productcode}>  </div> */}
-                      <div className={style.productname}><p>{item.name}</p> <p>Rs: {item.discountprice} /-</p>  </div>
-                      <div className={style.productstock}> <p>Code: {item.productcode} </p>  <p>Discount: {item.discount}%</p></div>
+                      <div className={style.productname}>{item.name}</div>
+                      <p> {item.discount != 0 ? <p className={style.discountpercentage}>{item.discount}% Off</p> : ''}</p>
+                      <div className={style.productstock}> <p>Code: {item.productcode} </p>  <p>Rs: {item.discountprice} /-</p>  </div>
                       {/* <div className={style.productprice}>  </div> */}
                       <div className={style.productinstockdate}> <p style={{backgroundColor:`${item.stockquantity >0 ? '#DCFCE7' : '#FEF3C6'}`,color:`${item.stockquantity>0?'#008236 ':'#BB4D00'}`}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>   <p>{new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
                     </div> 

@@ -8,13 +8,14 @@ function Login() {
     const navigate = useNavigate()
     const [loginData, setLoginData] = useState({ email: '', password: '' })
     const [showPassword, setShowPassword] = useState(false)
-
+    const [isDisabled,setIsDisabled]= useState(false)
     const handleChange = (e) => {
         setLoginData({ ...loginData, [e.target.name]: e.target.value })
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setIsDisabled(true)
         const { data, error } = await supabase.auth.signInWithPassword({ email: loginData.email, password: loginData.password })
         
         if (!error) {
@@ -90,7 +91,7 @@ function Login() {
 
                 {/* Action Buttons & Links */}
                 <div className={style.lower}>
-                    <button type="submit" className={style.button}> Login </button>
+                    <button type="submit" className={style.button} disabled={isDisabled}> {isDisabled ? 'Logging in...' :'Login'} </button>
                     <p className={style.signupText}>
                         Don't have an account? {' '}
                         <Link to={'/signup'} className={style.signupLink}> Sign Up </Link>

@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import style from './Signup.module.css'
 import {FaEye,FaEyeSlash} from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../../../utils/supabase'
+import Swal from 'sweetalert2'
+
 function Signup() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [signupData,setSignupData] = useState({name:'',email:'',password:'',confirmpassword:''})
-
+  const navigate = useNavigate()
   function handleChange(e){
     let name = e.target.name;
     let value = e.target.value
@@ -25,6 +27,22 @@ function Signup() {
           }
           alert(usererror)  
         return
+      }
+      if(error.message.toLowerCase() === 'user already registered'){
+        Swal.fire({
+          title: 'Already Registered! 🌸',
+          text: 'This email is already registered. Please log in instead.',
+          icon: 'warning',
+          iconColor: '#ea4c89', 
+          confirmButtonText: 'Login',
+          confirmButtonColor: '#ea4c89', 
+          background: '#fffafb', 
+          color: '#333333', 
+          borderRadius: '15px'
+        }).then(()=>{
+          navigate('/login')
+        });
+      return
       }
       alert(error.message)
     }
