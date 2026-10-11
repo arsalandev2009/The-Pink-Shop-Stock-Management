@@ -4,6 +4,7 @@
     min-height: 100dvh;
 }
 .header{
+    background-color: whitesmoke;
     position: fixed;
     top: 0px;
     left: 0;

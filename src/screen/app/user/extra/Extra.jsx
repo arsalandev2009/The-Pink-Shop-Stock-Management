@@ -51,7 +51,7 @@ function Extra() {
                </div>
                <div className={style.productlower}>
                  <p className={style.productname}> {item.name} </p>
-                 <p className={style.productprice}><span>Rs:<b> {item.discountprice}</b></span> <del>Rs: {item.originalprice}</del></p>
+                 <p className={style.productprice}><span>Rs:<b> {item.discountprice}</b></span> <del>{item.discount == 0 ? '': `Rs: ${item.originalprice}`}</del></p>
                </div>
              </div>
             ))):filtered.length>0?(
