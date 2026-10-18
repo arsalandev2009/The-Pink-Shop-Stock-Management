@@ -217,155 +217,155 @@ function AdminProducts() {
 
   return(
     <div className={style.container}>
-  <div className={style.header}>
-    <p> <span style={{color:'#71717B'}}>Admin / </span>Products</p>
-    <button onClick={handleLogout} type='button'><FiLogOut/> Logout</button>
-  </div>
-
-   
-    <div className={style.maincontent}>
-
-      <div className={style.top}>
-
-        <div className={style.toptop}>
-          <div>
-            <h2>Products</h2>
-            <p>Keep your catalog fresh, organized, and ready to sell</p>
-          </div>
-          <button className={style.addproductbutton} onClick={()=>{setAddProductPopup(true)}}><span className={style.fullscreen}>+ Add Product</span><span className={style.mobilescreen}>+ Add</span></button>
-        </div>
-
-        <div className={style.topbottom}>
-          <div className={style.searchbar}>
-            <FaSearch color='#71717B' size={20}/> 
-            <input className={style.searchinput} type="search" name='search' value={searchInput} onChange={handleSearch} placeholder="Search Your Product..." /> 
-          </div>
-          <select className={style.categorySelect} name="category" value={category} onChange={(e) => setCategory(e.target.value)} >
-            <option value="all">All</option>
-            <option value="beautyproducts">Beauty Products</option>
-            <option value="undergarments">Under Garments</option>
-          </select>
-        </div>
+      <div className={style.header}>
+        <p> <span style={{color:'#71717B'}}>Admin / </span>Products</p>
+        <button onClick={handleLogout} type='button'><FiLogOut/> Logout</button>
       </div>
 
-        <div className={style.maincontentwrapper}>
-          <div className={style.maincontentwrapperupper}>
-            <div className={style.maincontentwrappertop}>
-              <p> Total Products {filterProductsByCategory.length} </p>
-              <button onClick={handleExportProducts}> <FiDownload/> <p>Export</p></button>
+   
+      <div className={style.maincontent}>
+    
+        <div className={style.top}>
+    
+          <div className={style.toptop}>
+            <div>
+              <h2>Products</h2>
+              <p>Keep your catalog fresh, organized, and ready to sell</p>
             </div>
-            <div className={style.maincontentwrappermid}>
-              <p>CODE</p>
-              <p>PRODUCTS</p>
-              <p>DISCOUNTED PRICE</p>
-              <p>DISCOUNT</p>
-              <p>QUANTITY</p>
-              <p>RE-STOCK DATE</p>
-              <p>ACTIONS</p>
-            </div>
+            <button className={style.addproductbutton} onClick={()=>{setAddProductPopup(true)}}><span className={style.fullscreen}>+ Add Product</span><span className={style.mobilescreen}>+ Add</span></button>
           </div>
-            
-          <div className={style.maincontentwrapperbottom}>
-
-            {searchInput == ''?(
-                filterProductsByCategory.map((item)=>(
-                <Fragment key={item.id} >
-                  <div className={style.productcontainer}>
-                    <div className={style.productcode}> {item.productcode}</div>
-                    <div className={style.productname}>
-                        <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
-                       {item.name} 
-                    </div>
-                    <div className={style.productprice}> <span>{item.discountprice} /-</span>  </div>
-                    <div className={style.productprice}> <span>{item.discount} %</span>  </div>
-                    <div className={style.productstock}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </div>
-                    <div className={style.productinstockdate}>  {new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
-                    <div className={style.productmenubutton}>
-                      <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
-                      {menu  === item.id && (
-                        <div className={style.productmenubuttoncontent}>
-                          <button style={{background:'green'}}  onClick={() => { setEditProductData(item); setUpdateProductPopup(true); setMenu(null) }} >Edit</button>
-                          <button style={{background:'red'}} onClick={() => { setEditProductData(item); setDeleteProductPopup(true); setMenu(null)}}>Delete</button>
-                        </div>
-                      )}
-                    </div>                   
-                  </div>
-
-                  <div className={style.productcontainermobile}>
-                    <div className={style.imagecontainer}><img src={item.image}  alt="" /> 
-                    
-                    </div>
-                    <div className={style.mid}>
-                      {/* <div className={style.productcode}>  </div> */}
-                      <div className={style.productname}>{item.name}</div>
-                      <p> {item.discount != 0 ? <p className={style.discountpercentage}>{item.discount}% Off</p> : ''}</p>
-                      <div className={style.productstock}> <p>Code: {item.productcode} </p>  <p>Rs: {item.discountprice} /-</p> </div>
-                      {/* <div className={style.productprice}>  </div> */}
-                      <div className={style.productinstockdate}> <p style={{backgroundColor:`${item.stockquantity >0 ? '#DCFCE7' : '#FEF3C6'}`,color:`${item.stockquantity>0?'#008236 ':'#BB4D00'}`}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>   <p>{new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
-                    </div> 
-                    <div className={style.productmenubutton}>
-                      <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
-                      {menu  === item.id && (
-                        <div className={style.productmenubuttoncontent}>
-                          <button style={{background:'green'}}  onClick={() => { setEditProductData(item); setUpdateProductPopup(true); setMenu(null) }} >Edit</button>
-                          <button style={{background:'red'}} onClick={() => { setEditProductData(item); setDeleteProductPopup(true); setMenu(null)}}>Delete</button>
-                        </div>
-                      )}
-                    </div>                   
-                  </div>
-                </Fragment>
-                ))):filteredResult.length>0?(
-                  filteredResult.map(item=>
-                <Fragment key={item.id} >
-                  <div className={style.productcontainer}>
-                    <div className={style.productcode}> {item.productcode}</div>
-                    <div className={style.productname}>
-                        <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
-                        {item.name} 
-                    </div>
-                    <div className={style.productprice}> <span>{item.discountprice} /-</span>  </div>
-                    <div className={style.productprice}> <span>{item.discount} %</span>  </div>
-                    <div className={style.productstock}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </div>
-                    
-                    <div className={style.productinstockdate}>  {new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
-                    <div className={style.productmenubutton}>
-                      <BsThreeDotsVertical onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
-                      {menu  === item.id && (
-                        <div className={style.productmenubuttoncontent}>
-                          <button style={{background:'green'}}  onClick={() => { setEditProductData(item); setUpdateProductPopup(true); setMenu(null)}} >Edit</button>
-                          <button style={{background:'red'}} onClick={() => { setEditProductData(item); setDeleteProductPopup(true); setMenu(null)}}>Delete</button>
-                        </div>
-                      )}
-                    </div>                   
-                  </div>
-
-                  <div  className={style.productcontainermobile}>
-                    <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
-                    <div className={style.mid}>
-                      {/* <div className={style.productcode}>  </div> */}
-                      <div className={style.productname}>{item.name}</div>
-                      <p> {item.discount != 0 ? <p className={style.discountpercentage}>{item.discount}% Off</p> : ''}</p>
-                      <div className={style.productstock}> <p>Code: {item.productcode} </p>  <p>Rs: {item.discountprice} /-</p>  </div>
-                      {/* <div className={style.productprice}>  </div> */}
-                      <div className={style.productinstockdate}> <p style={{backgroundColor:`${item.stockquantity >0 ? '#DCFCE7' : '#FEF3C6'}`,color:`${item.stockquantity>0?'#008236 ':'#BB4D00'}`}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>   <p>{new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
-                    </div> 
-                    <div className={style.productmenubutton}>
-                      <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
-                      {menu  === item.id && (
-                        <div className={style.productmenubuttoncontent}>
-                          <button style={{background:'green'}}  onClick={() => { setEditProductData(item); setUpdateProductPopup(true); setMenu(null) }} >Edit</button>
-                          <button style={{background:'red'}} onClick={() => { setEditProductData(item); setDeleteProductPopup(true); setMenu(null)}}>Delete</button>
-                        </div>
-                      )}
-                    </div>                   
-                  </div>  
-                </Fragment>                
-                )):(
-                  <h5 className={style.noproducts}>No Products Found</h5>
-            )}            
-          </div>   
+    
+          <div className={style.topbottom}>
+            <div className={style.searchbar}>
+              <FaSearch color='#71717B' size={20}/> 
+              <input className={style.searchinput} type="search" name='search' value={searchInput} onChange={handleSearch} placeholder="Search Your Product..." /> 
+            </div>
+            <select className={style.categorySelect} name="category" value={category} onChange={(e) => setCategory(e.target.value)} >
+              <option value="all">All</option>
+              <option value="beautyproducts">Beauty Products</option>
+              <option value="undergarments">Under Garments</option>
+            </select>
+          </div>
         </div>
-    </div>
+    
+          <div className={style.maincontentwrapper}>
+            <div className={style.maincontentwrapperupper}>
+              <div className={style.maincontentwrappertop}>
+                <p> Total Products {filterProductsByCategory.length} </p>
+                <button onClick={handleExportProducts}> <FiDownload/> <p>Export</p></button>
+              </div>
+              <div className={style.maincontentwrappermid}>
+                <p>CODE</p>
+                <p>PRODUCTS</p>
+                <p>DISCOUNTED PRICE</p>
+                <p>DISCOUNT</p>
+                <p>QUANTITY</p>
+                <p>RE-STOCK DATE</p>
+                <p>ACTIONS</p>
+              </div>
+            </div>
+              
+            <div className={style.maincontentwrapperbottom}>
+    
+              {searchInput == ''?(
+                  filterProductsByCategory.map((item)=>(
+                  <Fragment key={item.id} >
+                    <div className={style.productcontainer}>
+                      <div className={style.productcode}> {item.productcode}</div>
+                      <div className={style.productname}>
+                          <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
+                         {item.name} 
+                      </div>
+                      <div className={style.productprice}> <span>{item.discountprice} /-</span>  </div>
+                      <div className={style.productprice}> <span>{item.discount} %</span>  </div>
+                      <div className={style.productstock}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </div>
+                      <div className={style.productinstockdate}>  {new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
+                      <div className={style.productmenubutton}>
+                        <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
+                        {menu  === item.id && (
+                          <div className={style.productmenubuttoncontent}>
+                            <button style={{background:'green'}}  onClick={() => { setEditProductData(item); setUpdateProductPopup(true); setMenu(null) }} >Edit</button>
+                            <button style={{background:'red'}} onClick={() => { setEditProductData(item); setDeleteProductPopup(true); setMenu(null)}}>Delete</button>
+                          </div>
+                        )}
+                      </div>                   
+                    </div>
+                      
+                    <div className={style.productcontainermobile}>
+                      <div className={style.imagecontainer}><img src={item.image}  alt="" /> 
+                      
+                      </div>
+                      <div className={style.mid}>
+                        {/* <div className={style.productcode}>  </div> */}
+                        <div className={style.productname}>{item.name}</div>
+                        <p> {item.discount != 0 ? <p className={style.discountpercentage}>{item.discount}% Off</p> : ''}</p>
+                        <div className={style.productstock}> <p>Code: {item.productcode} </p>  <p>Rs: {item.discountprice} /-</p> </div>
+                        {/* <div className={style.productprice}>  </div> */}
+                        <div className={style.productinstockdate}> <p style={{backgroundColor:`${item.stockquantity >0 ? '#DCFCE7' : '#FEF3C6'}`,color:`${item.stockquantity>0?'#008236 ':'#BB4D00'}`}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>   <p>{new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
+                      </div> 
+                      <div className={style.productmenubutton}>
+                        <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
+                        {menu  === item.id && (
+                          <div className={style.productmenubuttoncontent}>
+                            <button style={{background:'green'}}  onClick={() => { setEditProductData(item); setUpdateProductPopup(true); setMenu(null) }} >Edit</button>
+                            <button style={{background:'red'}} onClick={() => { setEditProductData(item); setDeleteProductPopup(true); setMenu(null)}}>Delete</button>
+                          </div>
+                        )}
+                      </div>                   
+                    </div>
+                  </Fragment>
+                  ))):filteredResult.length>0?(
+                    filteredResult.map(item=>
+                  <Fragment key={item.id} >
+                    <div className={style.productcontainer}>
+                      <div className={style.productcode}> {item.productcode}</div>
+                      <div className={style.productname}>
+                          <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
+                          {item.name} 
+                      </div>
+                      <div className={style.productprice}> <span>{item.discountprice} /-</span>  </div>
+                      <div className={style.productprice}> <span>{item.discount} %</span>  </div>
+                      <div className={style.productstock}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </div>
+                      
+                      <div className={style.productinstockdate}>  {new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})} </div>
+                      <div className={style.productmenubutton}>
+                        <BsThreeDotsVertical onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
+                        {menu  === item.id && (
+                          <div className={style.productmenubuttoncontent}>
+                            <button style={{background:'green'}}  onClick={() => { setEditProductData(item); setUpdateProductPopup(true); setMenu(null)}} >Edit</button>
+                            <button style={{background:'red'}} onClick={() => { setEditProductData(item); setDeleteProductPopup(true); setMenu(null)}}>Delete</button>
+                          </div>
+                        )}
+                      </div>                   
+                    </div>
+                      
+                    <div  className={style.productcontainermobile}>
+                      <div className={style.imagecontainer}><img src={item.image}  alt="" /> </div>
+                      <div className={style.mid}>
+                        {/* <div className={style.productcode}>  </div> */}
+                        <div className={style.productname}>{item.name}</div>
+                        <p> {item.discount != 0 ? <p className={style.discountpercentage}>{item.discount}% Off</p> : ''}</p>
+                        <div className={style.productstock}> <p>Code: {item.productcode} </p>  <p>Rs: {item.discountprice} /-</p>  </div>
+                        {/* <div className={style.productprice}>  </div> */}
+                        <div className={style.productinstockdate}> <p style={{backgroundColor:`${item.stockquantity >0 ? '#DCFCE7' : '#FEF3C6'}`,color:`${item.stockquantity>0?'#008236 ':'#BB4D00'}`}}> {!isNaN(item.stockquantity)&&item.stockquantity.trim()!== ""? item.stockquantity > 0 ? `${item.stockquantity} in Stock`:'Out of Stock':item.stockquantity} </p>   <p>{new Date(item.instockdate).toLocaleDateString("en-US",{timeZone:"Asia/Karachi",month:"short", day:"2-digit",year:"numeric"})}</p> </div>
+                      </div> 
+                      <div className={style.productmenubutton}>
+                        <BsThreeDotsVertical style={{cursor:'pointer'}} onClick={()=>{setMenu(menu === item.id?null : item.id)}}/>
+                        {menu  === item.id && (
+                          <div className={style.productmenubuttoncontent}>
+                            <button style={{background:'green'}}  onClick={() => { setEditProductData(item); setUpdateProductPopup(true); setMenu(null) }} >Edit</button>
+                            <button style={{background:'red'}} onClick={() => { setEditProductData(item); setDeleteProductPopup(true); setMenu(null)}}>Delete</button>
+                          </div>
+                        )}
+                      </div>                   
+                    </div>  
+                  </Fragment>                
+                  )):(
+                    <h5 className={style.noproducts}>No Products Found</h5>
+              )}            
+            </div>   
+          </div>
+      </div>
 
 
       {addProductPopup &&(

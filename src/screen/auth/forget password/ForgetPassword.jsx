@@ -12,7 +12,7 @@ function ForgetPassword() {
     const handleSubmit=async(e)=>{
         e.preventDefault()
         setIsDisabled(true)
-        const {data,error}=await supabase.auth.resetPasswordForEmail(email, {redirectTo: "https://thepinkshopstock.vercel.app/updatepassword",})
+        const {data,error}=await supabase.auth.resetPasswordForEmail(email, {redirectTo: "https://thepinkshop.vercel.app/updatepassword",})
         if(!error && email.endsWith("@gmail.com")){  
             window.location.href = "https://mail.google.com/";
             setEmail('')

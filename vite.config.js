@@ -1,11 +1,24 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
-
+// 1. Sitemap plugin ko import karein
+import Sitemap from 'vite-plugin-sitemap'
 
 export default defineConfig({
   plugins: [
     react(),
+    
+    // 2. Sitemap plugin ko yahan add karein
+    Sitemap({ 
+      hostname: 'https://thepinkshopstock.vercel.app/',
+      dynamicRoutes: [
+        '/',
+        '/dashboard',
+        '/products',
+        '/stock',
+        '/users'
+      ]
+    }),
 
     VitePWA({
       registerType: 'autoUpdate',
@@ -15,8 +28,8 @@ export default defineConfig({
         short_name: 'The Pink Shop',
         description: 'Stock management application',
 
-    theme_color: '#F62477',
-    background_color: '#FFF5F8',
+        theme_color: '#F62477',
+        background_color: '#FFF5F8',
 
         display: 'standalone',
         start_url: '/',
@@ -35,5 +48,20 @@ export default defineConfig({
         ]
       }
     })
-  ]
+  ],
+    build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          minSize: 20000,
+          groups: [
+            {
+              name: 'vendor',
+              test: /node_modules/, // Saari libraries ko alag file mein kar dega
+            },
+          ],
+        },
+      },
+    },
+  }
 })

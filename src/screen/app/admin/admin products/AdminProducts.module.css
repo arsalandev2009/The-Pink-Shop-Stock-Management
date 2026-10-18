@@ -38,7 +38,11 @@
 
 .container{
     width: 100%;
-    height: fit-content;
+    height: 90dvh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+   /* overflow-y: scroll; */
+  /* background: green; */
     padding-top: 100px !important;
 }
 .mobilescreen{
@@ -55,6 +59,7 @@
   height: fit-content;
   align-items: center;
   justify-content: start;
+
 }
 .top{
   display: flex;
